@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="api-gateway" />
+        <module name="ms-config-server" />
         <module name="ms-usuario" />
         <module name="ms-eureka-server" />
         <module name="ms-cadastro" />
@@ -24,6 +25,7 @@
       <module name="api-gateway" options="-parameters" />
       <module name="ms-cadastro" options="-parameters" />
       <module name="ms-carteira" options="-parameters" />
+      <module name="ms-config-server" options="-parameters" />
       <module name="ms-eureka-server" options="-parameters" />
       <module name="ms-usuario" options="-parameters" />
     </option>
