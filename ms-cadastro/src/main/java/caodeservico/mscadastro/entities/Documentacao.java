@@ -14,7 +14,6 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "tabela_documentacao")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -87,5 +86,9 @@ public class Documentacao implements Serializable {
 
 	@JsonProperty("URL da Prova de Adestramento")
 	private String urlProvaAdestramento;
+
+	@Lob
+	@JsonProperty("Qr Code")
+	private byte[] qrCode;
 
 }

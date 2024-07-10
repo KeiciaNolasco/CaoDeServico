@@ -16,7 +16,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode(of = {"id", "cpf"})
 @Entity
 @Table(name = "tabela_condutor")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -45,8 +44,8 @@ public class Condutor implements Serializable {
 	private String cid;
 
 	@Lob
-	@JsonProperty("Foto")
-	private byte[] foto;
+	@JsonProperty("Qr Code")
+	private byte[] qrCode;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "endereco_id", referencedColumnName = "id")

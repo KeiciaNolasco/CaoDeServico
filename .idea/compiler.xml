@@ -7,26 +7,28 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="api-gateway" />
         <module name="ms-config-server" />
-        <module name="ms-usuario" />
         <module name="ms-eureka-server" />
+        <module name="ms-api-gateway" />
         <module name="ms-cadastro" />
+        <module name="ms-user" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="ms-carteira" target="21" />
       <module name="ms-eureka-server.main" target="21" />
       <module name="ms-eureka-server.test" target="21" />
+      <module name="ms-usuario" target="21" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="api-gateway" options="-parameters" />
+      <module name="ms-api-gateway" options="-parameters" />
       <module name="ms-cadastro" options="-parameters" />
       <module name="ms-carteira" options="-parameters" />
       <module name="ms-config-server" options="-parameters" />
       <module name="ms-eureka-server" options="-parameters" />
+      <module name="ms-user" options="-parameters" />
       <module name="ms-usuario" options="-parameters" />
     </option>
   </component>

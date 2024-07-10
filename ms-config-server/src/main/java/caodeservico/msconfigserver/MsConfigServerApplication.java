@@ -8,18 +8,10 @@ import org.springframework.cloud.config.server.EnableConfigServer;
 
 @EnableConfigServer
 @SpringBootApplication
-public class MsConfigServerApplication implements CommandLineRunner {
-
-    @Value("${spring.cloud.config.server.git.username}")
-    private String username;
+public class MsConfigServerApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MsConfigServerApplication.class, args);
-    }
-
-    @Override
-    public void run(String... args) throws Exception {
-        System.out.println("USER_NAME: " + username);
     }
 
 }

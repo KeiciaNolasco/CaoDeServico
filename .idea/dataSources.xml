@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="db_ms_cadastro@localhost" uuid="5ae73f45-b25f-49c5-8fa7-e397e09ce93e">
+    <data-source source="LOCAL" name="db_ms_cadastro@localhost" uuid="e0dc2eca-f9ab-49ad-981c-6912b147c2db">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
