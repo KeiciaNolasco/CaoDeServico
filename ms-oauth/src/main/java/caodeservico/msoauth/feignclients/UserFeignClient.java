@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface UserFeignClient {
 
     @GetMapping(value = "/search")
-    ResponseEntity<User> findByEmail(@RequestParam String email);
+    User findByEmail(@RequestParam("email") String email);
 
 }
 

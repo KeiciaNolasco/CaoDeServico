@@ -1,14 +1,14 @@
 package caodeservico.msoauth.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -16,52 +16,24 @@ import java.util.stream.Collectors;
 @Builder
 @Getter
 @Setter
-public class User implements UserDetails, Serializable {
+public class User implements Serializable {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
-	private String name;
+
+	@JsonProperty("Nome")
+	private String nome;
+
+	@JsonProperty("Email")
 	private String email;
+
+	@JsonProperty("Senha")
 	private String senha;
 
+	@JsonProperty("Roles")
+	@JsonIgnoreProperties(value = { "Users" })
 	private List<Role> roles = new ArrayList<>();
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return roles.stream().map(x -> new SimpleGrantedAuthority(x.getNome()))
-				.collect(Collectors.toList());
-	}
-
-	@Override
-	public String getPassword() {
-		return senha;
-	}
-
-	@Override
-	public String getUsername() {
-		return email;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
 
 }

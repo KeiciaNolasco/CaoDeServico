@@ -2,28 +2,29 @@ package caodeservico.msoauth.services;
 
 import caodeservico.msoauth.entities.User;
 import caodeservico.msoauth.feignclients.UserFeignClient;
-import org.springframework.http.ResponseEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
 
 @Service
 public class UserService {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
     private final UserFeignClient userFeignClient;
 
     public UserService(UserFeignClient userFeignClient) {
         this.userFeignClient = userFeignClient;
     }
 
-    public Mono<User> findByEmail(String email) {
-        return Mono.fromCallable(() -> {
-            ResponseEntity<User> response = userFeignClient.findByEmail(email);
-            if (response.getBody() == null) {
-                throw new IllegalArgumentException("Email not found: " + email);
-            }
-            return response.getBody();
-        }).subscribeOn(Schedulers.boundedElastic());
+    public User findByEmail(String email) {
+        logger.info("Fetching user by email: {}", email);
+        User user = userFeignClient.findByEmail(email);
+        if (user == null) {
+            logger.error("Email not found: {}", email);
+            throw new IllegalArgumentException("Email not found");
+        }
+        logger.info("Email found: {}", email);
+        return user;
     }
 
 }
