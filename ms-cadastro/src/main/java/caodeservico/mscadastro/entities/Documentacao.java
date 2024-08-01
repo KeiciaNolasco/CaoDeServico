@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
+import org.antlr.v4.runtime.misc.NotNull;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,10 +17,11 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "tabela_documentacao")
+@Table(name = "tabela_documentacao", uniqueConstraints = {@UniqueConstraint(columnNames = {"urlCartaTreinamento", "urlCarteiraVacina", "urlCertificadoAdestramento", "urlLaudoMedico", "urlLaudoVeterinario", "urlProvaAdestramento"})})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Documentacao implements Serializable {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -32,6 +35,7 @@ public class Documentacao implements Serializable {
 	@JsonProperty("URL da Carta de Treinamento")
 	private String urlCartaTreinamento;
 
+	@Column(nullable = false)
 	@JsonProperty("Validade da Carta de Treinamento")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private Date validadeCartaTreinamento;
@@ -43,6 +47,7 @@ public class Documentacao implements Serializable {
 	@JsonProperty("URL da Carteira de Vacina")
 	private String urlCarteiraVacina;
 
+	@Column(nullable = false)
 	@JsonProperty("Validade da Carteira de Vacina")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private Date validadeCarteiraVacina;
@@ -54,6 +59,7 @@ public class Documentacao implements Serializable {
 	@JsonProperty("URL do Certificado de Adestramento")
 	private String urlCertificadoAdestramento;
 
+	@Column(nullable = false)
 	@JsonProperty("Validade do Certificado de Adestramento")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private Date validadeCertificadoAdestramento;
@@ -65,6 +71,7 @@ public class Documentacao implements Serializable {
 	@JsonProperty("URL do Laudo Médico")
 	private String urlLaudoMedico;
 
+	@Column(nullable = false)
 	@JsonProperty("Validade do Laudo Médico")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private Date validadeLaudoMedico;
@@ -76,6 +83,7 @@ public class Documentacao implements Serializable {
 	@JsonProperty("URL do Laudo Veterinário")
 	private String urlLaudoVeterinario;
 
+	@Column(nullable = false)
 	@JsonProperty("Validade do Laudo Veterinário")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private Date validadeLaudoVeterinario;

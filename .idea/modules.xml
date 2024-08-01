@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/CaoDeServico.iml" filepath="$PROJECT_DIR$/.idea/CaoDeServico.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ms-cadastro/ms-cadastro.iml" filepath="$PROJECT_DIR$/ms-cadastro/ms-cadastro.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ms-user/ms-user.iml" filepath="$PROJECT_DIR$/ms-user/ms-user.iml" />
     </modules>
   </component>
 </project>

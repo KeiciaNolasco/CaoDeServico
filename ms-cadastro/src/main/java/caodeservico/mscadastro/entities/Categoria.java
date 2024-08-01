@@ -5,9 +5,11 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
+import lombok.Getter;
 
 import java.io.IOException;
 
+@Getter
 public enum Categoria {
 	CÃO_DE_ALERTA_MÉDICO_PARA_ALERGIA("Cão de Alerta Médico para Alergia"),
 	CÃO_DE_ALERTA_MÉDICO_PARA_CARDÍACO("Cão de Alerta Médico para Cardíaco"),
@@ -30,11 +32,7 @@ public enum Categoria {
 		this.descricao = descricao;
 	}
 
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public static class CategoriaSerializer extends JsonSerializer<Categoria> {
+    public static class CategoriaSerializer extends JsonSerializer<Categoria> {
 		@Override
 		public void serialize(Categoria categoria, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
 			jsonGenerator.writeString(categoria.getDescricao());

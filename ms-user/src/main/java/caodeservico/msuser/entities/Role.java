@@ -1,12 +1,11 @@
 package caodeservico.msuser.entities;
 
+import java.io.Serial;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,6 +25,7 @@ import lombok.*;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Role implements Serializable {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -37,6 +37,8 @@ public class Role implements Serializable {
 	private String nome;
 
 	@ManyToMany(mappedBy = "roles")
-	private Set<User> users = new HashSet<>();
+	@JsonProperty("Users")
+	@JsonIgnoreProperties(value = { "Roles" })
+	private List<User> users = new ArrayList<>();
 
 }
