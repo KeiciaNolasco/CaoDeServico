@@ -2,6 +2,7 @@ package caodeservico.msoauth.resources;
 
 import caodeservico.msoauth.entities.User;
 import caodeservico.msoauth.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ public class UserResource {
 
     private final UserService service;
 
+    @Autowired
     public UserResource(UserService service) {
         this.service = service;
     }
@@ -30,3 +32,4 @@ public class UserResource {
     }
 
 }
+
