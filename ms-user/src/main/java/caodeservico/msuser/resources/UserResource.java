@@ -1,36 +1,72 @@
 package caodeservico.msuser.resources;
 
 import caodeservico.msuser.entities.User;
-import caodeservico.msuser.services.GenericService;
+import caodeservico.msuser.entities.Role;
+import caodeservico.msuser.services.RoleService;
 import caodeservico.msuser.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/users")
-public class UserResource extends GenericResource<User, Long> {
+public class UserResource {
 
 	@Autowired
-	private UserService service;
+	private UserService userService;
 
-	@Override
-	protected GenericService<User, Long> getService() {
-		return service;
+	@Autowired
+	private RoleService roleService;
+
+	@GetMapping
+	public ResponseEntity<List<User>> findAll() {
+		List<User> list = userService.findAll();
+		return ResponseEntity.ok().body(list);
 	}
 
-	@Override
-	protected Long getId(User entity) {
-		return entity.getId();
+	@GetMapping("/findById/{id}")
+	public ResponseEntity<User> findById(@PathVariable Long id) {
+		User obj = userService.findById(id);
+		return ResponseEntity.ok().body(obj);
+	}
+
+	@PostMapping("/save")
+	public ResponseEntity<User> save(@RequestBody User request) {
+		Role userRole = roleService.findByNome("CUSTOMER");
+		request.setRoles(Collections.singletonList(userRole));
+		User user = userService.save(request);
+		return ResponseEntity.ok(user);
+	}
+
+	@PostMapping("/admin/save")
+	public ResponseEntity<User> adminSave(@RequestBody User request) {
+		List<Role> roles = request.getRoles().stream()
+				.map(role -> roleService.findByNome(role.getNome()))
+				.collect(Collectors.toList());
+		request.setRoles(roles);
+		User user = userService.save(request);
+		return ResponseEntity.ok(user);
+	}
+
+	@PutMapping("/update/{id}")
+	public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User user) {
+		User updatedObj = userService.update(id, user);
+		return ResponseEntity.ok().body(updatedObj);
+	}
+
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
+		userService.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 
 	@GetMapping(value = "/search")
 	public ResponseEntity<User> findByEmail(@RequestParam String email) {
-		User obj = service.findByEmail(email);
+		User obj = userService.findByEmail(email);
 		return ResponseEntity.ok(obj);
 	}
 

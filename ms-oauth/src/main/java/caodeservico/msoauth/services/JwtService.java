@@ -23,11 +23,9 @@ public class JwtService {
         Instant now = Instant.now();
         long expiry = 36000L;
 
-        String scope = authentication
-                .getAuthorities().stream()
+        String scope = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
-                .collect(Collectors
-                        .joining(" "));
+                .collect(Collectors.joining(" "));
 
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("spring-security-jwt")
@@ -37,9 +35,7 @@ public class JwtService {
                 .claim("scope", scope)
                 .build();
 
-        return encoder.encode(
-                        JwtEncoderParameters.from(claims))
-                .getTokenValue();
+        return encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
 
 }

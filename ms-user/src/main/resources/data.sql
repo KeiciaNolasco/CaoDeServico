@@ -1,8 +1,7 @@
 -- Inserção de Valores das Tabelas do MS-User
 INSERT INTO tabela_role (nome) VALUES
-    ('Administrador'),
-    ('Operador'),
-    ('Publico')
+    ('ADMIN'),
+    ('CUSTOMER')
 ON CONFLICT (nome) DO NOTHING;
 
 -- Inserir usuários, ignorar duplicatas
@@ -17,10 +16,10 @@ ON CONFLICT (email) DO NOTHING;
 
 -- Relacionar usuários com papéis, ignorar duplicatas
 INSERT INTO tabela_user_role (user_id, role_id) VALUES
-    ((SELECT id FROM tabela_user WHERE email = 'keicia@gmail.com'), (SELECT id FROM tabela_role WHERE nome = 'Administrador')),
-    ((SELECT id FROM tabela_user WHERE email = 'leonardo@gmail.com'), (SELECT id FROM tabela_role WHERE nome = 'Publico')),
-    ((SELECT id FROM tabela_user WHERE email = 'paulo@gmail.com'), (SELECT id FROM tabela_role WHERE nome = 'Operador')),
-    ((SELECT id FROM tabela_user WHERE email = 'patricia@gmail.com'), (SELECT id FROM tabela_role WHERE nome = 'Operador')),
-    ((SELECT id FROM tabela_user WHERE email = 'lucas@gmail.com'), (SELECT id FROM tabela_role WHERE nome = 'Publico')),
-    ((SELECT id FROM tabela_user WHERE email = 'fabricio@gmail.com'), (SELECT id FROM tabela_role WHERE nome = 'Publico'))
+    ((SELECT id FROM tabela_user WHERE email = 'keicia@gmail.com'), (SELECT id FROM tabela_role WHERE nome = 'ADMIN')),
+    ((SELECT id FROM tabela_user WHERE email = 'leonardo@gmail.com'), (SELECT id FROM tabela_role WHERE nome = 'CUSTOMER')),
+    ((SELECT id FROM tabela_user WHERE email = 'paulo@gmail.com'), (SELECT id FROM tabela_role WHERE nome = 'CUSTOMER')),
+    ((SELECT id FROM tabela_user WHERE email = 'patricia@gmail.com'), (SELECT id FROM tabela_role WHERE nome = 'CUSTOMER')),
+    ((SELECT id FROM tabela_user WHERE email = 'lucas@gmail.com'), (SELECT id FROM tabela_role WHERE nome = 'ADMIN')),
+    ((SELECT id FROM tabela_user WHERE email = 'fabricio@gmail.com'), (SELECT id FROM tabela_role WHERE nome = 'ADMIN'))
 ON CONFLICT (user_id, role_id) DO NOTHING;
