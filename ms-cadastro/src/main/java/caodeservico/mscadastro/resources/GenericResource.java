@@ -18,27 +18,26 @@ public abstract class GenericResource<T, ID> {
         return ResponseEntity.ok().body(list);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/findById/{id}")
     public ResponseEntity<T> findById(@PathVariable ID id) {
-        T obj = getService().findById(id)
-                .orElseThrow(() -> new RuntimeException("Entity not found with id " + id));
+        T obj = getService().findById(id).orElse(null);
         return ResponseEntity.ok().body(obj);
     }
 
-    @PostMapping
-    public ResponseEntity<T> create(@RequestBody T entity) {
+    @PostMapping("/save")
+    public ResponseEntity<T> save(@RequestBody T entity) {
         T obj = getService().save(entity);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(getId(obj)).toUri();
         return ResponseEntity.created(uri).body(obj);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<T> update(@PathVariable ID id, @RequestBody T entity) {
         T updatedObj = getService().update(id, entity);
         return ResponseEntity.ok().body(updatedObj);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable ID id) {
         getService().delete(id);
         return ResponseEntity.noContent().build();

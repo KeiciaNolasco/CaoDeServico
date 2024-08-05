@@ -1,5 +1,6 @@
 package caodeservico.mscadastro.services;
 
+import caodeservico.mscadastro.exceptions.CustomException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -10,30 +11,50 @@ public abstract class GenericService<T, ID> {
     protected abstract JpaRepository<T, ID> getRepository();
 
     public List<T> findAll() {
-        return getRepository().findAll();
+        try {
+            return getRepository().findAll();
+        } catch (Exception e) {
+            throw new CustomException("Erro ao buscar todas as entidades", e);
+        }
     }
 
     public Optional<T> findById(ID id) {
-        return getRepository().findById(id);
+        try {
+            return getRepository().findById(id);
+        } catch (Exception e) {
+            throw new CustomException("Erro ao buscar entidade com id " + id, e);
+        }
     }
 
     public T save(T entity) {
-        return getRepository().save(entity);
+        try {
+            return getRepository().save(entity);
+        } catch (Exception e) {
+            throw new CustomException("Erro ao salvar entidade", e);
+        }
     }
 
     public T update(ID id, T entity) {
         if (getRepository().existsById(id)) {
-            return getRepository().save(entity);
+            try {
+                return getRepository().save(entity);
+            } catch (Exception e) {
+                throw new CustomException("Erro ao atualizar entidade com id " + id, e);
+            }
         } else {
-            throw new RuntimeException("Entity not found with id " + id);
+            throw new CustomException("Entidade não encontrada com o id " + id);
         }
     }
 
     public void delete(ID id) {
         if (getRepository().existsById(id)) {
-            getRepository().deleteById(id);
+            try {
+                getRepository().deleteById(id);
+            } catch (Exception e) {
+                throw new CustomException("Erro ao deletar entidade com id " + id, e);
+            }
         } else {
-            throw new RuntimeException("Entity not found with id " + id);
+            throw new CustomException("Entidade não encontrada com o id " + id);
         }
     }
 
