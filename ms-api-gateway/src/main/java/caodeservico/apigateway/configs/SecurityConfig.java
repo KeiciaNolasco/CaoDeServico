@@ -46,8 +46,11 @@ public class SecurityConfig {
                 .authorizeExchange(auth -> auth
                         .pathMatchers(HttpMethod.POST, "/ms-oauth/oauth/login").permitAll()
                         .pathMatchers(HttpMethod.GET, "/ms-user/users").hasAuthority("ROLE_ADMIN")
-                        .pathMatchers(HttpMethod.POST, "/ms-user/users/admin/save").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.GET, "/ms-user/users/findById/{id}").access(this::authorizeUserById)
+                        .pathMatchers(HttpMethod.POST, "/ms-user/users/save").permitAll()
+                        .pathMatchers(HttpMethod.POST, "/ms-user/users/admin/save").hasAuthority("ROLE_ADMIN")
+                        .pathMatchers(HttpMethod.PUT, "/ms-user/users/update/{id}").access(this::authorizeUserById)
+                        .pathMatchers(HttpMethod.DELETE, "/ms-user/users/delete/{id}").access(this::authorizeUserById)
                         .pathMatchers(HttpMethod.GET, "/ms-user/roles").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.GET, "/ms-user/roles/findById/{id}").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.POST, "/ms-user/roles/save").hasAuthority("ROLE_ADMIN")
