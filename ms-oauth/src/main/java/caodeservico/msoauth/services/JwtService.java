@@ -32,7 +32,7 @@ public class JwtService {
                 .issuedAt(now)
                 .expiresAt(now.plusSeconds(expiry))
                 .subject(authentication.getName())
-                .claim("scope", authorities)
+                .claim("roles", authorities)
                 .build();
 
         return encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();

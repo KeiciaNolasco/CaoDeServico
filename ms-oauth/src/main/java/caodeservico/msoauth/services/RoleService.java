@@ -1,5 +1,6 @@
 package caodeservico.msoauth.services;
 
+import caodeservico.msoauth.entities.Role;
 import caodeservico.msoauth.feignclients.RoleFeignClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,17 @@ public class RoleService {
 
     public RoleService(RoleFeignClient roleFeignClient) {
         this.roleFeignClient = roleFeignClient;
+    }
+
+    public Role findByNome(String nome) {
+        Role role = roleFeignClient.findByNome(nome);
+        logger.info("Fetching role by nome: {}", nome);
+        if (role == null) {
+            logger.error("Nome not found: {}", nome);
+            throw new IllegalArgumentException("Nome not found");
+        }
+        logger.info("Nome found: {}", nome);
+        return role;
     }
     
 }
