@@ -15,8 +15,8 @@ public class RoleResource {
         this.roleService = roleService;
     }
 
-    @GetMapping(value = "/search")
-    public ResponseEntity<Role> findByNome(@RequestParam String nome) {
+    @GetMapping(value = "/nome/{nome}")
+    public ResponseEntity<Role> findByNome(@PathVariable String nome) {
         Role obj = roleService.findByNome(nome);
         return ResponseEntity.ok(obj);
     }

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 @FeignClient(name = "ms-user", path = "/users")
 public interface UserFeignClient {
 
-    @GetMapping(value = "/search")
-    User findByEmail(@RequestParam("email") String email);
+    @GetMapping(value = "/email/{email}")
+    User findByEmail(@PathVariable("email") String email);
 
 }
 

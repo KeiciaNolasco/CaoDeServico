@@ -51,11 +51,13 @@ public class SecurityConfig {
                         .pathMatchers(HttpMethod.POST, "/ms-user/users/admin/save").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.PUT, "/ms-user/users/update/{id}").access(this::authorizeUserById)
                         .pathMatchers(HttpMethod.DELETE, "/ms-user/users/delete/{id}").access(this::authorizeUserById)
+                        .pathMatchers(HttpMethod.GET, "/ms-user/users/email/{email}").access(this::authorizeUserByEmail)
                         .pathMatchers(HttpMethod.GET, "/ms-user/roles").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.GET, "/ms-user/roles/findById/{id}").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.POST, "/ms-user/roles/save").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.PUT, "/ms-user/roles/update/{id}").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.DELETE, "/ms-user/roles/delete/{id}").hasAuthority("ROLE_ADMIN")
+                        .pathMatchers(HttpMethod.GET, "/ms-user/roles/nome/{nome}").hasAuthority("ROLE_ADMIN")
                         .anyExchange().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2
@@ -96,13 +98,6 @@ public class SecurityConfig {
         Converter<Jwt, Collection<GrantedAuthority>> grantedAuthoritiesConverter = jwt -> {
             Collection<GrantedAuthority> authorities = jwtGrantedAuthoritiesConverter.convert(jwt);
 
-            List<String> roleIds = jwt.getClaimAsStringList("roleIds");
-            if (roleIds != null) {
-                authorities.addAll(roleIds.stream()
-                        .map(roleId -> new SimpleGrantedAuthority("ROLE_ID_" + roleId))
-                        .toList());
-            }
-
             String userId = jwt.getClaimAsString("userId");
             if (userId != null) {
                 authorities.add(new SimpleGrantedAuthority("USER_ID_" + userId));
@@ -134,15 +129,15 @@ public class SecurityConfig {
         });
     }
 
-    private Mono<AuthorizationDecision> authorizeRoleById(Mono<Authentication> authentication, AuthorizationContext context) {
+    private Mono<AuthorizationDecision> authorizeUserByEmail(Mono<Authentication> authentication, AuthorizationContext context) {
         return authentication.map(auth -> {
-            String roleId = (String) context.getVariables().get("id");
+            String email = (String) context.getVariables().get("email");
             boolean hasAdminRole = auth.getAuthorities().stream()
                     .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
-            boolean hasMatchingRoleId = auth.getAuthorities().stream()
-                    .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ID_" + roleId));
+            boolean isUser = auth.getAuthorities().stream()
+                    .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("EMAIL_" + email));
 
-            return new AuthorizationDecision(hasAdminRole || hasMatchingRoleId);
+            return new AuthorizationDecision(hasAdminRole || isUser);
         });
     }
 

@@ -64,8 +64,8 @@ public class UserResource {
 		return ResponseEntity.noContent().build();
 	}
 
-	@GetMapping(value = "/search")
-	public ResponseEntity<User> findByEmail(@RequestParam String email) {
+	@GetMapping(value = "/email/{email}")
+	public ResponseEntity<User> findByEmail(@PathVariable String email) {
 		User obj = userService.findByEmail(email);
 		return ResponseEntity.ok(obj);
 	}

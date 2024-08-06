@@ -73,13 +73,4 @@ public class UserService implements UserDetailsService {
         );
     }
 
-    public List<String> getRoleIds(User user) {
-        return user.getRoles().stream()
-                .map(role -> {
-                    Role fetchedRole = roleFeignClient.findByNome(role.getNome());
-                    return String.valueOf(fetchedRole.getId());
-                })
-                .collect(Collectors.toList());
-    }
-
 }

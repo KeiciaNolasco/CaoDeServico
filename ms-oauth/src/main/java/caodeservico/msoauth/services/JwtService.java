@@ -32,7 +32,6 @@ public class JwtService {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String userEmail = userDetails.getUsername();
         User user = userService.findByEmail(userEmail);
-        List<String> roleIds = userService.getRoleIds(user);
 
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -46,7 +45,6 @@ public class JwtService {
                 .claim("roles", authorities)
                 .claim("email", userEmail)
                 .claim("userId", user.getId())
-                .claim("roleIds", roleIds)
                 .build();
 
         return encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();

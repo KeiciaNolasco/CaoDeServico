@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 @FeignClient(name = "ms-user", path = "/roles")
 public interface RoleFeignClient {
 
-    @GetMapping(value = "/search")
-    Role findByNome(@RequestParam("nome") String nome);
+    @GetMapping(value = "/nome/{nome}")
+    Role findByNome(@PathVariable("nome") String nome);
 
 }
 
