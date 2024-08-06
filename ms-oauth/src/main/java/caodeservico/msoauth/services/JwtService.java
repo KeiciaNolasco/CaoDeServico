@@ -23,7 +23,7 @@ public class JwtService {
         Instant now = Instant.now();
         long expiry = 36000L;
 
-        String scope = authentication.getAuthorities().stream()
+        String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(" "));
 
@@ -32,7 +32,7 @@ public class JwtService {
                 .issuedAt(now)
                 .expiresAt(now.plusSeconds(expiry))
                 .subject(authentication.getName())
-                .claim("scope", scope)
+                .claim("scope", authorities)
                 .build();
 
         return encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();

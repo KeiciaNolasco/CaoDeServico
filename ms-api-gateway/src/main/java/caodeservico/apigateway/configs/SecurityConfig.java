@@ -39,6 +39,7 @@ public class SecurityConfig {
         http.csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(auth -> auth
                         .pathMatchers(HttpMethod.POST, "/ms-oauth/oauth/login").permitAll()
+                        .pathMatchers(HttpMethod.GET, "/ms-user/users").hasAuthority("SCOPE_read")
                         .anyExchange().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2
@@ -73,8 +74,8 @@ public class SecurityConfig {
     @Bean
     Converter<Jwt, Mono<AbstractAuthenticationToken>> jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-        jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName("roles");  // Define o nome do campo que contém os roles
-        jwtGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
+        jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName("scope");
+        jwtGrantedAuthoritiesConverter.setAuthorityPrefix("SCOPE_");
 
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
