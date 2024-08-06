@@ -2,7 +2,6 @@ package caodeservico.msoauth.resources;
 
 import caodeservico.msoauth.services.AuthenticationService;
 
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,8 +15,8 @@ public class AuthenticationResource {
     }
 
     @PostMapping("/login")
-    public String authenticate(Authentication authentication) {
-        return authenticationService.authenticate(authentication);
+    public String authenticate(@RequestParam String username, @RequestParam String password) {
+        return authenticationService.authenticate(username, password);
     }
 
 }
