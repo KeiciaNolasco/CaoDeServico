@@ -47,8 +47,9 @@ public class SecurityConfig {
                         .pathMatchers(HttpMethod.POST, "/ms-oauth/oauth/login").permitAll()
                         .pathMatchers(HttpMethod.GET, "/ms-user/users").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.POST, "/ms-user/users/admin/save").hasAuthority("ROLE_ADMIN")
+                        .pathMatchers(HttpMethod.GET, "/ms-user/users/findById/{id}").access(this::authorizeUserById)
                         .pathMatchers(HttpMethod.GET, "/ms-user/roles").hasAuthority("ROLE_ADMIN")
-                        .pathMatchers(HttpMethod.GET, "/ms-user/roles/findById/{id}").access(this::authorizeRoleById)
+                        .pathMatchers(HttpMethod.GET, "/ms-user/roles/findById/{id}").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.POST, "/ms-user/roles/save").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.PUT, "/ms-user/roles/update/{id}").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.DELETE, "/ms-user/roles/delete/{id}").hasAuthority("ROLE_ADMIN")
@@ -116,6 +117,18 @@ public class SecurityConfig {
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
 
         return new ReactiveJwtAuthenticationConverterAdapter(jwtAuthenticationConverter);
+    }
+
+    private Mono<AuthorizationDecision> authorizeUserById(Mono<Authentication> authentication, AuthorizationContext context) {
+        return authentication.map(auth -> {
+            String userId = (String) context.getVariables().get("id");
+            boolean hasAdminRole = auth.getAuthorities().stream()
+                    .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
+            boolean isUser = auth.getAuthorities().stream()
+                    .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("USER_ID_" + userId));
+
+            return new AuthorizationDecision(hasAdminRole || isUser);
+        });
     }
 
     private Mono<AuthorizationDecision> authorizeRoleById(Mono<Authentication> authentication, AuthorizationContext context) {
