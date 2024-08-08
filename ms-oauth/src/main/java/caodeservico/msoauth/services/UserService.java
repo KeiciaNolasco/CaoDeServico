@@ -2,6 +2,7 @@ package caodeservico.msoauth.services;
 
 import caodeservico.msoauth.entities.Role;
 import caodeservico.msoauth.entities.User;
+import caodeservico.msoauth.exceptions.CustomException;
 import caodeservico.msoauth.feignclients.RoleFeignClient;
 import caodeservico.msoauth.feignclients.UserFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,31 +30,39 @@ public class UserService implements UserDetailsService {
     }
 
     public User findByEmail(String email) {
-        User user = userFeignClient.findByEmail(email);
-        if (user == null) {
-            throw new IllegalArgumentException("Email not found");
+        try {
+            User user = userFeignClient.findByEmail(email);
+            if (user == null) {
+                throw new CustomException("Email não encontrado");
+            }
+            return user;
+        } catch (Exception e) {
+            throw new CustomException("Erro ao buscar usuário pelo email: " + email, e);
         }
-        return user;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userFeignClient.findByEmail(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("Email not found");
-        }
-        List<GrantedAuthority> authorities = user.getRoles().stream()
-                .map(role -> {
-                    Role fetchedRole = roleFeignClient.findByNome(role.getNome());
-                    return new SimpleGrantedAuthority(fetchedRole.getNome());
-                })
-                .collect(Collectors.toList());
+        try {
+            User user = userFeignClient.findByEmail(username);
+            if (user == null) {
+                throw new UsernameNotFoundException("Email não encontrado");
+            }
+            List<GrantedAuthority> authorities = user.getRoles().stream()
+                    .map(role -> {
+                        Role fetchedRole = roleFeignClient.findByNome(role.getNome());
+                        return new SimpleGrantedAuthority(fetchedRole.getNome());
+                    })
+                    .collect(Collectors.toList());
 
-        return new org.springframework.security.core.userdetails.User(
-                user.getEmail(),
-                user.getSenha(),
-                authorities
-        );
+            return new org.springframework.security.core.userdetails.User(
+                    user.getEmail(),
+                    user.getSenha(),
+                    authorities
+            );
+        } catch (Exception e) {
+            throw new CustomException("Erro ao carregar usuário pelo nome de usuário: " + username, e);
+        }
     }
 
 }

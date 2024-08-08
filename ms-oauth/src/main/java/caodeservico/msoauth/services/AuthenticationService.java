@@ -1,5 +1,6 @@
 package caodeservico.msoauth.services;
 
+import caodeservico.msoauth.exceptions.CustomException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,9 +19,13 @@ public class AuthenticationService {
     }
 
     public String authenticate(String username, String password) throws AuthenticationException {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(username, password));
-        return jwtService.generateToken(authentication);
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(username, password));
+            return jwtService.generateToken(authentication);
+        } catch (AuthenticationException e) {
+            throw new CustomException("Falha na autenticação: " + e.getMessage(), e);
+        }
     }
 
 }
