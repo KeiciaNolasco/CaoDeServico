@@ -28,7 +28,6 @@ public abstract class GenericResource<T, ID> {
         return ResponseEntity.ok().body(obj);
     }
 
-    @Transactional
     @PostMapping("/save/{id}")
     public ResponseEntity<T> save(@PathVariable Long id, @RequestBody T entity) {
         T obj = getService().saveWithUserId(id, entity);

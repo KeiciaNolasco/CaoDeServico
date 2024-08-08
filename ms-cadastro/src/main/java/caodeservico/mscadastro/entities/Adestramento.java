@@ -1,8 +1,6 @@
 package caodeservico.mscadastro.entities;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,7 +15,6 @@ import java.io.Serializable;
 @Builder
 @Entity
 @Table(name = "tabela_adestramento", uniqueConstraints = {@UniqueConstraint(columnNames = {"cpf", "cnpj"})})
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Adestramento implements Serializable {
 
 	@Serial

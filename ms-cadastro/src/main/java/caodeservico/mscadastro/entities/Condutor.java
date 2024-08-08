@@ -1,9 +1,7 @@
 package caodeservico.mscadastro.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,7 +17,6 @@ import java.util.Date;
 @Builder
 @Entity
 @Table(name = "tabela_condutor", uniqueConstraints = {@UniqueConstraint(columnNames = "cpf")})
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Condutor implements Serializable {
 
 	@Serial

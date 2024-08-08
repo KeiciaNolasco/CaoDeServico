@@ -12,7 +12,7 @@ ON CONFLICT (cpf) DO NOTHING;
 
 -- Cão de Serviço
 INSERT INTO tabela_cao (id, nome, nascimento, raca, microchip, categoria, foto)
-VALUES (1, 'Nala', '2019-11-16', 'Golden Retriever', '000111222', 'CÃO_DE_SERVIÇO_MULTIFUNÇÃO', null)
+VALUES (1, 'Nala', '2019-11-16', 'Golden Retriever', '000111222', 'CAO_DE_SERVICO_MULTIFUNCAO', null)
 ON CONFLICT (microchip) DO NOTHING;
 
 -- Adestramento

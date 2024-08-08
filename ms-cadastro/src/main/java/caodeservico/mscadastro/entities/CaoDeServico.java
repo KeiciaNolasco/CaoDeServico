@@ -1,9 +1,7 @@
 package caodeservico.mscadastro.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,7 +18,6 @@ import java.util.Date;
 @Builder
 @Entity
 @Table(name = "tabela_cao", uniqueConstraints = {@UniqueConstraint(columnNames = "microchip")})
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class CaoDeServico implements Serializable {
 
 	@Serial
