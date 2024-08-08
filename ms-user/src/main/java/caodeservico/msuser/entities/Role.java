@@ -24,7 +24,6 @@ import lombok.*;
 @Setter
 @Entity
 @Table(name = "tabela_role")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Role implements Serializable {
 
 	@Serial

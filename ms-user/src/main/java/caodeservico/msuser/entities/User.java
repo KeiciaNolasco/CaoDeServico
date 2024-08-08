@@ -17,7 +17,6 @@ import lombok.*;
 @Getter
 @Setter
 @Table(name = "tabela_user")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User implements Serializable {
 
 	@Serial
@@ -39,7 +38,7 @@ public class User implements Serializable {
 	@JsonProperty("Senha")
 	private String senha;
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "tabela_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"), uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "role_id"}))
 	@JsonProperty("Roles")
 	@JsonIgnoreProperties(value = { "Users" })

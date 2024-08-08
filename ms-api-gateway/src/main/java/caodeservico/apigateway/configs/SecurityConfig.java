@@ -51,6 +51,7 @@ public class SecurityConfig {
                         .pathMatchers(HttpMethod.POST, "/ms-user/users/save").permitAll()
                         .pathMatchers(HttpMethod.POST, "/ms-user/users/admin/save").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.PUT, "/ms-user/users/update/{id}").access(this::authorizeUserById)
+                        .pathMatchers(HttpMethod.PUT, "/ms-user/users/admin/update/{id}").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.DELETE, "/ms-user/users/delete/{id}").access(this::authorizeUserById)
                         .pathMatchers(HttpMethod.GET, "/ms-user/users/email/{email}").access(this::authorizeUserByEmail)
                         .pathMatchers(HttpMethod.POST, "/ms-user/users/save/{id}").access(this::authorizeUserById)

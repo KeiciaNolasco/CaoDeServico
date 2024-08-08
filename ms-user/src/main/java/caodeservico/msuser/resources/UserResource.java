@@ -58,8 +58,20 @@ public class UserResource {
 
 	@PutMapping("/update/{id}")
 	public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User user) {
-		User updatedObj = userService.update(id, user);
-		return ResponseEntity.ok().body(updatedObj);
+		User existingUser = userService.findById(id);
+		user.setRoles(existingUser.getRoles());
+		User updatedUser = userService.update(id, user);
+		return ResponseEntity.ok().body(updatedUser);
+	}
+
+	@PutMapping("/admin/update/{id}")
+	public ResponseEntity<User> adminUpdate(@PathVariable Long id, @RequestBody User user) {
+		List<Role> roles = user.getRoles().stream()
+				.map(role -> roleService.findByNome(role.getNome()))
+				.collect(Collectors.toList());
+		user.setRoles(roles);
+		User updatedUser = userService.update(id, user);
+		return ResponseEntity.ok().body(updatedUser);
 	}
 
 	@DeleteMapping("/delete/{id}")
