@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/caesdeservicos")
 public class CaoDeServicoResource extends GenericResource<CaoDeServico, Long> {
 
+	private final GenericService<CaoDeServico, Long> service;
+
 	@Autowired
-	private GenericService<CaoDeServico, Long> service;
+	public CaoDeServicoResource(GenericService<CaoDeServico, Long> service) {
+		this.service = service;
+	}
 
 	@Override
 	protected GenericService<CaoDeServico, Long> getService() {

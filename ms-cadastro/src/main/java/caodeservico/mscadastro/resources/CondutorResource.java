@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/condutores")
 public class CondutorResource extends GenericResource<Condutor, Long> {
 
+	private final GenericService<Condutor, Long> service;
+
 	@Autowired
-	private GenericService<Condutor, Long> service;
+	public CondutorResource(GenericService<Condutor, Long> service) {
+		this.service = service;
+	}
 
 	@Override
 	protected GenericService<Condutor, Long> getService() {

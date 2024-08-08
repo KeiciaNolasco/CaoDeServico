@@ -9,8 +9,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class CadastroService extends GenericService<Cadastro, Long> {
 
+	private final CadastroRepository repository;
+
 	@Autowired
-	private CadastroRepository repository;
+	public CadastroService(CadastroRepository repository) {
+		this.repository = repository;
+    }
 
 	@Override
 	protected JpaRepository<Cadastro, Long> getRepository() {

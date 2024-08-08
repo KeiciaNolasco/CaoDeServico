@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.io.IOException;
 

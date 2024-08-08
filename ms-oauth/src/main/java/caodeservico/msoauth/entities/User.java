@@ -36,6 +36,9 @@ public class User implements UserDetails, Serializable {
 	@JsonIgnoreProperties(value = { "Users" })
 	private List<Role> roles = new ArrayList<>();
 
+	@JsonProperty("Id do Cadastro")
+	private Long cadastroId;
+
 	@Override
 	public String getUsername() {
 		return email;

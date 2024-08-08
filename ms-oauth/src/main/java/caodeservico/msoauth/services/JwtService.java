@@ -1,7 +1,6 @@
 package caodeservico.msoauth.services;
 
 import java.time.Instant;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import caodeservico.msoauth.entities.User;

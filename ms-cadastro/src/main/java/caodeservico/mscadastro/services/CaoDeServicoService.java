@@ -9,8 +9,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class CaoDeServicoService extends GenericService<CaoDeServico, Long> {
 
+	private final CaoDeServicoRepository repository;
+
 	@Autowired
-	private CaoDeServicoRepository repository;
+	public CaoDeServicoService(CaoDeServicoRepository repository) {
+		this.repository = repository;
+	}
 
 	@Override
 	protected JpaRepository<CaoDeServico, Long> getRepository() {

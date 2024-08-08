@@ -9,8 +9,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class EnderecoService extends GenericService<Endereco, Long> {
 
+	private final EnderecoRepository repository;
+
 	@Autowired
-	private EnderecoRepository repository;
+	public EnderecoService(EnderecoRepository repository) {
+		this.repository = repository;
+	}
 
 	@Override
 	protected JpaRepository<Endereco, Long> getRepository() {

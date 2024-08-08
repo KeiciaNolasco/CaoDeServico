@@ -16,11 +16,15 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/users")
 public class UserResource {
 
-	@Autowired
-	private UserService userService;
+	private final UserService userService;
+
+	private final RoleService roleService;
 
 	@Autowired
-	private RoleService roleService;
+	public UserResource(UserService userService, RoleService roleService) {
+		this.userService = userService;
+		this.roleService = roleService;
+	}
 
 	@GetMapping
 	public ResponseEntity<List<User>> findAll() {

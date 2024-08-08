@@ -1,7 +1,9 @@
 package caodeservico.mscadastro.resources;
 
+import caodeservico.mscadastro.entities.Adestramento;
 import caodeservico.mscadastro.services.GenericService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -11,6 +13,8 @@ import java.util.List;
 public abstract class GenericResource<T, ID> {
 
     protected abstract GenericService<T, ID> getService();
+
+    protected abstract ID getId(T entity);
 
     @GetMapping
     public ResponseEntity<List<T>> findAll() {
@@ -24,9 +28,10 @@ public abstract class GenericResource<T, ID> {
         return ResponseEntity.ok().body(obj);
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<T> save(@RequestBody T entity) {
-        T obj = getService().save(entity);
+    @Transactional
+    @PostMapping("/save/{id}")
+    public ResponseEntity<T> save(@PathVariable Long id, @RequestBody T entity) {
+        T obj = getService().saveWithUserId(id, entity);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(getId(obj)).toUri();
         return ResponseEntity.created(uri).body(obj);
     }
@@ -42,7 +47,5 @@ public abstract class GenericResource<T, ID> {
         getService().delete(id);
         return ResponseEntity.noContent().build();
     }
-
-    protected abstract ID getId(T entity);
 
 }

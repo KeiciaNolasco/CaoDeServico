@@ -14,15 +14,17 @@ import java.util.List;
 @Service
 public class UserService {
 
-	@Autowired
-	private UserRepository userRepository;
+	private final UserRepository userRepository;
+
+	private final PasswordEncoder passwordEncoder;
 
 	@Autowired
-	private RoleService roleService;
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+		this.passwordEncoder = passwordEncoder;
+    }
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-
+    @Transactional
 	public List<User> findAll() {
 		try {
 			return userRepository.findAll();
@@ -31,6 +33,7 @@ public class UserService {
 		}
 	}
 
+	@Transactional
 	public User findById(Long id) {
 		return userRepository.findById(id)
 				.orElseThrow(() -> new CustomException("Usuário não encontrado com o id: " + id));
@@ -78,6 +81,7 @@ public class UserService {
 		}
 	}
 
+	@Transactional
 	public User findByEmail(String email) {
 		try {
 			return userRepository.findByEmail(email);

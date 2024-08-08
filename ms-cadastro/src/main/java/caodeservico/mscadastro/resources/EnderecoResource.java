@@ -3,15 +3,18 @@ package caodeservico.mscadastro.resources;
 import caodeservico.mscadastro.entities.Endereco;
 import caodeservico.mscadastro.services.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/enderecos")
 public class EnderecoResource extends GenericResource<Endereco, Long> {
 
+	private final GenericService<Endereco, Long> service;
+
 	@Autowired
-	private GenericService<Endereco, Long> service;
+	public EnderecoResource(GenericService<Endereco, Long> service) {
+		this.service = service;
+    }
 
 	@Override
 	protected GenericService<Endereco, Long> getService() {

@@ -14,8 +14,12 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RequestMapping(value = "/roles")
 public class RoleResource {
 
+	private final RoleService roleService;
+
 	@Autowired
-	private RoleService roleService;
+	public RoleResource(RoleService roleService) {
+		this.roleService = roleService;
+	}
 
 	@GetMapping
 	public ResponseEntity<List<Role>> findAll() {
