@@ -1,0 +1,85 @@
+/* General reset and fonts */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Poppins', Arial, sans-serif;
+  background: #121212; /* Background fallback in case the image doesn't load */
+  color: white;
+}
+
+.banner {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Adjusted height to fill the whole screen */
+  background: url('/assets/images/banner1.png') no-repeat center center; /* Background image */
+  background-size: cover; /* Cover the whole banner area */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.content {
+  text-align: center;
+  z-index: 2;
+  padding: 20px;
+}
+
+h1 {
+  padding: 20px;
+  font-size: 3.1em;
+  font-weight: 900;
+  margin-bottom: 20px;
+  line-height: 3.3;
+  color: #ffffff;
+}
+
+.about-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 70px;
+  justify-content: center;
+}
+
+.about-column {
+  flex: 1;
+  max-width: 400px;
+  padding: 20px;
+  background: rgba(18, 69, 101, 0.959);
+  border-radius: 60px;
+}
+
+.about-column p {
+  line-height: 1.6;
+  font-size: 1em;
+  color: #040921;
+}
+
+/* Style for the first paragraph */
+.author.first-paragraph {
+  margin-top: 10px;
+  font-size: 1.6em;
+  font-weight: bold;
+  color: #fdf3f3; /* Default color, can be customized */
+}
+
+/* Style for the second paragraph */
+.about-column p:not(.first-paragraph) {
+  color: #c3c3c3; /* Default color, can be customized */
+}
+
+@media (max-width: 768px) {
+  .about-columns {
+    flex-direction: column;
+  }
+  
+  .about-column {
+    max-width: 100%;
+  }
+}

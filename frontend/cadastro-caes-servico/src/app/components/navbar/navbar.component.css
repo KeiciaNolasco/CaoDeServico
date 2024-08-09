@@ -1,0 +1,57 @@
+/* General reset and fonts */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+  position: absolute; /* Posiciona a navbar de forma absoluta */
+  top: 20px; /* Ajusta a distância do topo */
+  left: 20px; /* Ajusta a distância da esquerda */
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10; /* Garante que fique acima do banner */
+}
+
+.logo img {
+  height: 50px;
+}
+
+.navbar {
+  display: flex;
+  gap: 40px;
+  margin-left: auto;
+}
+
+.navbar a {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-weight: 1000;
+  transition: color 0.3s;
+}
+
+.navbar a:hover {
+  color: #7c7e7e;
+}
+
+.sign-up {
+  margin-left: 40px;
+}
+
+.sign-up .btn-sign-up {
+  background: rgba(255, 255, 255, 0.87);
+  color: #121212;
+  padding: 10px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s, color 0.3s;
+}
+
+.sign-up .btn-sign-up:hover {
+  background: #666;
+  color: white;
+}

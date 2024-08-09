@@ -1,0 +1,70 @@
+/* General reset and fonts */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Poppins', Arial, sans-serif;
+  background: #121212; /* Background fallback in case the image doesn't load */
+  color: white;
+}
+
+.banner {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Full screen height */
+  background: url('/assets/images/banner.png') no-repeat center center; /* Background image */
+  background-size: cover; /* Cover the whole banner area */
+  overflow: hidden;
+  text-align: left; /* Alinha o texto à esquerda */
+}
+
+.content {
+  position: relative;
+  top: 60%;
+  transform: translateY(-50%);
+  z-index: 2;
+  padding: 0 20px;
+  margin-left: 60px; /* Ajusta o alinhamento à esquerda */
+}
+
+h1 {
+  font-size: 3em;
+  font-weight: 600;
+  margin-bottom: 40px;
+  line-height: 1.1;
+}
+
+.welcome {
+  color: #5a5a5a;
+  display: block;
+  font-size: 0.6em; /* Tamanho menor para "Bem vindo ao" */
+}
+
+.title {
+  color: #ffffffe0;
+  display: block;
+  font-size: 1.0em; /* Tamanho maior para "CADASTRO DE CÃO DE SERVIÇO" */
+}
+
+.btn-learn-more {
+  background: rgba(255, 255, 255, 0.849);
+  color: #383838;
+  padding: 15px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1em;
+  transition: background 0.3s, color 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-learn-more:hover {
+  background: #666;
+  color: white;
+}
