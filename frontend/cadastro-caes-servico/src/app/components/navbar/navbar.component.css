@@ -5,11 +5,27 @@
   box-sizing: border-box;
 }
 
+body, html {
+  top: 0;
+  left: 0;
+  right: 0;
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  background: #121212;
+  color: white;
+}
+
 header {
   position: absolute; /* Posiciona a navbar de forma absoluta */
-  top: 20px; /* Ajusta a distância do topo */
-  left: 20px; /* Ajusta a distância da esquerda */
-  right: 20px;
+  top: 5%; /* Ajusta a distância do topo */
+  left: 5%; /* Ajusta a distância da esquerda */
+  right: 5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -27,7 +43,7 @@ header {
 }
 
 .navbar a {
-  color: rgb(255, 255, 255);
+  color: #ffffff; /* Cor dos links branca */
   text-decoration: none;
   font-weight: 1000;
   transition: color 0.3s;
@@ -38,6 +54,7 @@ header {
 }
 
 .sign-up {
+  position: relative;
   margin-left: 40px;
 }
 
@@ -55,3 +72,39 @@ header {
   background: #666;
   color: white;
 }
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 150%;
+  right: 0;
+  left: 0%;
+  background-color: white;
+  border-radius: 20px;
+  padding: 10px 10px;
+  z-index: 1000;
+}
+
+.dropdown-menu li {
+  list-style: none;
+}
+
+.dropdown-menu li a {
+  display: flex;
+  font-size: 80%;
+  padding: 5%;
+  color: #121212;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s, color 0.3s;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #666;
+  color: #ffffff;
+}
+
+.sign-up:hover .dropdown-menu {
+  display: block;
+}
+
