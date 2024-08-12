@@ -1,24 +1,24 @@
 <html>
   <body>
-      <app-navbar></app-navbar>
-      <router-outlet></router-outlet>
-      <div class="banner">
-        <div class="register-container">
-          <h2>Cadastro do Usuário</h2>
-          <form (ngSubmit)="onSubmit()">
-            <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" required>
+    <app-navbar></app-navbar>
+    <router-outlet></router-outlet>
+    <div class="banner">
+      <div class="register-container">
+        <h2>Cadastro do Usuário</h2>
+        <form (ngSubmit)="save()">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" [(ngModel)]="newUser.email" required>
 
-            <label for="password">Senha</label>
-            <input type="password" id="password" name="password" required>
+          <label for="password">Senha</label>
+          <input type="password" id="password" name="password" [(ngModel)]="newUser.senha" required>
 
-            <label for="confirm-password">Confirme a Senha</label>
-            <input type="password" id="confirm-password" name="confirm-password" required>
-            
-            <button type="submit">Cadastrar</button>
-          </form>
-        </div>
+          <label for="confirm-password">Confirme a Senha</label>
+          <input type="password" id="confirm-password" name="confirm-password" [(ngModel)]="confirmSenha" required>
+          
+          <button type="submit">Cadastrar</button>
+        </form>
       </div>
+    </div>
     <app-footer></app-footer>
   </body>
 </html>

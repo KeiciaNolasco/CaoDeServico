@@ -14,7 +14,6 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
 @Getter
 @Setter
 public class User implements UserDetails, Serializable {

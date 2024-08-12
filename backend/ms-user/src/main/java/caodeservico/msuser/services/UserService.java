@@ -68,7 +68,6 @@ public class UserService {
 	public User update(Long id, User user) {
 		User existingUser = userRepository.findById(id)
 				.orElseThrow(() -> new CustomException("Usuário não encontrado com o id: " + id));
-		existingUser.setNome(user.getNome());
 		existingUser.setEmail(user.getEmail());
 		if (user.getSenha() != null && !user.getSenha().isEmpty()) {
 			existingUser.setSenha(passwordEncoder.encode(user.getSenha()));
