@@ -22,9 +22,6 @@ public class User implements Serializable {
 
 	private Long id;
 
-	@JsonProperty("Nome")
-	private String nome;
-
 	@JsonProperty("Email")
 	private String email;
 

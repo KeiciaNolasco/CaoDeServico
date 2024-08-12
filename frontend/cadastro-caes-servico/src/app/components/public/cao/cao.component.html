@@ -1,0 +1,34 @@
+<html>
+  <body>
+    <app-navbar></app-navbar>
+    <router-outlet></router-outlet>
+    <div class="banner">
+      <div class="register-container">
+        <h2>Cadastro do Cão de Serviço</h2>
+        <form>
+          <label for="nome">Nome do Cão de Serviço</label>
+          <input type="text" id="nome" name="nome" required>
+
+          <label for="nascimento">Data de Nascimento</label>
+          <input type="date" id="nascimento" name="nascimento" required>
+
+          <label for="raca">Raça</label>
+          <input type="text" id="raca" name="raca" required>
+
+          <label for="microchip">Microchip</label>
+          <input type="text" id="microchip" name="microchip" pattern="\d*" title="Apenas números são permitidos" required>
+
+          <label for="categoria">Categoria</label>
+          <input type="text" id="categoria" name="categoria" required>
+
+          <label for="foto">Foto do Cão</label>
+          <input type="file" id="foto" name="foto" accept="image/*" required>
+          
+          <button type="submit">Cadastrar</button>
+        </form>
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </body>
+</html>
+

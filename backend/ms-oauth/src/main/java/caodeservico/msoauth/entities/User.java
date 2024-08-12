@@ -14,6 +14,7 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Entity
 @Getter
 @Setter
 public class User implements UserDetails, Serializable {
@@ -22,9 +23,6 @@ public class User implements UserDetails, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
-
-	@JsonProperty("Nome")
-	private String nome;
 
 	@JsonProperty("Email")
 	private String email;

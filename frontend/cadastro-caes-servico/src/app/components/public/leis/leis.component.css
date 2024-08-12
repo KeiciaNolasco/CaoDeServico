@@ -1,0 +1,126 @@
+body, html {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    font-family: 'Poppins', Arial, sans-serif;
+    background: #121212;
+    color: white;
+  }
+
+.banner {
+    flex: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background: url('/assets/images/bannerleis.png') no-repeat center center;
+    background-size: cover;
+    overflow: hidden;
+    text-align: left;
+}
+
+.content {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0px 10px;
+    margin-left: 10%;
+}
+
+h1 {
+    font-size: 3em;
+    font-weight: 600;
+    margin-bottom: 30px;
+    line-height: 1.1;
+}
+
+.title {
+    color: #ffffffe0;
+    display: flex;
+    font-size: 1.0em;
+}
+
+.btn-learn-more {
+    background: rgba(255, 255, 255, 0.849);
+    color: #383838;
+    padding: 20px 50px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 2em;
+    transition: background 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+.btn-learn-more:hover {
+    background: #666;
+    color: white;
+}
+
+.services {
+    position: absolute;
+    top: 20%;
+    background: transparent;
+    text-align: center;
+}
+
+.services-title {
+    color: #ffffff;
+    font-size: 2.5em;
+    margin-bottom: 2%;
+}
+
+.service-columns {
+    display: flex;
+    padding: 2%;
+    justify-content: center;
+    gap: 1%;
+}
+
+.service-column {
+    background: rgba(8, 57, 82, 0.754);
+    padding: 1% 1%;
+    border-radius: 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.service-title {
+    color: #000000;
+    font-size: 1em;
+    font-weight: 600;
+    margin-bottom: 2%;
+    white-space: nowrap; 
+}
+
+.state-flag {
+    width: 50%; 
+    padding: 10%;
+    height: auto;
+    margin-bottom: 5%;
+    border-radius: 10%;
+}
+
+.service-column .btn-learn-more {
+    background: #2c2c2ce3;
+    color: #e0e0e0;
+    font-size: 0.9em;
+    padding: 5% 20%;
+    margin-bottom: 5%;
+}
+
+.service-column .btn-learn-more:hover {
+    background: #4a4a4a;
+    color: #fff;
+}
+

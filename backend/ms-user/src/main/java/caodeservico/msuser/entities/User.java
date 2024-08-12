@@ -26,10 +26,6 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false)
-	@JsonProperty("Nome")
-	private String nome;
-
 	@Column(nullable = false, unique = true)
 	@JsonProperty("Email")
 	private String email;
