@@ -8,6 +8,5 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule,
   ],
   providers: [],
-  bootstrap: [] 
 })
 export class AppModule { }

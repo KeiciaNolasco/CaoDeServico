@@ -23,18 +23,13 @@ public class User implements UserDetails, Serializable {
 
 	private Long id;
 
-	@JsonProperty("Email")
 	private String email;
 
-	@JsonProperty("Senha")
 	private String senha;
 
-	@JsonProperty("Roles")
-	@JsonIgnoreProperties(value = { "Users" })
+	@JsonProperty("roles")
+	@JsonIgnoreProperties(value = { "users" })
 	private List<Role> roles = new ArrayList<>();
-
-	@JsonProperty("Id do Cadastro")
-	private Long cadastroId;
 
 	@Override
 	public String getUsername() {

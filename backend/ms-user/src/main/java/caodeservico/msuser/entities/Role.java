@@ -34,12 +34,11 @@ public class Role implements Serializable {
 	private Long id;
 
 	@Column(nullable = false, unique = true)
-	@JsonProperty("Nome")
 	private String nome;
 
 	@ManyToMany(mappedBy = "roles")
-	@JsonProperty("Users")
-	@JsonIgnoreProperties(value = { "Roles" })
+	@JsonProperty("users")
+	@JsonIgnoreProperties(value = { "roles" })
 	private List<User> users = new ArrayList<>();
 
 }

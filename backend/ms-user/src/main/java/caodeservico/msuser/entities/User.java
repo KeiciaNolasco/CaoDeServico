@@ -27,17 +27,15 @@ public class User implements Serializable {
 	private Long id;
 
 	@Column(nullable = false, unique = true)
-	@JsonProperty("Email")
 	private String email;
 
 	@Column(nullable = false)
-	@JsonProperty("Senha")
 	private String senha;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "tabela_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"), uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "role_id"}))
-	@JsonProperty("Roles")
-	@JsonIgnoreProperties(value = { "Users" })
+	@JsonProperty("roles")
+	@JsonIgnoreProperties(value = { "users" })
 	private List<Role> roles = new ArrayList<>();
 
 }

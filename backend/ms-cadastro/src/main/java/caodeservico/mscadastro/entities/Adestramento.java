@@ -24,23 +24,18 @@ public class Adestramento implements Serializable {
 	private Long id;
 
 	@Column(nullable = false)
-	@JsonProperty("Adestrador")
 	private String adestrador;
 
 	@Column(nullable = false)
-	@JsonProperty("CPF")
 	private Long cpf;
 
 	@Column(nullable = false)
-	@JsonProperty("Instituição de Adestramento")
 	private String instituicao;
 
 	@Column(nullable = false)
-	@JsonProperty("CNPJ")
 	private Long cnpj;
 
 	@Column(nullable = false)
-	@JsonProperty("Tempo de Adestramento")
 	private String tempo;
 
 }

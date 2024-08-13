@@ -23,12 +23,12 @@ export const appRoutes: Routes = [
   { path: 'leis', component: LeisComponent },
   { path: 'oauth', component: OauthComponent },
   { path: 'user', component: UserComponent },
-  { path: 'condutor', component: CondutorComponent },
-  { path: 'cao', component: CaoComponent },
-  { path: 'endereco', component: EnderecoComponent },
-  { path: 'adestramento', component: AdestramentoComponent },
-  { path: 'documentacao', component: DocumentacaoComponent },
-  { path: 'cadastro', component: CadastroComponent },
+  { path: 'condutor/:id', component: CondutorComponent },
+  { path: 'cao/:id', component: CaoComponent },
+  { path: 'endereco/:id', component: EnderecoComponent },
+  { path: 'adestramento/:id', component: AdestramentoComponent },
+  { path: 'documentacao/:id', component: DocumentacaoComponent },
+  { path: 'cadastro/:id', component: CadastroComponent },
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
   { path: '**', redirectTo: '/inicio' } 
 ];

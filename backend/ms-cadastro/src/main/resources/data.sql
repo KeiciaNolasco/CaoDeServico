@@ -21,9 +21,9 @@ VALUES (1, 'Paulo', 111111, 'fbaa', 11111111, '1')
 ON CONFLICT (cpf, cnpj) DO NOTHING;
 
 -- Documentação
-INSERT INTO tabela_documentacao (id, carta_treinamento, url_carta_treinamento, validade_carta_treinamento, carteira_vacina, url_carteira_vacina, validade_carteira_vacina, certificado_adestramento, url_certificado_adestramento, validade_certificado_adestramento, laudo_medico, url_laudo_medico, validade_laudo_medico, laudo_veterinario, url_laudo_veterinario, validade_laudo_veterinario, prova_adestramento, url_prova_adestramento, qr_code)
-VALUES (1, null, 'http://example.com/carta_treinamento.pdf', '2025-12-31', null, 'http://example.com/carteira_vacina.pdf', '2025-12-31', null, 'http://example.com/certificado_adestramento.pdf', '2025-12-31', null, 'http://example.com/laudo_medico.pdf', '2025-12-31', null, 'http://example.com/laudo_veterinario.pdf', '2025-12-31', null, 'http://example.com/prova_adestramento.pdf', null)
-ON CONFLICT (url_carta_treinamento, url_carteira_vacina, url_certificado_adestramento, url_laudo_medico, url_laudo_veterinario, url_prova_adestramento) DO NOTHING;
+INSERT INTO tabela_documentacao (id, carta_treinamento, validade_carta_treinamento, carteira_vacina, validade_carteira_vacina, certificado_adestramento, validade_certificado_adestramento, laudo_medico, validade_laudo_medico, laudo_veterinario, validade_laudo_veterinario, prova_adestramento)
+VALUES (1, null, '2025-12-31', null, '2025-12-31', null, '2025-12-31', null, '2025-12-31', null, '2025-12-31', null)
+ON CONFLICT (id) DO NOTHING;
 
 -- Cadastro
 INSERT INTO tabela_cadastro (id, qr_code, condutor_id, cao_id, endereco_id, adestramento_id, documentacao_id)

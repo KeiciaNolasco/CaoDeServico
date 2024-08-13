@@ -45,24 +45,17 @@ CREATE TABLE IF NOT EXISTS tabela_adestramento (
 CREATE TABLE IF NOT EXISTS tabela_documentacao (
                                                    id INTEGER PRIMARY KEY,
                                                    carta_treinamento VARCHAR(255),
-                                                   url_carta_treinamento VARCHAR(255),
                                                    validade_carta_treinamento DATE,
                                                    carteira_vacina VARCHAR(255),
-                                                   url_carteira_vacina VARCHAR(255),
                                                    validade_carteira_vacina DATE,
                                                    certificado_adestramento VARCHAR(255),
-                                                   url_certificado_adestramento VARCHAR(255),
                                                    validade_certificado_adestramento DATE,
                                                    laudo_medico VARCHAR(255),
-                                                   url_laudo_medico VARCHAR(255),
                                                    validade_laudo_medico DATE,
                                                    laudo_veterinario VARCHAR(255),
-                                                   url_laudo_veterinario VARCHAR(255),
                                                    validade_laudo_veterinario DATE,
                                                    prova_adestramento VARCHAR(255),
-                                                   url_prova_adestramento VARCHAR(255),
-                                                   qr_code VARCHAR(255),
-                                                   CONSTRAINT documentacao_unique UNIQUE (url_carta_treinamento, url_carteira_vacina, url_certificado_adestramento, url_laudo_medico, url_laudo_veterinario, url_prova_adestramento)
+                                                   CONSTRAINT documentacao_unique UNIQUE (id)
 );
 
 CREATE TABLE IF NOT EXISTS tabela_cadastro (

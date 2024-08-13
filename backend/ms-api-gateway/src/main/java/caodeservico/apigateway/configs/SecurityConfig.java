@@ -65,37 +65,37 @@ public class SecurityConfig {
 
                         .pathMatchers(HttpMethod.GET, "/ms-cadastro/cadastros").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.GET, "/ms-cadastro/cadastros/findById/{id}").access(this::authorizeUserById)
-                        .pathMatchers(HttpMethod.POST, "/ms-cadastro/cadastros/save/{id}").access(this::authorizeUserById)
+                        .pathMatchers(HttpMethod.POST, "/ms-cadastro/cadastros/save/{id}").permitAll()
                         .pathMatchers(HttpMethod.PUT, "/ms-cadastro/cadastros/update/{id}").access(this::authorizeUserById)
                         .pathMatchers(HttpMethod.DELETE, "/ms-cadastro/cadastros/delete/{id}").access(this::authorizeUserById)
 
                         .pathMatchers(HttpMethod.GET, "/ms-cadastro/condutores").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.GET, "/ms-cadastro/condutores/findById/{id}").access(this::authorizeUserById)
-                        .pathMatchers(HttpMethod.POST, "/ms-cadastro/condutores/save/{id}").access(this::authorizeUserById)
+                        .pathMatchers(HttpMethod.POST, "/ms-cadastro/condutores/save/{id}").permitAll()
                         .pathMatchers(HttpMethod.PUT, "/ms-cadastro/condutores/update/{id}").access(this::authorizeUserById)
                         .pathMatchers(HttpMethod.DELETE, "/ms-cadastro/condutores/delete/{id}").access(this::authorizeUserById)
 
                         .pathMatchers(HttpMethod.GET, "/ms-cadastro/caesdeservicos").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.GET, "/ms-cadastro/caesdeservicos/findById/{id}").access(this::authorizeUserById)
-                        .pathMatchers(HttpMethod.POST, "/ms-cadastro/caesdeservicos/save/{id}").access(this::authorizeUserById)
+                        .pathMatchers(HttpMethod.POST, "/ms-cadastro/caesdeservicos/save/{id}").permitAll()
                         .pathMatchers(HttpMethod.PUT, "/ms-cadastro/caesdeservicos/update/{id}").access(this::authorizeUserById)
                         .pathMatchers(HttpMethod.DELETE, "/ms-cadastro/caesdeservicos/delete/{id}").access(this::authorizeUserById)
 
                         .pathMatchers(HttpMethod.GET, "/ms-cadastro/enderecos").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.GET, "/ms-cadastro/enderecos/findById/{id}").access(this::authorizeUserById)
-                        .pathMatchers(HttpMethod.POST, "/ms-cadastro/enderecos/save/{id}").access(this::authorizeUserById)
+                        .pathMatchers(HttpMethod.POST, "/ms-cadastro/enderecos/save/{id}").permitAll()
                         .pathMatchers(HttpMethod.PUT, "/ms-cadastro/enderecos/update/{id}").access(this::authorizeUserById)
                         .pathMatchers(HttpMethod.DELETE, "/ms-cadastro/enderecos/delete/{id}").access(this::authorizeUserById)
 
                         .pathMatchers(HttpMethod.GET, "/ms-cadastro/documentacoes").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.GET, "/ms-cadastro/documentacoes/findById/{id}").access(this::authorizeUserById)
-                        .pathMatchers(HttpMethod.POST, "/ms-cadastro/documentacoes/save/{id}").access(this::authorizeUserById)
+                        .pathMatchers(HttpMethod.POST, "/ms-cadastro/documentacoes/save/{id}").permitAll()
                         .pathMatchers(HttpMethod.PUT, "/ms-cadastro/documentacoes/update/{id}").access(this::authorizeUserById)
                         .pathMatchers(HttpMethod.DELETE, "/ms-cadastro/documentacoes/delete/{id}").access(this::authorizeUserById)
 
                         .pathMatchers(HttpMethod.GET, "/ms-cadastro/adestramentos").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.GET, "/ms-cadastro/adestramentos/findById/{id}").access(this::authorizeUserById)
-                        .pathMatchers(HttpMethod.POST, "/ms-cadastro/adestramentos/save/{id}").access(this::authorizeUserById)
+                        .pathMatchers(HttpMethod.POST, "/ms-cadastro/adestramentos/save/{id}").permitAll()
                         .pathMatchers(HttpMethod.PUT, "/ms-cadastro/adestramentos/update/{id}").access(this::authorizeUserById)
                         .pathMatchers(HttpMethod.DELETE, "/ms-cadastro/adestramentos/delete/{id}").access(this::authorizeUserById)
 

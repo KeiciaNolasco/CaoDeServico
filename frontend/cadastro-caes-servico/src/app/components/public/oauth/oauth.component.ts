@@ -24,10 +24,10 @@ export class OauthComponent {
   login(): void {
     this.oauthService.login(this.username, this.password).subscribe({
       next: () => {
-        this.router.navigate(['/condutor']);
+        this.router.navigate(['/inicio']);
       },
       error: (err) => {
-        this.errorMessage = 'Login failed. Please check your credentials.';
+        this.errorMessage = 'Falha no login. Verifique suas credenciais.';
       },
     });
   }

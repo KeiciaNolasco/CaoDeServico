@@ -1,23 +1,25 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { User } from '../../../models/user';
-import { UserService } from '../../../services/user.service';
 import { NavbarComponent } from '../navbar/navbar.component'; 
 import { FooterComponent } from '../footer/footer.component';
+import { UserService } from '../../../services/user.service';
+import { User } from '../../../models/user';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css'],
   standalone: true, 
-  imports: [NavbarComponent, FooterComponent, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, NavbarComponent, FooterComponent], 
 })
 
 export class UserComponent {
-  users: User[] = [];
-  newUser: User = { email: '', senha: '' }; 
+  user: User = {
+    email: '',
+    senha: '',
+  };
   confirmSenha: string = ''; 
 
   constructor(
@@ -25,42 +27,27 @@ export class UserComponent {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    this.loadUsers();
-  }
-
-  loadUsers(): void {
-    this.userService.findAll().subscribe(
-      (data: User[]) => {
-        this.users = data;
-      },
-      (error) => {
-        console.error('Erro ao carregar usuários', error);
-      }
-    );
-  }
-
-  onSubmit(): void {
-    this.router.navigate(['/condutor']);
-  }
-
   save(): void {
-    if (this.newUser.senha !== this.confirmSenha) {
-      alert('A senha e a confirmação de senha não coincidem.');
+    if (!this.user.senha || this.confirmSenha.trim() === '') {
+      console.error('Senha não pode ser vazia');
       return;
     }
-
-    this.userService.save(this.newUser).subscribe(
-      (data: User) => {
-        this.users.push(data); 
-        this.newUser = { email: '', senha: '' }; 
-        this.confirmSenha = ''; 
-        console.log('Usuário criado com sucesso!');
-      },
-      (error) => {
-        console.error('Erro ao criar usuário', error);
-      }
-    );
+    if (this.user.senha !== this.confirmSenha) {
+      console.error('As senhas não coincidem.');
+      return;
+    }
+    console.log('Salvando usuário:', JSON.stringify(this.user));
+    this.userService.save(this.user).subscribe({
+      next: (user) => {
+        const id = user.id;
+        console.log('Usuário salvo com sucesso, ID:', id);
+        this.user = { email: '', senha: '' };
+          this.confirmSenha = '';
+          this.router.navigate(['/condutor', id]);
+        },
+        error: (err) => {
+          console.error('Erro ao salvar o usuário:', err);
+        }
+      });
+    }
   }
-
-}

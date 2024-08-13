@@ -51,12 +51,10 @@ public class UserService {
 			throw new CustomException("Senha não pode ser nula ou vazia: ");
 		}
 		user.setSenha(passwordEncoder.encode(user.getSenha()));
-
 		List<Role> roles = user.getRoles().stream()
 				.map(role -> roleService.findByNome(role.getNome()))
 				.collect(Collectors.toList());
 		user.setRoles(roles);
-
 		try {
 			return userRepository.save(user);
 		} catch (Exception e) {

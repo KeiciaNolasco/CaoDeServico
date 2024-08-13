@@ -22,11 +22,10 @@ public class Role implements Serializable {
 
 	private Long id;
 
-	@JsonProperty("Nome")
 	private String nome;
 
-	@JsonProperty("Users")
-	@JsonIgnoreProperties(value = { "Roles" })
+	@JsonProperty("users")
+	@JsonIgnoreProperties(value = { "roles" })
 	private List<User> users = new ArrayList<>();
 
 }

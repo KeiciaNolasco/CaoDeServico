@@ -27,30 +27,24 @@ public class CaoDeServico implements Serializable {
 	private Long id;
 
 	@Column(nullable = false)
-	@JsonProperty("Nome")
 	private String nome;
 
 	@Column(nullable = false)
-	@JsonProperty("Data de Nascimento")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private Date nascimento;
 
 	@Column(nullable = false)
-	@JsonProperty("Raça")
 	private String raca;
 
 	@Column(nullable = false)
-	@JsonProperty("Microchip")
 	private Long microchip;
 
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	@JsonSerialize(using = Categoria.CategoriaSerializer.class)
-	@JsonProperty("Categoria")
 	private Categoria categoria;
 
 	@Lob
-	@JsonProperty("Foto")
 	private byte[] foto;
 
 }

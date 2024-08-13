@@ -6,12 +6,11 @@
       <div class="login-container">
         <h2>Login</h2>
         <form (ngSubmit)="login()">
-          <label for="username">E-mail</label>
-          <input type="text" id="username" name="username" [(ngModel)]="username" required>
-          
-          <label for="password">Senha</label>
-          <input type="password" id="password" name="password" [(ngModel)]="password" required>
-          
+            <label for="username">E-mail</label>
+            <input type="text" id="username" name="username" [(ngModel)]="username" required>
+
+            <label for="password">Senha</label>
+            <input type="password" id="password" name="password" [(ngModel)]="password" required>
           <button type="submit">Login</button>
         </form>
         <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>

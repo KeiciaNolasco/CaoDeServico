@@ -24,34 +24,26 @@ public class Endereco implements Serializable {
 	private Long id;
 
 	@Column(nullable = false)
-	@JsonProperty("País")
 	private String pais;
 
 	@Column(nullable = false)
-	@JsonProperty("Estado")
 	private String estado;
 
 	@Column(nullable = false)
-	@JsonProperty("CEP")
 	private Integer cep;
 
 	@Column(nullable = false)
-	@JsonProperty("Cidade")
 	private String cidade;
 
 	@Column(nullable = false)
-	@JsonProperty("Bairro")
 	private String bairro;
 
 	@Column(nullable = false)
-	@JsonProperty("Rua")
 	private String rua;
 
 	@Column(nullable = false)
-	@JsonProperty("Número")
 	private Integer numero;
 
-	@JsonProperty("Complemento")
 	private String complemento;
 
 }
