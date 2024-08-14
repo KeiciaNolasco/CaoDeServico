@@ -6,6 +6,7 @@ import { InicioComponent } from './components/public/inicio/inicio.component';
 import { SobreComponent } from './components/public/sobre/sobre.component';
 import { LeisComponent } from './components/public/leis/leis.component';
 import { OauthComponent } from './components/public/oauth/oauth.component';
+import { PerfilComponent } from './components/customer/perfil/perfil.component';
 import { UserComponent } from './components/public/user/user.component';
 import { CondutorComponent } from './components/public/condutor/condutor.component';
 import { CaoComponent } from './components/public/cao/cao.component';
@@ -13,6 +14,7 @@ import { EnderecoComponent } from './components/public/endereco/endereco.compone
 import { AdestramentoComponent } from './components/public/adestramento/adestramento.component';
 import { DocumentacaoComponent } from './components/public/documentacao/documentacao.component';
 import { CadastroComponent } from './components/public/cadastro/cadastro.component';
+import { Guard } from './services/guard.service';
 
 export const appRoutes: Routes = [
   { path: 'navbar', component: NavbarComponent },
@@ -22,13 +24,14 @@ export const appRoutes: Routes = [
   { path: 'sobre', component: SobreComponent },
   { path: 'leis', component: LeisComponent },
   { path: 'oauth', component: OauthComponent },
-  { path: 'user', component: UserComponent },
-  { path: 'condutor/:id', component: CondutorComponent },
-  { path: 'cao/:id', component: CaoComponent },
-  { path: 'endereco/:id', component: EnderecoComponent },
-  { path: 'adestramento/:id', component: AdestramentoComponent },
-  { path: 'documentacao/:id', component: DocumentacaoComponent },
-  { path: 'cadastro/:id', component: CadastroComponent },
+  { path: 'perfil/:id', component: PerfilComponent, canActivate: [Guard] },
+  { path: 'user', component: UserComponent, canActivate: [Guard] },
+  { path: 'condutor/:id', component: CondutorComponent, canActivate: [Guard] },
+  { path: 'cao/:id', component: CaoComponent, canActivate: [Guard] },
+  { path: 'endereco/:id', component: EnderecoComponent, canActivate: [Guard] },
+  { path: 'adestramento/:id', component: AdestramentoComponent, canActivate: [Guard] },
+  { path: 'documentacao/:id', component: DocumentacaoComponent, canActivate: [Guard] },
+  { path: 'cadastro/:id', component: CadastroComponent, canActivate: [Guard] },
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
   { path: '**', redirectTo: '/inicio' } 
 ];

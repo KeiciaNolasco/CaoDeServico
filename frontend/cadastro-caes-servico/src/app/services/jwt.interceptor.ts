@@ -14,11 +14,12 @@ export class JwtInterceptor implements HttpInterceptor {
     if (isPlatformBrowser(this.platformId)) {
       const token = localStorage.getItem('token');
       if (token) {
-        req = req.clone({
+        const cloned = req.clone({
           setHeaders: {
             Authorization: `Bearer ${token}`,
           },
         });
+        return next.handle(cloned);
       }
     }
     return next.handle(req);

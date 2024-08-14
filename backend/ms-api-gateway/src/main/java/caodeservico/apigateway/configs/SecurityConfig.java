@@ -53,8 +53,8 @@ public class SecurityConfig {
                         .pathMatchers(HttpMethod.PUT, "/ms-user/users/update/{id}").access(this::authorizeUserById)
                         .pathMatchers(HttpMethod.PUT, "/ms-user/users/admin/update/{id}").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.DELETE, "/ms-user/users/delete/{id}").access(this::authorizeUserById)
-                        .pathMatchers(HttpMethod.GET, "/ms-user/users/email/{email}").access(this::authorizeUserByEmail)
                         .pathMatchers(HttpMethod.POST, "/ms-user/users/save/{id}").access(this::authorizeUserById)
+                        .pathMatchers(HttpMethod.GET, "/ms-user/users/email/{email}").access(this::authorizeUserByEmail)
 
                         .pathMatchers(HttpMethod.GET, "/ms-user/roles").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.GET, "/ms-user/roles/findById/{id}").hasAuthority("ROLE_ADMIN")
@@ -112,6 +112,7 @@ public class SecurityConfig {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedOriginPattern("*");
+        configuration.addAllowedOrigin("http://localhost:4200");
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.addAllowedHeader("*");
         configuration.setAllowCredentials(true);

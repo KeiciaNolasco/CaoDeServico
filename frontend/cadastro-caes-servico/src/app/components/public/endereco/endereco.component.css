@@ -33,7 +33,7 @@ body, html {
       border-radius: 2%;
       text-align: center;
       width: 30%;
-      height: 80%;
+      height: auto;
     }
     
     .register-container h2 {

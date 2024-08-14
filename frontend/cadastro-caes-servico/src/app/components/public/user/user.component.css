@@ -28,6 +28,7 @@ body, html {
 }
 
 .register-container {
+  margin-top: 10%;
   background:rgba(0, 58, 71, 0.716);
   padding: 1% 2%;
   border-radius: 2%;

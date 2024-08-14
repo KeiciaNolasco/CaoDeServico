@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../navbar/navbar.component'; 
 import { FooterComponent } from '../footer/footer.component';
 import { OAuthService } from '../../../services/oauth.service';
+import { UserService } from '../../../services/user.service';
+import { User } from '../../../models/user';
 
 @Component({
   selector: 'app-oauth',
@@ -19,12 +21,25 @@ export class OauthComponent {
   password: string = '';
   errorMessage: string | null = null;
 
-  constructor(private oauthService: OAuthService, private router: Router) {}
+  constructor(
+    private oauthService: OAuthService, 
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   login(): void {
     this.oauthService.login(this.username, this.password).subscribe({
-      next: () => {
-        this.router.navigate(['/inicio']);
+      next: (token) => {
+        const email = this.username;
+        this.userService.findByEmail(email).subscribe({
+          next: (user) => {
+            const id = user.id;
+            this.router.navigate(['/perfil', id]);
+          },
+          error: (err) => {
+            this.errorMessage = 'Erro ao buscar detalhes do usuário.';
+          }
+        });
       },
       error: (err) => {
         this.errorMessage = 'Falha no login. Verifique suas credenciais.';

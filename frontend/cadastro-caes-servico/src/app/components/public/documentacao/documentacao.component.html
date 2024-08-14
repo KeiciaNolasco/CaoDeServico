@@ -5,42 +5,42 @@
     <div class="banner">
       <div class="register-container">
         <h2>Cadastro da Documentação</h2>
-        <form>
+        <form (ngSubmit)="save()">
           <label for="cartaTreinamento">Carta de Treinamento em PDF</label>
-          <input type="file" id="cartaTreinamento" name="cartaTreinamento" accept=".pdf" required>
+          <input type="file" id="cartaTreinamento" name="cartaTreinamento" accept=".pdf" (change)="onFileSelected($event, 'cartaTreinamento')" required>
           
           <label for="validadeCartaTreinamento">Validade da Carta de Treinamento</label>
-          <input type="date" id="validadeCartaTreinamento" name="validadeCartaTreinamento" required>
-
+          <input type="date" id="validadeCartaTreinamento" name="validadeCartaTreinamento" [(ngModel)]="documentacao.validadeCartaTreinamento" required>
+        
           <label for="carteiraVacina">Carteira de Vacina em PDF</label>
-          <input type="file" id="carteiraVacina" name="carteiraVacina" accept=".pdf" required>
+          <input type="file" id="carteiraVacina" name="carteiraVacina" accept=".pdf" (change)="onFileSelected($event, 'carteiraVacina')" required>
           
-          <label for="validadeCartaTreinamento">Validade da Carta de Treinamento</label>
-          <input type="date" id="validadeCarteiraVacina" name="validadeCarteiraVacina" required>
-
+          <label for="validadeCarteiraVacina">Validade da Carteira de Vacina</label>
+          <input type="date" id="validadeCarteiraVacina" name="validadeCarteiraVacina" [(ngModel)]="documentacao.validadeCarteiraVacina" required>
+        
           <label for="certificadoAdestramento">Certificado de Adestramento em PDF</label>
-          <input type="file" id="certificadoAdestramento" name="certificadoAdestramento" accept=".pdf" required>
+          <input type="file" id="certificadoAdestramento" name="certificadoAdestramento" accept=".pdf" (change)="onFileSelected($event, 'certificadoAdestramento')" required>
           
           <label for="validadeCertificadoAdestramento">Validade do Certificado de Adestramento</label>
-          <input type="date" id="validadeCertificadoAdestramento" name="validadeCertificadoAdestramento" required>
-
+          <input type="date" id="validadeCertificadoAdestramento" name="validadeCertificadoAdestramento" [(ngModel)]="documentacao.validadeCertificadoAdestramento" required>
+        
           <label for="laudoMedico">Laudo Médico em PDF</label>
-          <input type="file" id="laudoMedico" name="laudoMedico" accept=".pdf" required>
+          <input type="file" id="laudoMedico" name="laudoMedico" accept=".pdf" (change)="onFileSelected($event, 'laudoMedico')" required>
           
           <label for="validadeLaudoMedico">Validade do Laudo Médico</label>
-          <input type="date" id="validadeLaudoMedico" name="validadeLaudoMedico" required>
-
+          <input type="date" id="validadeLaudoMedico" name="validadeLaudoMedico" [(ngModel)]="documentacao.validadeLaudoMedico" required>
+        
           <label for="laudoVeterinario">Laudo Veterinário em PDF</label>
-          <input type="file" id="laudoVeterinario" name="laudoVeterinario" accept=".pdf" required>
+          <input type="file" id="laudoVeterinario" name="laudoVeterinario" accept=".pdf" (change)="onFileSelected($event, 'laudoVeterinario')" required>
           
           <label for="validadeLaudoVeterinario">Validade do Laudo Veterinário</label>
-          <input type="date" id="validadeLaudoVeterinario" name="validadeLaudoVeterinario" required>
-
+          <input type="date" id="validadeLaudoVeterinario" name="validadeLaudoVeterinario" [(ngModel)]="documentacao.validadeLaudoVeterinario" required>
+        
           <label for="provaAdestramento">Prova de Adestramento em PDF</label>
-          <input type="file" id="provaAdestramento" name="provaAdestramento" accept=".pdf" required>
+          <input type="file" id="provaAdestramento" name="provaAdestramento" accept=".pdf" (change)="onFileSelected($event, 'provaAdestramento')" required>
           
           <button type="submit">Cadastrar</button>
-        </form>
+        </form>        
       </div>
     </div>
     <app-footer></app-footer>

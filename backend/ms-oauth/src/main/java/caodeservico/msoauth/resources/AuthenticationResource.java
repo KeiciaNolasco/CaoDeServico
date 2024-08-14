@@ -1,7 +1,6 @@
 package caodeservico.msoauth.resources;
 
 import caodeservico.msoauth.services.AuthenticationService;
-
 import org.springframework.web.bind.annotation.*;
 
 @RestController
