@@ -15,6 +15,7 @@ import { OauthComponent } from './components/public/oauth/oauth.component';
 import { PerfilComponent } from './components/customer/perfil/perfil.component';
 import { UserComponent } from './components/public/user/user.component';
 import { UserCustomerComponent } from './components/customer/user/user.component';
+import { UserUpdateComponent } from './components/customer/userupdate/user.component';
 import { CondutorComponent } from './components/public/condutor/condutor.component';
 import { CaoComponent } from './components/public/cao/cao.component';
 import { EnderecoComponent } from './components/public/endereco/endereco.component';
@@ -40,6 +41,7 @@ export const appRoutes: Routes = [
   { path: 'perfil/:id', component: PerfilComponent, canActivate: [Guard] },
   { path: 'user', component: UserComponent, canActivate: [Guard] },
   { path: 'usercustomer/:id', component: UserCustomerComponent, canActivate: [Guard] },
+  { path: 'userupdate/:id', component: UserUpdateComponent, canActivate: [Guard] },
   { path: 'condutor/:id', component: CondutorComponent, canActivate: [Guard] },
   { path: 'cao/:id', component: CaoComponent, canActivate: [Guard] },
   { path: 'endereco/:id', component: EnderecoComponent, canActivate: [Guard] },

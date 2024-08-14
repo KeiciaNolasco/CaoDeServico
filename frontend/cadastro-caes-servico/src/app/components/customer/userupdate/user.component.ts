@@ -7,30 +7,26 @@ import { FooterCustomerComponent } from '../footer/footer.component';
 import { OAuthService } from '../../../services/oauth.service';
 import { jwtDecode } from 'jwt-decode';
 import { UserService } from '../../../services/user.service';
-import { RoleService } from '../../../services/role.service';
 import { CondutorService } from '../../../services/condutor.service';
 import { User } from '../../../models/user';
-import { Role } from '../../../models/role';
 import { Condutor } from '../../../models/condutor';
 
 @Component({
-  selector: 'app-usercustomer',
+  selector: 'app-userupdate',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css'],
   standalone: true, 
   imports: [CommonModule, RouterModule, FormsModule, NavbarCustomerComponent, FooterCustomerComponent], 
 })
 
-export class UserCustomerComponent implements OnInit {
+export class UserUpdateComponent implements OnInit {
   id!: number;
-  user: User | undefined;
-  role: Role | undefined;
+  user: User = { email: '', senha: '' }; 
   condutor: Condutor | undefined; 
   errorMessage: string | null = null; 
 
   constructor(
     private userService: UserService,
-    private roleService: RoleService,
     private condutorService: CondutorService,
     private authService: OAuthService,
     private router: Router,
@@ -40,7 +36,7 @@ export class UserCustomerComponent implements OnInit {
   ngOnInit(): void {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     if (this.authService.isAuthenticated()) {
-      this.loadUser();
+      this.loadUserUpdate();
       this.loadCondutor();
     } else {
       console.error('Usuário não autenticado!');
@@ -48,7 +44,7 @@ export class UserCustomerComponent implements OnInit {
     }
   }
 
-  loadUser(): void {
+  loadUserUpdate(): void {
     const token = this.authService.getToken();
     if (token) {
       try {
@@ -76,16 +72,6 @@ export class UserCustomerComponent implements OnInit {
     this.userService.findById(this.id).subscribe({
       next: (user : User) => {
         this.user = user
-        const nomes = user.roles?.map(role => role.nome); 
-        if (nomes) {
-          nomes.forEach(nome => {
-            this.roleService.findByNome(nome).subscribe({
-              next: (role: Role) => {
-                this.role = role
-              },
-            });
-          });
-        }
       },
       error: (err) => {
         this.errorMessage = 'Erro ao buscar o usuário.';
@@ -96,24 +82,22 @@ export class UserCustomerComponent implements OnInit {
 
   update(): void {
     if (this.user) {
-      this.router.navigate(['/userupdate', this.id]);
-    } else {
-      this.errorMessage = 'Usuário não encontrado para editar.';
-    }
-  }
-  
-  delete(): void {
-    if (this.user && confirm('Tem certeza que deseja deletar o usuário?')) {
-      this.userService.delete(this.id).subscribe({
+      this.userService.update(this.id, this.user).subscribe({
         next: () => {
-          console.log('Usuário deletado com sucesso!');
-          this.router.navigate(['/']);
+          console.log('Usuário atualizado com sucesso!');
+          this.router.navigate(['/usercustomer', this.id]);
         },
         error: (err) => {
-          this.errorMessage = 'Erro ao deletar o usuário.';
+          this.errorMessage = 'Erro ao atualizar o usuário.';
           console.error(err);
         }
       });
+    } else {
+      this.errorMessage = 'Usuário não encontrado.';
     }
+  }
+
+  cancel(): void {
+    this.router.navigate(['/usercustomer', this.id]);
   }
 }

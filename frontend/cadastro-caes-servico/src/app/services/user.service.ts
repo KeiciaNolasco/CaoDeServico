@@ -34,6 +34,7 @@ export class UserService {
   }
 
   save(user: User): Observable<User> {
+    const token = this.oauthService.getToken();
     return this.http.post<User>(`${this.apiUrl}/save`, user, {
       headers: { 'Content-Type': 'application/json' }
     }).pipe(
@@ -44,11 +45,29 @@ export class UserService {
   }
 
   update(id: number, user: User): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/update/${id}`, user);
+    const token = this.oauthService.getToken();
+    if (token) {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+      return this.http.put<User>(`${this.apiUrl}/update/${id}`, user, { headers })
+    }else {
+      console.error('Token não encontrado!');
+      return new Observable<User>();
+    }
   }
 
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/delete/${id}`);
+    const token = this.oauthService.getToken();
+    if (token) {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+      return this.http.delete<void>(`${this.apiUrl}/delete/${id}`, { headers })
+    }else {
+      console.error('Token não encontrado!');
+      return new Observable<void>();
+    }
   }
 
   findByEmail(email: string): Observable<User> {

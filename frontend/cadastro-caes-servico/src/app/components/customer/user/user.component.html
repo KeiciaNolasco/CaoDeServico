@@ -6,9 +6,9 @@
     <div class="container">
       <div class="sidebar">
         <div class="profile-pic">
-          <img [src]="condutor?.foto || '/assets/images/perfil1.png'" alt="Foto de perfil">
+          <img [src]="condutor?.foto || '/assets/images/perfil.png'" alt="Foto de perfil">
         </div>
-        <h2 class="username">nome</h2>
+        <h2 class="username">{{ condutor?.nome || 'Nome do usuário' }}</h2>
         <nav>
           <ul>
             <li>

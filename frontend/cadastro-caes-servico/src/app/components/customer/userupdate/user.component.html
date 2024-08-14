@@ -1,0 +1,54 @@
+<div class="banner">
+  <div class="container">
+    <div class="sidebar">
+      <div class="profile-pic">
+        <img [src]="condutor?.foto || '/assets/images/perfil.png'" alt="Foto de perfil">
+      </div>
+      <h2 class="username">{{ condutor?.nome || 'Nome do usuário' }}</h2>
+      <nav>
+        <ul>
+          <li>
+            <button [routerLink]="['/perfil', id]">PERFIL</button>
+          </li>
+          <li>
+            <button [routerLink]="['/usercustomer', id]">USUÁRIO</button>
+          </li>
+          <li>
+            <button [routerLink]="['/iniciocustomer', id]">CONDUTOR</button>
+          </li>
+          <li>
+            <button [routerLink]="['/iniciocustomer', id]">CÃO DE SERVIÇO</button>
+          </li>
+          <li>
+            <button [routerLink]="['/iniciocustomer', id]">ENDEREÇO</button>
+          </li>
+          <li>
+            <button [routerLink]="['/iniciocustomer', id]">ADESTRAMENTO</button>
+          </li>
+          <li>
+            <button [routerLink]="['/iniciocustomer', id]">DOCUMENTAÇÃO</button>
+          </li>
+          <li>
+            <button [routerLink]="['/iniciocustomer', id]">CADASTRO</button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="user-details">
+      <h2>DADOS DO USUÁRIO</h2>
+      <br>
+      <form>
+        <label for="email">E-mail</label>
+        <input type="email" id="email" [(ngModel)]="user.email" name="email">
+      
+        <label for="password">Senha</label>
+        <input type="password" id="password" [(ngModel)]="user.senha" name="senha">
+        
+      </form>
+      <div class="button-group">
+        <button type="button" (click)="update()" class="btn-edit">Salvar</button>
+        <button type="button" (click)="cancel()" class="btn-delete">Cancelar</button>
+      </div>
+    </div>
+  </div>  
+</div>

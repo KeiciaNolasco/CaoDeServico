@@ -53,5 +53,9 @@ export class NavbarCustomerComponent implements OnInit {
   hideDropdown() {
     this.isDropdownVisible = false;
   }
+
+  logout(): void {
+    this.authService.logout();
+  }
 }
 

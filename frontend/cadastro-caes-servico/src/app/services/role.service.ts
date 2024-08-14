@@ -17,7 +17,16 @@ export class RoleService {
   ) {}
 
   findAll(): Observable<Role[]> {
-    return this.http.get<Role[]>(this.apiUrl);
+    const token = this.oauthService.getToken();
+    if (token) {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+      return this.http.get<Role[]>(this.apiUrl, { headers })
+    } else {
+      console.error('Token não encontrado!');
+      return new Observable<Role[]>();
+    }
   }
 
   findById(id: number): Observable<Role> {
@@ -44,7 +53,16 @@ export class RoleService {
   }
 
   update(id: number, user: Role): Observable<Role> {
-    return this.http.put<Role>(`${this.apiUrl}/update/${id}`, user);
+    const token = this.oauthService.getToken();
+    if (token) {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+      return this.http.put<Role>(`${this.apiUrl}/update/${id}`, user, { headers })
+    } else {
+      console.error('Token não encontrado!');
+      return new Observable<Role>();
+    }
   }
 
   delete(id: number): Observable<void> {
