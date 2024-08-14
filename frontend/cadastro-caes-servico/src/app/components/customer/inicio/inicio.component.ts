@@ -1,32 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { NavbarCustomerComponent } from '../navbar/navbar.component'; 
+import { FooterCustomerComponent } from '../footer/footer.component';
 import { OAuthService } from '../../../services/oauth.service';
 import { jwtDecode } from 'jwt-decode';
 
-
 @Component({
-  selector: 'app-navbarcustomer',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css'],
+  selector: 'app-iniciocustomer',
+  templateUrl: './inicio.component.html',
+  styleUrls: ['./inicio.component.css'],
   standalone: true, 
-  imports: [RouterModule, CommonModule],
+  imports: [CommonModule, NavbarCustomerComponent, FooterCustomerComponent, RouterModule],
 })
 
-export class NavbarCustomerComponent implements OnInit {
-
+export class InicioCustomerComponent implements OnInit {
   id!: number;
-  navbar: any;
-
-  isDropdownVisible = false;
+  inicio: any;
 
   constructor(
     private authService: OAuthService,
     private route: ActivatedRoute
   ) { }
 
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     if (this.authService.isAuthenticated()) {
       this.loadUserProfile();
@@ -45,13 +42,4 @@ export class NavbarCustomerComponent implements OnInit {
       }
     }
   }
-
-  showDropdown() {
-    this.isDropdownVisible = true;
-  }
-
-  hideDropdown() {
-    this.isDropdownVisible = false;
-  }
 }
-

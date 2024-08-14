@@ -3,16 +3,16 @@
     <img src="/assets/images/logo.png" alt="Cão de Serviço Co.">
   </div>
   <nav class="navbar">
-    <a routerLink="/inicio">INÍCIO</a>
-    <a routerLink="/sobre">SOBRE</a>
-    <a routerLink="/leis">LEIS</a>
+    <a [routerLink]="['/iniciocustomer', id]">INÍCIO</a>
+    <a [routerLink]="['/sobrecustomer', id]">SOBRE</a>
+    <a [routerLink]="['/leiscustomer', id]">LEIS</a>
   </nav>
   <div class="sign-up" (mouseover)="showDropdown()" (mouseleave)="hideDropdown()">
     <a class="btn-sign-up">
       USUÁRIO
     </a>
     <ul class="dropdown-menu" *ngIf="isDropdownVisible">
-      <li><a routerLink="/perfil/{id}">PERFIL</a></li>
+      <li><a [routerLink]="['/perfil', id]">PERFIL</a></li>
       <li><a routerLink="/user">CADASTRAR</a></li>
     </ul>
   </div>

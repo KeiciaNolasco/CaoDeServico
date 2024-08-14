@@ -7,6 +7,7 @@ import { FooterComponent } from '../footer/footer.component';
 import { OAuthService } from '../../../services/oauth.service';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/user';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-oauth',
@@ -19,6 +20,7 @@ import { User } from '../../../models/user';
 export class OauthComponent {
   username: string = '';
   password: string = '';
+  id: number | null = null; 
   errorMessage: string | null = null;
 
   constructor(
@@ -28,18 +30,19 @@ export class OauthComponent {
   ) {}
 
   login(): void {
-    this.oauthService.login(this.username, this.password).subscribe({
-      next: (token) => {
+    this.oauthService.login(this.username, this.password).pipe(
+      switchMap((token) => {
         const email = this.username;
-        this.userService.findByEmail(email).subscribe({
-          next: (user) => {
-            const id = user.id;
-            this.router.navigate(['/perfil', id]);
-          },
-          error: (err) => {
-            this.errorMessage = 'Erro ao buscar detalhes do usuário.';
-          }
-        });
+        return this.userService.findByEmail(email);
+      })
+    ).subscribe({
+      next: (user: User) => {
+        if (user.id !== undefined && user.id !== null) {
+          this.id = user.id;
+          this.router.navigate([`/iniciocustomer/${this.id}`]);
+        } else {
+          this.errorMessage = 'ID do usuário não encontrado.';
+        }
       },
       error: (err) => {
         this.errorMessage = 'Falha no login. Verifique suas credenciais.';

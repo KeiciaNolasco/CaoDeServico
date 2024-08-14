@@ -49,11 +49,6 @@ export class UserService {
         'Authorization': `Bearer ${token}`
       });
       return this.http.get<User>(`${this.apiUrl}/email/${email}`, { headers })
-        .pipe(
-          tap((user: User) => {
-            console.log('ID do usuário encontrado:', user.id);
-          })
-        );
     } else {
       console.error('Token não encontrado!');
       return new Observable<User>();

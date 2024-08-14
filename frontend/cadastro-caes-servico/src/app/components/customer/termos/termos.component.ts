@@ -1,32 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { NavbarCustomerComponent } from '../navbar/navbar.component'; 
+import { FooterCustomerComponent } from '../footer/footer.component';
 import { OAuthService } from '../../../services/oauth.service';
 import { jwtDecode } from 'jwt-decode';
 
-
 @Component({
-  selector: 'app-navbarcustomer',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css'],
+  selector: 'app-termoscustomer',
+  templateUrl: './termos.component.html',
+  styleUrls: ['./termos.component.css'],
   standalone: true, 
-  imports: [RouterModule, CommonModule],
+  imports: [NavbarCustomerComponent, FooterCustomerComponent, RouterModule],
 })
-
-export class NavbarCustomerComponent implements OnInit {
-
+export class TermosCustomerComponent implements OnInit {
   id!: number;
-  navbar: any;
-
-  isDropdownVisible = false;
+  leis: any;
 
   constructor(
     private authService: OAuthService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) { }
 
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     if (this.authService.isAuthenticated()) {
       this.loadUserProfile();
@@ -45,13 +40,4 @@ export class NavbarCustomerComponent implements OnInit {
       }
     }
   }
-
-  showDropdown() {
-    this.isDropdownVisible = true;
-  }
-
-  hideDropdown() {
-    this.isDropdownVisible = false;
-  }
 }
-
