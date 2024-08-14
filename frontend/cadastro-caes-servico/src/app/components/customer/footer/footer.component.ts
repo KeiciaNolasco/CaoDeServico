@@ -24,13 +24,13 @@ export class FooterCustomerComponent implements OnInit {
   ngOnInit() {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     if (this.authService.isAuthenticated()) {
-      this.loadUserProfile();
+      this.loadFooter();
     } else {
       console.error('Usuário não autenticado!');
     }
   }
 
-  loadUserProfile(): void {
+  loadFooter(): void {
     const token = this.authService.getToken();
     if (token) {
       try {

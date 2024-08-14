@@ -21,7 +21,16 @@ export class UserService {
   }
 
   findById(id: number): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/findById/${id}`);
+    const token = this.oauthService.getToken();
+    if (token) {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+      return this.http.get<User>(`${this.apiUrl}/findById/${id}`, { headers })
+    } else {
+      console.error('Token não encontrado!');
+      return new Observable<User>();
+    }
   }
 
   save(user: User): Observable<User> {

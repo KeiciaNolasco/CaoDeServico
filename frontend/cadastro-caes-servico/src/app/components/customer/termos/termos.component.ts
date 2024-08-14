@@ -24,13 +24,13 @@ export class TermosCustomerComponent implements OnInit {
   ngOnInit(): void {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     if (this.authService.isAuthenticated()) {
-      this.loadUserProfile();
+      this.loadTermos();
     } else {
       console.error('Usuário não autenticado!');
     }
   }
 
-  loadUserProfile(): void {
+  loadTermos(): void {
     const token = this.authService.getToken();
     if (token) {
       try {

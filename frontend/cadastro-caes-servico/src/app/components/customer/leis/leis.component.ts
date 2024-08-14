@@ -24,13 +24,13 @@ export class LeisCustomerComponent implements OnInit {
   ngOnInit(): void {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     if (this.authService.isAuthenticated()) {
-      this.loadUserProfile();
+      this.loadLeis();
     } else {
       console.error('Usuário não autenticado!');
     }
   }
 
-  loadUserProfile(): void {
+  loadLeis(): void {
     const token = this.authService.getToken();
     if (token) {
       try {

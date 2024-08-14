@@ -29,13 +29,13 @@ export class NavbarCustomerComponent implements OnInit {
   ngOnInit() {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     if (this.authService.isAuthenticated()) {
-      this.loadUserProfile();
+      this.loadNavbar();
     } else {
       console.error('Usuário não autenticado!');
     }
   }
 
-  loadUserProfile(): void {
+  loadNavbar(): void {
     const token = this.authService.getToken();
     if (token) {
       try {

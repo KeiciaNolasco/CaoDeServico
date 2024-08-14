@@ -24,7 +24,7 @@ public class UserResource {
 	public UserResource(UserService userService, RoleService roleService) {
 		this.userService = userService;
 		this.roleService = roleService;
-	}
+    }
 
 	@GetMapping
 	public ResponseEntity<List<User>> findAll() {

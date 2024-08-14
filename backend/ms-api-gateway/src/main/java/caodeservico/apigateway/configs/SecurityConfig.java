@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.authorization.AuthorityReactiveAuthorizationManager;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
@@ -61,7 +62,7 @@ public class SecurityConfig {
                         .pathMatchers(HttpMethod.POST, "/ms-user/roles/save").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.PUT, "/ms-user/roles/update/{id}").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.DELETE, "/ms-user/roles/delete/{id}").hasAuthority("ROLE_ADMIN")
-                        .pathMatchers(HttpMethod.GET, "/ms-user/roles/nome/{nome}").hasAuthority("ROLE_ADMIN")
+                        .pathMatchers(HttpMethod.GET, "/ms-user/roles/nome/{nome}") .access(AuthorityReactiveAuthorizationManager.hasAnyAuthority("ROLE_ADMIN", "ROLE_CUSTOMER"))
 
                         .pathMatchers(HttpMethod.GET, "/ms-cadastro/cadastros").hasAuthority("ROLE_ADMIN")
                         .pathMatchers(HttpMethod.GET, "/ms-cadastro/cadastros/findById/{id}").access(this::authorizeUserById)

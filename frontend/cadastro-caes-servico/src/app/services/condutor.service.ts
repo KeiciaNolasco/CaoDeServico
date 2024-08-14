@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Condutor } from '../models/condutor';
+import { OAuthService } from './oauth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +10,26 @@ import { Condutor } from '../models/condutor';
 export class CondutorService {
   private apiUrl = 'http://localhost:8765/ms-cadastro/condutores';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private oauthService: OAuthService
+  ) {}
 
   findAll(): Observable<Condutor[]> {
     return this.http.get<Condutor[]>(this.apiUrl);
   }
 
   findById(id: number): Observable<Condutor> {
-    return this.http.get<Condutor>(`${this.apiUrl}/findById/${id}`);
+    const token = this.oauthService.getToken();
+    if (token) {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+    return this.http.get<Condutor>(`${this.apiUrl}/findById/${id}`, { headers })
+    } else {
+      console.error('Token não encontrado!');
+      return new Observable<Condutor>();
+    }
   }
 
   save(id: number, condutor: Condutor): Observable<Condutor> {
