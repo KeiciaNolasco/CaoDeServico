@@ -21,6 +21,7 @@ export class UserComponent {
     senha: '',
   };
   confirmSenha: string = ''; 
+  successMessage: string = '';
 
   constructor(
     private userService: UserService,
@@ -36,18 +37,16 @@ export class UserComponent {
       console.error('As senhas não coincidem.');
       return;
     }
-    console.log('Salvando usuário:', JSON.stringify(this.user));
     this.userService.save(this.user).subscribe({
-      next: (user) => {
-        const id = user.id;
-        console.log('Usuário salvo com sucesso, ID:', id);
-        this.user = { email: '', senha: '' };
-          this.confirmSenha = '';
-          this.router.navigate(['/condutor', id]);
-        },
-        error: (err) => {
-          console.error('Erro ao salvar o usuário:', err);
-        }
-      });
-    }
+      next: () => {
+        this.successMessage = 'Usuário salvo com sucesso!'; 
+        setTimeout(() => {
+          this.router.navigate(['/oauth']); 
+        }, 2000);
+      },
+      error: (err) => {
+        console.error('Erro ao salvar o usuário:', err);
+      }
+    });
   }
+}

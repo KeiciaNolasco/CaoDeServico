@@ -8,6 +8,10 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,23 +83,41 @@ public abstract class GenericService<T, ID> {
             User user = userFeignClient.findById(userId);
             for (Field field : entity.getClass().getDeclaredFields()) {
                 field.setAccessible(true);
+
                 if (field.isAnnotationPresent(Column.class)) {
                     Column column = field.getAnnotation(Column.class);
                     if (!column.nullable() && field.get(entity) == null) {
                         throw new CustomException("O campo " + field.getName() + " não pode ser nulo");
                     }
                 }
+
+                if (field.getName().equals("foto") && field.getType().equals(byte[].class)) {
+                    byte[] fotoBytes = (byte[]) field.get(entity);
+                    if (fotoBytes != null) {
+                        field.set(entity, fotoBytes);
+                    }
+                }
+
+                if (field.getName().equals("nascimento")) {
+                    if (field.getType().equals(String.class)) {
+                        String nascimentoStr = (String) field.get(entity);
+                        if (nascimentoStr != null) {
+                            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                            Date nascimento = df.parse(nascimentoStr);
+                            field.set(entity, nascimento);
+                        }
+                    } else if (field.getType().equals(Date.class)) {
+                    }
+                }
             }
-            try {
-                Field idField = entity.getClass().getDeclaredField("id");
-                idField.setAccessible(true);
-                idField.set(entity, userId);
-            } catch (NoSuchFieldException | IllegalAccessException e) {
-                throw new CustomException("Erro ao associar o ID do usuário com a entidade", e);
-            }
+
+            Field idField = entity.getClass().getDeclaredField("id");
+            idField.setAccessible(true);
+            idField.set(entity, userId);
+
             return save(entity);
         } catch (Exception e) {
-            throw new CustomException("Erro ao buscar usuário com id " + userId + " do Feign Client", e);
+            throw new CustomException("Erro ao salvar entidade com id " + userId, e);
         }
     }
 

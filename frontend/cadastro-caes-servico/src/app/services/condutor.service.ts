@@ -16,7 +16,16 @@ export class CondutorService {
   ) {}
 
   findAll(): Observable<Condutor[]> {
-    return this.http.get<Condutor[]>(this.apiUrl);
+    const token = this.oauthService.getToken();
+    if (token) {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+      return this.http.get<Condutor[]>(this.apiUrl, { headers })
+    } else {
+      console.error('Token não encontrado!');
+      return new Observable<Condutor[]>();
+    }
   }
 
   findById(id: number): Observable<Condutor> {
@@ -32,15 +41,42 @@ export class CondutorService {
     }
   }
 
-  save(id: number, condutor: Condutor): Observable<Condutor> {
-    return this.http.post<Condutor>(`${this.apiUrl}/save/${id}`, condutor);
+  save(id: number, formData: FormData): Observable<Condutor> {
+    const token = this.oauthService.getToken();
+    if (token) {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+      return this.http.post<Condutor>(`${this.apiUrl}/save/${id}`, formData, { headers })
+    } else {
+      console.error('Token não encontrado!');
+      return new Observable<Condutor>();
+    }
   }
 
   update(id: number, condutor: Condutor): Observable<Condutor> {
-    return this.http.put<Condutor>(`${this.apiUrl}/update/${id}`, condutor);
+    const token = this.oauthService.getToken();
+    if (token) {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+    return this.http.put<Condutor>(`${this.apiUrl}/update/${id}`, condutor, { headers })
+  } else {
+    console.error('Token não encontrado!');
+    return new Observable<Condutor>();
   }
+}
 
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/delete/${id}`);
+    const token = this.oauthService.getToken();
+    if (token) {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+      return this.http.delete<void>(`${this.apiUrl}/delete/${id}`, { headers })
+    } else {
+      console.error('Token não encontrado!');
+      return new Observable<void>();
+    }
   }
 }

@@ -16,7 +16,9 @@ import { PerfilComponent } from './components/customer/perfil/perfil.component';
 import { UserComponent } from './components/public/user/user.component';
 import { UserCustomerComponent } from './components/customer/user/user.component';
 import { UserUpdateComponent } from './components/customer/userupdate/user.component';
-import { CondutorComponent } from './components/public/condutor/condutor.component';
+import { CondutorCustomerComponent } from './components/customer/condutor/condutor.component';
+import { CondutorSaveComponent } from './components/customer/condutorsave/condutor.component';
+import { CondutorUpdateComponent } from './components/customer/condutorupdate/condutor.component';
 import { CaoComponent } from './components/public/cao/cao.component';
 import { EnderecoComponent } from './components/public/endereco/endereco.component';
 import { AdestramentoComponent } from './components/public/adestramento/adestramento.component';
@@ -39,10 +41,12 @@ export const appRoutes: Routes = [
   { path: 'leiscustomer/:id', component: LeisCustomerComponent, canActivate: [Guard] },
   { path: 'oauth', component: OauthComponent },
   { path: 'perfil/:id', component: PerfilComponent, canActivate: [Guard] },
-  { path: 'user', component: UserComponent, canActivate: [Guard] },
+  { path: 'user', component: UserComponent },
   { path: 'usercustomer/:id', component: UserCustomerComponent, canActivate: [Guard] },
   { path: 'userupdate/:id', component: UserUpdateComponent, canActivate: [Guard] },
-  { path: 'condutor/:id', component: CondutorComponent, canActivate: [Guard] },
+  { path: 'condutorcustomer/:id', component: CondutorCustomerComponent, canActivate: [Guard] },
+  { path: 'condutorsave/:id', component: CondutorSaveComponent, canActivate: [Guard] },
+  { path: 'condutorupdate/:id', component: CondutorUpdateComponent, canActivate: [Guard] },
   { path: 'cao/:id', component: CaoComponent, canActivate: [Guard] },
   { path: 'endereco/:id', component: EnderecoComponent, canActivate: [Guard] },
   { path: 'adestramento/:id', component: AdestramentoComponent, canActivate: [Guard] },

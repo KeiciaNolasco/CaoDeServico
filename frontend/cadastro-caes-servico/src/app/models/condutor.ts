@@ -5,5 +5,5 @@ export interface Condutor {
     cpf: string; 
     contato: string;
     cid: string;
-    foto: string | null;
+    foto: string | Uint8Array | null;
 }

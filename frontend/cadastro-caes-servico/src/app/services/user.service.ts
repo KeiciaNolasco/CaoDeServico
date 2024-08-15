@@ -34,14 +34,9 @@ export class UserService {
   }
 
   save(user: User): Observable<User> {
-    const token = this.oauthService.getToken();
     return this.http.post<User>(`${this.apiUrl}/save`, user, {
       headers: { 'Content-Type': 'application/json' }
-    }).pipe(
-      tap((user: User) => {
-        console.log('ID do usuário criado:', user.id);
-      })
-    );
+    });
   }
 
   update(id: number, user: User): Observable<User> {

@@ -98,3 +98,13 @@ body, html {
 .login-container .forgot-password:hover {
   color:  #73bcc2;
 }
+
+.success-message {
+  color: rgb(0, 0, 0);
+  background-color: #e6ffff;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid green;
+  border-radius: 5px;
+  text-align: center;
+}
