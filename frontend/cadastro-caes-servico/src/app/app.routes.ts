@@ -24,6 +24,7 @@ import { EnderecoComponent } from './components/public/endereco/endereco.compone
 import { AdestramentoComponent } from './components/public/adestramento/adestramento.component';
 import { DocumentacaoComponent } from './components/public/documentacao/documentacao.component';
 import { CadastroComponent } from './components/public/cadastro/cadastro.component';
+import { ModalCustomerComponent } from './components/customer/modal/modal.component';
 import { Guard } from './services/guard.service';
 
 export const appRoutes: Routes = [
@@ -52,6 +53,7 @@ export const appRoutes: Routes = [
   { path: 'adestramento/:id', component: AdestramentoComponent, canActivate: [Guard] },
   { path: 'documentacao/:id', component: DocumentacaoComponent, canActivate: [Guard] },
   { path: 'cadastro/:id', component: CadastroComponent, canActivate: [Guard] },
+  { path: 'modalcustomer/:id', component: ModalCustomerComponent, canActivate: [Guard] },
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
   { path: '**', redirectTo: '/inicio' } 
 ];

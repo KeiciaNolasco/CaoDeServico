@@ -60,5 +60,14 @@
     </div>  
   </div>
     <app-footercustomer></app-footercustomer>
+    <div class="modal-overlay" *ngIf="showModal">
+      <div class="modal">
+        <h2>Tem certeza que deseja deletar o Usuário?</h2>
+        <div class="modal-buttons">
+          <button class="modal-btn confirm-btn" (click)="onConfirmDelete(true)">SIM</button>
+          <button class="modal-btn cancel-btn" (click)="onConfirmDelete(false)">NÃO</button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

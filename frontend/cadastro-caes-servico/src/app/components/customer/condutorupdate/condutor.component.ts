@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -27,7 +27,9 @@ export class CondutorUpdateComponent implements OnInit {
     cid: '',
     foto: null
   }
+  selectedFile!: File;
   errorMessage: string | null = null; 
+  successMessage: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -58,38 +60,76 @@ export class CondutorUpdateComponent implements OnInit {
     }
   }
 
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+  }
+
   findById(id: number): void {
     this.condutorService.findById(this.id).subscribe({
-      next: (condutor: Condutor) => {
-        this.condutor = condutor
+      next: (condutor) => {
+        if (condutor.nascimento) {
+          const formattedNascimento = new Date(condutor.nascimento).toISOString().split('T')[0];
+          this.condutor = { ...condutor, nascimento: formattedNascimento };
+        }
+        if (this.condutor) {
+          if (this.condutor.foto) {
+            if (typeof this.condutor.foto === 'string') {
+              this.condutor.foto = condutor.foto;
+            } else if (this.condutor.foto instanceof ArrayBuffer) {
+              this.condutor.foto = this.arrayBufferToBase64(new Uint8Array(this.condutor.foto));
+            }
+          }
+        }
       },
-      error: (err) => {
-        this.errorMessage = 'Condutor ainda não existe.';
-        console.error(err);
+      error: (error) => {
+        console.error('Erro ao carregar o condutor:', error);
       }
     });
-  }
+  }  
 
   update(): void {
     if (this.condutor) {
-      this.router.navigate(['/condutorupdate', this.id]);
-    } else {
-      this.errorMessage = 'Condutor não encontrado para editar.';
-    }
-  }
-  
-  delete(): void {
-    if (this.condutor && confirm('Tem certeza que deseja deletar o Condutor?')) {
-      this.condutorService.delete(this.id).subscribe({
+      const formData: FormData = new FormData();
+      formData.append('nome', this.condutor.nome);
+      const formattedNascimento = new Date(this.condutor.nascimento).toISOString().split('T')[0];
+      formData.append('nascimento', formattedNascimento);
+      formData.append('cpf', this.condutor.cpf);
+      formData.append('contato', this.condutor.contato);
+      formData.append('cid', this.condutor.cid);
+      if (this.selectedFile) {
+        formData.append('foto', this.selectedFile, this.selectedFile.name);
+        console.log(`Foto a ser enviada: ${this.selectedFile.name}, Tamanho: ${this.selectedFile.size}`);
+      } else {
+        console.log("Nenhuma nova foto selecionada para envio.");
+      }
+      this.condutorService.update(this.id, formData).subscribe({
         next: () => {
-          console.log('Condutor deletado com sucesso!');
-          this.router.navigate(['/']);
+          console.log('Condutor atualizado com sucesso!');
+          setTimeout(() => {
+            this.router.navigate(['/condutorcustomer', this.id]);
+          }, 2000);
         },
         error: (err) => {
-          this.errorMessage = 'Erro ao deletar o condutor.';
-          console.error(err);
+          this.errorMessage = 'Erro ao atualizar o condutor.';
+          console.error("Erro ao atualizar o condutor:", err);
         }
       });
+    } else {
+      this.errorMessage = 'Condutor não encontrado.';
     }
+  }  
+  
+  cancel(): void {
+    this.router.navigate(['/condutorcustomer', this.id]);
+  }
+
+  private arrayBufferToBase64(buffer: Uint8Array): string {
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
   }
 }

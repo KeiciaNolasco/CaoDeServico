@@ -12,13 +12,14 @@ import { CondutorService } from '../../../services/condutor.service';
 import { User } from '../../../models/user';
 import { Role } from '../../../models/role';
 import { Condutor } from '../../../models/condutor';
+import { ModalCustomerComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-usercustomer',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css'],
   standalone: true, 
-  imports: [CommonModule, RouterModule, FormsModule, NavbarCustomerComponent, FooterCustomerComponent], 
+  imports: [CommonModule, RouterModule, FormsModule, NavbarCustomerComponent, FooterCustomerComponent, ModalCustomerComponent], 
 })
 
 export class UserCustomerComponent implements OnInit {
@@ -27,6 +28,7 @@ export class UserCustomerComponent implements OnInit {
   role: Role | undefined;
   condutor: Condutor | undefined; 
   errorMessage: string | null = null; 
+  showModal: boolean = false; 
 
   constructor(
     private userService: UserService,
@@ -103,15 +105,18 @@ export class UserCustomerComponent implements OnInit {
   }
   
   delete(): void {
-    if (this.user && confirm('Tem certeza que deseja deletar o usuário?')) {
+    this.showModal = true;
+  }
+
+  onConfirmDelete(confirm: boolean): void {
+    this.showModal = false;
+    if (confirm) {
       this.userService.delete(this.id).subscribe({
         next: () => {
-          console.log('Usuário deletado com sucesso!');
-          this.router.navigate(['/']);
+          this.router.navigate(['/inicio']);
         },
         error: (err) => {
-          this.errorMessage = 'Erro ao deletar o usuário.';
-          console.error(err);
+          this.router.navigate(['/usercustomer', this.id]);
         }
       });
     }

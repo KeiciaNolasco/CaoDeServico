@@ -14,6 +14,7 @@ import java.net.URI;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/condutores")
@@ -73,6 +74,38 @@ public class CondutorResource extends GenericResource<Condutor, Long> {
 			return ResponseEntity.created(uri).body(savedCondutor);
 		} catch (Exception e) {
 			throw new CustomException("Erro ao processar o condutor", e);
+		}
+	}
+
+	@PutMapping(value = "/update/{id}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+	public ResponseEntity<Condutor> update(
+			@PathVariable Long id,
+			@RequestParam("nome") String nome,
+			@RequestParam("nascimento") String nascimento,
+			@RequestParam("cpf") String cpf,
+			@RequestParam("contato") String contato,
+			@RequestParam("cid") String cid,
+			@RequestPart(value = "foto", required = false) MultipartFile foto) {
+		try {
+			Optional<Condutor> optionalCondutor = service.findById(id);
+			if (optionalCondutor.isEmpty()) {
+				return ResponseEntity.notFound().build();
+			}
+			Condutor condutor = optionalCondutor.get();
+			condutor.setNome(nome);
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			Date nascimentoDate = df.parse(nascimento);
+			condutor.setNascimento(nascimentoDate);
+			condutor.setCpf(Long.parseLong(cpf));
+			condutor.setContato(Long.parseLong(contato));
+			condutor.setCid(cid);
+			if (foto != null && !foto.isEmpty()) {
+				condutor.setFoto(foto.getBytes());
+			}
+			Condutor updatedCondutor = service.update(id, condutor);
+			return ResponseEntity.ok().body(updatedCondutor);
+		} catch (Exception e) {
+			throw new CustomException("Erro ao atualizar o condutor", e);
 		}
 	}
 

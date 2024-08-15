@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -8,13 +8,14 @@ import { OAuthService } from '../../../services/oauth.service';
 import { jwtDecode } from 'jwt-decode';
 import { CondutorService } from '../../../services/condutor.service';
 import { Condutor } from '../../../models/condutor';
+import { ModalCustomerComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-condutorcustomer',
   templateUrl: './condutor.component.html',
   styleUrls: ['./condutor.component.css'],
   standalone: true, 
-  imports: [CommonModule, RouterModule, FormsModule, NavbarCustomerComponent, FooterCustomerComponent], 
+  imports: [CommonModule, RouterModule, FormsModule, NavbarCustomerComponent, FooterCustomerComponent, ModalCustomerComponent], 
 })
 
 export class CondutorCustomerComponent implements OnInit {
@@ -22,6 +23,7 @@ export class CondutorCustomerComponent implements OnInit {
   condutor: Condutor | undefined; 
   errorMessage: string | null = null; 
   selectedFile!: File;
+  showModal: boolean = false; 
 
   constructor(
     private route: ActivatedRoute,
@@ -63,7 +65,6 @@ export class CondutorCustomerComponent implements OnInit {
           const formattedNascimento = new Date(condutor.nascimento).toISOString().split('T')[0];
           this.condutor = { ...condutor, nascimento: formattedNascimento };
         }
-  
         if (this.condutor) {
           if (this.condutor.foto) {
             if (typeof this.condutor.foto === 'string') {
@@ -90,15 +91,18 @@ export class CondutorCustomerComponent implements OnInit {
   }
   
   delete(): void {
-    if (this.condutor && confirm('Tem certeza que deseja deletar o Condutor?')) {
+    this.showModal = true;
+  }
+
+  onConfirmDelete(confirm: boolean): void {
+    this.showModal = false;
+    if (confirm) {
       this.condutorService.delete(this.id).subscribe({
         next: () => {
-          console.log('Condutor deletado com sucesso!');
-          this.router.navigate(['/']);
+          this.router.navigate(['/condutorcustomer', this.id]);
         },
         error: (err) => {
-          this.errorMessage = 'Erro ao deletar o condutor.';
-          console.error(err);
+          this.router.navigate(['/condutorcustomer', this.id]);
         }
       });
     }

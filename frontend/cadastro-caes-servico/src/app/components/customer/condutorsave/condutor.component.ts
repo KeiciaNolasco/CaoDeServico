@@ -57,24 +57,6 @@ export class CondutorSaveComponent implements OnInit {
         console.error('Erro ao decodificar o token JWT', error);
       }
     }
-    this.condutorService.findById(this.id).subscribe({
-      next: (condutor) => {
-        if (condutor.nascimento) {
-          const formattedNascimento = new Date(condutor.nascimento).toISOString().split('T')[0];
-          this.condutor = { ...condutor, nascimento: formattedNascimento };
-        }
-        if (condutor.foto) {
-          if (typeof condutor.foto === 'string') {
-            this.condutor.foto = condutor.foto;
-          } else {
-            this.condutor.foto = this.arrayBufferToBase64(new Uint8Array(condutor.foto));
-          }
-        }
-      },
-      error: (error) => {
-        console.error('Erro ao carregar o condutor:', error);
-      }
-    });
   }
 
   onFileSelected(event: any): void {
@@ -84,20 +66,17 @@ export class CondutorSaveComponent implements OnInit {
   save(): void {
     const formData: FormData = new FormData();
     formData.append('nome', this.condutor.nome);
-    
     const formattedNascimento = new Date(this.condutor.nascimento).toISOString().split('T')[0];
     formData.append('nascimento', formattedNascimento);
     formData.append('cpf', this.condutor.cpf);
     formData.append('contato', this.condutor.contato);
     formData.append('cid', this.condutor.cid);
-
     if (this.selectedFile) {
       formData.append('foto', this.selectedFile, this.selectedFile.name);
       console.log(`Foto a ser enviada: ${this.selectedFile.name}, Tamanho: ${this.selectedFile.size}`);
     } else {
       console.log("Nenhuma foto selecionada para envio.");
     }
-  
     this.condutorService.save(this.id, formData).subscribe({
       next: () => {
         this.successMessage = 'Condutor salvo com sucesso!';
@@ -115,15 +94,5 @@ export class CondutorSaveComponent implements OnInit {
 
   cancel(): void {
     this.router.navigate(['/condutorcustomer', this.id]);
-  }
-
-  private arrayBufferToBase64(buffer: Uint8Array): string {
-    let binary = '';
-    const bytes = new Uint8Array(buffer);
-    const len = bytes.byteLength;
-    for (let i = 0; i < len; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    return window.btoa(binary);
   }
 }
