@@ -113,9 +113,14 @@ export class UserCustomerComponent implements OnInit {
     if (confirm) {
       this.userService.delete(this.id).subscribe({
         next: () => {
+          if (this.condutor) {
+            this.condutorService.delete(this.id).subscribe({
+            });
+          }
           this.router.navigate(['/inicio']);
         },
         error: (err) => {
+          console.error('Erro ao deletar o usuário:', err);
           this.router.navigate(['/usercustomer', this.id]);
         }
       });

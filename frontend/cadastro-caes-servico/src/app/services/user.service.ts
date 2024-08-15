@@ -16,21 +16,19 @@ export class UserService {
     private oauthService: OAuthService
   ) {}
 
+  private getAuthHeaders(): HttpHeaders {
+    const token = this.oauthService.getToken();
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  }
+
   findAll(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl);
+    return this.http.get<User[]>(this.apiUrl, { headers: this.getAuthHeaders() });
   }
 
   findById(id: number): Observable<User> {
-    const token = this.oauthService.getToken();
-    if (token) {
-      const headers = new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      });
-      return this.http.get<User>(`${this.apiUrl}/findById/${id}`, { headers })
-    } else {
-      console.error('Token não encontrado!');
-      return new Observable<User>();
-    }
+    return this.http.get<User>(`${this.apiUrl}/findById/${id}`, { headers: this.getAuthHeaders() });
   }
 
   save(user: User): Observable<User> {
@@ -40,41 +38,14 @@ export class UserService {
   }
 
   update(id: number, user: User): Observable<User> {
-    const token = this.oauthService.getToken();
-    if (token) {
-      const headers = new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      });
-      return this.http.put<User>(`${this.apiUrl}/update/${id}`, user, { headers })
-    }else {
-      console.error('Token não encontrado!');
-      return new Observable<User>();
-    }
+    return this.http.put<User>(`${this.apiUrl}/update/${id}`, user, { headers: this.getAuthHeaders() });
   }
 
   delete(id: number): Observable<void> {
-    const token = this.oauthService.getToken();
-    if (token) {
-      const headers = new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      });
-      return this.http.delete<void>(`${this.apiUrl}/delete/${id}`, { headers })
-    }else {
-      console.error('Token não encontrado!');
-      return new Observable<void>();
-    }
+    return this.http.delete<void>(`${this.apiUrl}/delete/${id}`, { headers: this.getAuthHeaders() });
   }
 
   findByEmail(email: string): Observable<User> {
-    const token = this.oauthService.getToken();
-    if (token) {
-      const headers = new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      });
-      return this.http.get<User>(`${this.apiUrl}/email/${email}`, { headers })
-    } else {
-      console.error('Token não encontrado!');
-      return new Observable<User>();
-    }
+    return this.http.get<User>(`${this.apiUrl}/email/${email}`, { headers: this.getAuthHeaders() });
   }
 }

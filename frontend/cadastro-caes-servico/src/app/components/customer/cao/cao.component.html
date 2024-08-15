@@ -8,7 +8,7 @@
           <div class="profile-pic">
             <img [src]="condutor?.foto ? 'data:image/jpeg;base64,' + condutor?.foto : '/assets/images/perfil.png'" alt="Foto de perfil">
           </div>
-          <h2 class="username">{{ condutor?.nome || 'Nome do usuário' }}</h2>
+          <h2 class="username">{{ cao?.nome || 'Nome do usuário' }}</h2>
           <nav>
             <ul>
               <li>
@@ -43,23 +43,23 @@
           <br>
           <form>
             <label for="nome">Nome do Condutor</label>
-            <input type="text" id="nome" [value]="condutor?.nome || ''" readonly>
+            <input type="text" id="nome" [value]="cao?.nome || ''" readonly>
   
             <label for="nascimento">Data de Nascimento</label>
-            <input type="date" id="nascimento" [value]="condutor?.nascimento || ''" readonly>
+            <input type="date" id="nascimento" [value]="cao?.nascimento || ''" readonly>
   
-            <label for="cpf">CPF</label>
-            <input type="text" id="cpf" pattern="\d*" title="Apenas números são permitidos" [value]="condutor?.cpf || ''" readonly>
+            <label for="raca">Raça</label>
+            <input type="text" id="raca" [value]="cao?.raca || ''" readonly>
+
+            <label for="microchip">Microchip</label>
+            <input type="text" id="microchip" pattern="\d*" title="Apenas números são permitidos" [value]="cao?.microchip || ''" readonly>
   
-            <label for="contato">Contato</label>
-            <input type="text" id="contato" pattern="\d*" title="Apenas números são permitidos" [value]="condutor?.contato || ''" readonly>
+            <label for="categoria">Categoria</label>
+            <input id="text" name="categoria" [value]="cao?.categoria || ''" readonly>
   
-            <label for="cid">CID</label>
-            <input type="text" id="cid" [value]="condutor?.cid || ''" readonly>
-  
-            <label for="foto">Foto do Condutor</label>
+            <label for="foto">Foto do Cão de Serviço</label>
             <div class="profile-pic">
-              <img [src]="condutor?.foto ? 'data:image/jpeg;base64,' + condutor?.foto : '/assets/images/perfil.png'" alt="Foto de perfil">
+              <img [src]="cao?.foto ? 'data:image/jpeg;base64,' + cao?.foto : '/assets/images/perfilcao.png'" alt="Foto de perfil">
             </div>
           </form>
           <div class="button-group">
@@ -72,7 +72,7 @@
     <app-footercustomer></app-footercustomer>
     <div class="modal-overlay" *ngIf="showModal">
       <div class="modal">
-        <h2>Tem certeza que deseja deletar o Condutor?</h2>
+        <h2>Tem certeza que deseja deletar o Cão de Serviço?</h2>
         <div class="modal-buttons">
           <button class="modal-btn confirm-btn" (click)="onConfirmDelete(true)">SIM</button>
           <button class="modal-btn cancel-btn" (click)="onConfirmDelete(false)">NÃO</button>

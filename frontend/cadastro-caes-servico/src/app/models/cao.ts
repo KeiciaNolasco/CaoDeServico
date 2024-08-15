@@ -7,6 +7,6 @@ export interface Cao {
     raca: string; 
     microchip: string;
     categoria: Categoria | null;
-    foto: string | null;
+    foto: string | Uint8Array | null;
 }
 

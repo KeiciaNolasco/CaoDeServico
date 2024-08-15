@@ -2,7 +2,7 @@
   <div class="container">
     <div class="sidebar">
       <div class="profile-pic">
-        <img [src]="condutor?.foto || '/assets/images/perfil.png'" alt="Foto de perfil">
+        <img [src]="condutor?.foto ? 'data:image/jpeg;base64,' + condutor?.foto : '/assets/images/perfil.png'" alt="Foto de perfil">
       </div>
       <h2 class="username">{{ condutor?.nome || 'Nome do usuário' }}</h2>
       <nav>
@@ -17,19 +17,19 @@
             <button [routerLink]="['/condutorcustomer', id]">CONDUTOR</button>
           </li>
           <li>
-            <button [routerLink]="['/iniciocustomer', id]">CÃO DE SERVIÇO</button>
+            <button [routerLink]="['/caocustomer', id]">CÃO DE SERVIÇO</button>
           </li>
           <li>
-            <button [routerLink]="['/iniciocustomer', id]">ENDEREÇO</button>
+            <button [routerLink]="['/enderecocustomer', id]">ENDEREÇO</button>
           </li>
           <li>
-            <button [routerLink]="['/iniciocustomer', id]">ADESTRAMENTO</button>
+            <button [routerLink]="['/adestramentocustomer', id]">ADESTRAMENTO</button>
           </li>
           <li>
-            <button [routerLink]="['/iniciocustomer', id]">DOCUMENTAÇÃO</button>
+            <button [routerLink]="['/documentacaocustomer', id]">DOCUMENTAÇÃO</button>
           </li>
           <li>
-            <button [routerLink]="['/iniciocustomer', id]">CADASTRO</button>
+            <button [routerLink]="['/cadastrocustomer', id]">CADASTRO</button>
           </li>
         </ul>
       </nav>
