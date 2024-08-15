@@ -20,6 +20,8 @@ import { CondutorCustomerComponent } from './components/customer/condutor/condut
 import { CondutorSaveComponent } from './components/customer/condutorsave/condutor.component';
 import { CondutorUpdateComponent } from './components/customer/condutorupdate/condutor.component';
 import { CaoCustomerComponent } from './components/customer/cao/cao.component';
+import { CaoSaveComponent } from './components/customer/caosave/cao.component';
+import { CaoUpdateComponent } from './components/customer/caoupdate/cao.component';
 import { EnderecoComponent } from './components/public/endereco/endereco.component';
 import { AdestramentoComponent } from './components/public/adestramento/adestramento.component';
 import { DocumentacaoComponent } from './components/public/documentacao/documentacao.component';
@@ -49,6 +51,8 @@ export const appRoutes: Routes = [
   { path: 'condutorsave/:id', component: CondutorSaveComponent, canActivate: [Guard] },
   { path: 'condutorupdate/:id', component: CondutorUpdateComponent, canActivate: [Guard] },
   { path: 'caocustomer/:id', component: CaoCustomerComponent, canActivate: [Guard] },
+  { path: 'caosave/:id', component: CaoSaveComponent, canActivate: [Guard] },
+  { path: 'caoupdate/:id', component: CaoUpdateComponent, canActivate: [Guard] },
   { path: 'endereco/:id', component: EnderecoComponent, canActivate: [Guard] },
   { path: 'adestramento/:id', component: AdestramentoComponent, canActivate: [Guard] },
   { path: 'documentacao/:id', component: DocumentacaoComponent, canActivate: [Guard] },

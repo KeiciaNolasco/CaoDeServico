@@ -9,9 +9,11 @@ import { jwtDecode } from 'jwt-decode';
 import { UserService } from '../../../services/user.service';
 import { RoleService } from '../../../services/role.service';
 import { CondutorService } from '../../../services/condutor.service';
+import { CaoService } from '../../../services/cao.service';
 import { User } from '../../../models/user';
 import { Role } from '../../../models/role';
 import { Condutor } from '../../../models/condutor';
+import { Cao } from '../../../models/cao';
 import { ModalCustomerComponent } from '../modal/modal.component';
 
 @Component({
@@ -27,6 +29,7 @@ export class UserCustomerComponent implements OnInit {
   user: User | undefined;
   role: Role | undefined;
   condutor: Condutor | undefined; 
+  cao: Cao | undefined; 
   errorMessage: string | null = null; 
   showModal: boolean = false; 
 
@@ -34,6 +37,7 @@ export class UserCustomerComponent implements OnInit {
     private userService: UserService,
     private roleService: RoleService,
     private condutorService: CondutorService,
+    private caoService: CaoService,
     private authService: OAuthService,
     private router: Router,
     private route: ActivatedRoute,
@@ -66,9 +70,22 @@ export class UserCustomerComponent implements OnInit {
     this.condutorService.findById(this.id).subscribe({
       next: (condutor: Condutor) => {
         this.condutor = condutor;
+        this.loadCao();
       },
       error: (err) => {
         this.errorMessage = 'Erro ao buscar o condutor.';
+        console.error(err);
+      }
+    });
+  }
+
+  loadCao(): void {
+    this.caoService.findById(this.id).subscribe({
+      next: (cao: Cao) => {
+        this.cao= cao;
+      },
+      error: (err) => {
+        this.errorMessage = 'Erro ao buscar o cão de serviço.';
         console.error(err);
       }
     });
@@ -113,8 +130,12 @@ export class UserCustomerComponent implements OnInit {
     if (confirm) {
       this.userService.delete(this.id).subscribe({
         next: () => {
-          if (this.condutor) {
+          if (this.condutor !== null) {
             this.condutorService.delete(this.id).subscribe({
+            });
+          }
+          if (this.cao !== null) {
+            this.caoService.delete(this.id).subscribe({
             });
           }
           this.router.navigate(['/inicio']);

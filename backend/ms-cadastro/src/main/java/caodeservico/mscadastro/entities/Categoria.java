@@ -39,6 +39,15 @@ public enum Categoria {
 		this.descricao = descricao;
 	}
 
+    public static Categoria fromDescricao(String descricao) {
+		for (Categoria categoria : Categoria.values()) {
+			if (categoria.getDescricao().equalsIgnoreCase(descricao.trim())) {
+				return categoria;
+			}
+		}
+		throw new IllegalArgumentException("Categoria desconhecida: " + descricao);
+	}
+
 	public static class CategoriaSerializer extends JsonSerializer<Categoria> {
 		@Override
 		public void serialize(Categoria categoria, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
@@ -49,13 +58,8 @@ public enum Categoria {
 	public static class CategoriaDeserializer extends JsonDeserializer<Categoria> {
 		@Override
 		public Categoria deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
-			String descricao = jsonParser.getText();
-			for (Categoria categoria : Categoria.values()) {
-				if (categoria.getDescricao().equals(descricao)) {
-					return categoria;
-				}
-			}
-			throw new IllegalArgumentException("Unknown value: " + descricao);
+			String descricao = jsonParser.getText().trim();
+			return Categoria.fromDescricao(descricao);
 		}
 	}
 
@@ -74,14 +78,7 @@ public enum Categoria {
 			if (descricao == null) {
 				return null;
 			}
-
-			for (Categoria categoria : Categoria.values()) {
-				if (categoria.getDescricao().equals(descricao)) {
-					return categoria;
-				}
-			}
-
-			throw new IllegalArgumentException("Unknown value: " + descricao);
+			return Categoria.fromDescricao(descricao);
 		}
 	}
 

@@ -47,16 +47,6 @@ public class CondutorResource extends GenericResource<Condutor, Long> {
 			@RequestParam("cid") String cid,
 			@RequestPart(value = "foto", required = false) MultipartFile foto) {
 		try {
-			System.out.println("Nome: " + nome);
-			System.out.println("Nascimento: " + nascimento);
-			System.out.println("CPF: " + cpf);
-			System.out.println("Contato: " + contato);
-			System.out.println("CID: " + cid);
-			if (foto != null) {
-				System.out.println("Foto recebida: " + foto.getOriginalFilename() + " Tamanho: " + foto.getSize());
-			} else {
-				System.out.println("Nenhuma foto recebida");
-			}
 			Condutor condutor = new Condutor();
 			condutor.setNome(nome);
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");

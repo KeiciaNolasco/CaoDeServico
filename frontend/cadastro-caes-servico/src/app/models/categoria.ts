@@ -11,6 +11,6 @@ export enum Categoria {
     CAO_DE_RESPOSTA_MEDICO_PARA_EPILEPSIA_OU_CONVULSAO = 'Cão de Resposta Médico para Epilepsia ou Convulsão',
     CAO_DE_SERVICO_EMOCIONAL = 'Cão de Serviço Emocional',
     CAO_DE_SERVICO_DE_MOBILIDADE = 'Cão de Serviço de Mobilidade',
-    CAO_DE_SERVICO_MULTIFUNCAO = 'Cão de Serviço Multifunção',
-    CAO_DE_SERVICO_PSIQUIATRICO = 'Cão de Serviço Psiquiátrico',
+	CAO_DE_SERVICO_MULTIFUNCAO = 'Cão de Serviço Multifunção',
+    CAO_DE_SERVICO_PSIQUIATRICO = 'Cão de Serviço Psiquiátrico'
 }
