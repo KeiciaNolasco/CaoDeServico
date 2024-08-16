@@ -1,7 +1,5 @@
 package caodeservico.mscadastro.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,7 +28,6 @@ public class CaoDeServico implements Serializable {
 	private String nome;
 
 	@Column(nullable = false)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private Date nascimento;
 
 	@Column(nullable = false)

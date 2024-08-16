@@ -1,53 +1,60 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NavbarCustomerComponent } from '../navbar/navbar.component'; 
 import { FooterCustomerComponent } from '../footer/footer.component';
 import { OAuthService } from '../../../services/oauth.service';
 import { jwtDecode } from 'jwt-decode';
-import { UserService } from '../../../services/user.service';
+import { EnderecoService } from '../../../services/endereco.service';
 import { CondutorService } from '../../../services/condutor.service';
-import { User } from '../../../models/user';
+import { Endereco } from '../../../models/endereco';
 import { Condutor } from '../../../models/condutor';
 
 @Component({
-  selector: 'app-userupdate',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css'],
+  selector: 'app-enderecoupdate',
+  templateUrl: './endereco.component.html',
+  styleUrls: ['./endereco.component.css'],
   standalone: true, 
   imports: [CommonModule, RouterModule, FormsModule, NavbarCustomerComponent, FooterCustomerComponent], 
 })
 
-export class UserUpdateComponent implements OnInit {
+export class EnderecoUpdateComponent implements OnInit {
   id!: number;
-  user: User = { 
-    email: '', 
-    senha: '' 
-  }; 
+  endereco: Endereco = {
+    pais: '',
+    estado: '',
+    cep: '',
+    cidade: '',
+    bairro: '',
+    rua: '',
+    numero: '',
+    complemento: ''
+  }
   condutor: Condutor | undefined; 
   errorMessage: string | null = null; 
+  selectedFile!: File;
 
   constructor(
-    private userService: UserService,
-    private condutorService: CondutorService,
-    private authService: OAuthService,
-    private router: Router,
     private route: ActivatedRoute,
+    private router: Router,
+    private enderecoService: EnderecoService,
+    private condutorService: CondutorService,
+    private authService: OAuthService
   ) {}
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     if (this.authService.isAuthenticated()) {
-      this.loadUserUpdate();
+      this.loadEnderecoUpdate();
       this.loadCondutor();
     } else {
-      console.error('Usuário não autenticado!');
+      console.error('Endereço não autenticado!');
       this.router.navigate(['/oauth']);
     }
   }
 
-  loadUserUpdate(): void {
+  loadEnderecoUpdate(): void {
     const token = this.authService.getToken();
     if (token) {
       try {
@@ -72,35 +79,35 @@ export class UserUpdateComponent implements OnInit {
   }
 
   findById(id: number): void {
-    this.userService.findById(this.id).subscribe({
-      next: (user : User) => {
-        this.user = user
+    this.enderecoService.findById(this.id).subscribe({
+      next: (endereco : Endereco) => {
+        this.endereco = endereco
       },
       error: (err) => {
-        this.errorMessage = 'Erro ao buscar o usuário.';
+        this.errorMessage = 'Erro ao buscar o endereço.';
         console.error(err);
       }
     });
   }
 
   update(): void {
-    if (this.user) {
-      this.userService.update(this.id, this.user).subscribe({
+    if (this.endereco) {
+      this.enderecoService.update(this.id, this.endereco).subscribe({
         next: () => {
-          console.log('Usuário atualizado com sucesso!');
-          this.router.navigate(['/usercustomer', this.id]);
+          console.log('Endereço atualizado com sucesso!');
+          this.router.navigate(['/enderecocustomer', this.id]);
         },
         error: (err) => {
-          this.errorMessage = 'Erro ao atualizar o usuário.';
+          this.errorMessage = 'Erro ao atualizar o endereço.';
           console.error(err);
         }
       });
     } else {
-      this.errorMessage = 'Usuário não encontrado.';
+      this.errorMessage = 'Endereço não encontrado.';
     }
   }
 
   cancel(): void {
-    this.router.navigate(['/usercustomer', this.id]);
-  }
+    this.router.navigate(['/enderecocustomer', this.id]);
+  } 
 }

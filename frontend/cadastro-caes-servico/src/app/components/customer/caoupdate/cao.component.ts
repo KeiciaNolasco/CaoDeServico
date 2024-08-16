@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -11,14 +11,13 @@ import { CondutorService } from '../../../services/condutor.service';
 import { Cao } from '../../../models/cao';
 import { Categoria } from '../../../models/categoria';
 import { Condutor } from '../../../models/condutor';
-import { ModalCustomerComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-caoupdate',
   templateUrl: './cao.component.html',
   styleUrls: ['./cao.component.css'],
   standalone: true, 
-  imports: [CommonModule, RouterModule, FormsModule, NavbarCustomerComponent, FooterCustomerComponent, ModalCustomerComponent], 
+  imports: [CommonModule, RouterModule, FormsModule, NavbarCustomerComponent, FooterCustomerComponent], 
 })
 
 export class CaoUpdateComponent implements OnInit {
@@ -33,7 +32,6 @@ export class CaoUpdateComponent implements OnInit {
   }
   categorias = Object.values(Categoria);
   condutor: Condutor | undefined; 
-  successMessage: string = '';
   errorMessage: string | null = null; 
   selectedFile!: File;
 
@@ -51,7 +49,7 @@ export class CaoUpdateComponent implements OnInit {
       this.loadCaoUpdate();
       this.loadCondutor();
     } else {
-      console.error('Usuário não autenticado!');
+      console.error('Cão de Serviço não autenticado!');
       this.router.navigate(['/oauth']);
     }
   }
@@ -129,12 +127,9 @@ export class CaoUpdateComponent implements OnInit {
       this.caoService.update(this.id, formData).subscribe({
         next: () => {
           console.log('Cão de Serviço atualizado com sucesso!');
-          setTimeout(() => {
-            this.router.navigate(['/caocustomer', this.id]);
-          }, 2000);
+          this.router.navigate(['/caocustomer', this.id]);
         },
         error: (err) => {
-          this.errorMessage = 'Erro ao atualizar o cão de serviço.';
           console.error("Erro ao atualizar o cão de serviço:", err);
         }
       });

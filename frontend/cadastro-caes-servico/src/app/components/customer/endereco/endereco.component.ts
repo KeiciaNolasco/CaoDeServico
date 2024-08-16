@@ -6,20 +6,23 @@ import { NavbarCustomerComponent } from '../navbar/navbar.component';
 import { FooterCustomerComponent } from '../footer/footer.component';
 import { OAuthService } from '../../../services/oauth.service';
 import { jwtDecode } from 'jwt-decode';
+import { EnderecoService } from '../../../services/endereco.service';
 import { CondutorService } from '../../../services/condutor.service';
 import { Condutor } from '../../../models/condutor';
 import { ModalCustomerComponent } from '../modal/modal.component';
+import { Endereco } from '../../../models/endereco';
 
 @Component({
-  selector: 'app-condutorcustomer',
-  templateUrl: './condutor.component.html',
-  styleUrls: ['./condutor.component.css'],
+  selector: 'app-enderecocustomer',
+  templateUrl: './endereco.component.html',
+  styleUrls: ['./endereco.component.css'],
   standalone: true, 
   imports: [CommonModule, RouterModule, FormsModule, NavbarCustomerComponent, FooterCustomerComponent, ModalCustomerComponent], 
 })
 
-export class CondutorCustomerComponent implements OnInit {
+export class EnderecoCustomerComponent implements OnInit {
   id!: number;
+  endereco: Endereco | undefined; 
   condutor: Condutor | undefined; 
   errorMessage: string | null = null; 
   selectedFile!: File;
@@ -28,6 +31,7 @@ export class CondutorCustomerComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private enderecoService: EnderecoService,
     private condutorService: CondutorService,
     private authService: OAuthService
   ) {}
@@ -35,14 +39,15 @@ export class CondutorCustomerComponent implements OnInit {
   ngOnInit(): void {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     if (this.authService.isAuthenticated()) {
+      this.loadEndereco();
       this.loadCondutor();
     } else {
-      console.error('Condutor não autenticado!');
+      console.error('Endereço não autenticado!');
       this.router.navigate(['/oauth']);
     }
   }
 
-  loadCondutor(): void {
+  loadEndereco(): void {
     const token = this.authService.getToken();
     if (token) {
       try {
@@ -54,39 +59,40 @@ export class CondutorCustomerComponent implements OnInit {
     }
   }
 
+  loadCondutor(): void {
+    this.condutorService.findById(this.id).subscribe({
+      next: (condutor: Condutor) => {
+        this.condutor = condutor;
+      },
+      error: (err) => {
+        this.errorMessage = 'Erro ao buscar o condutor.';
+        console.error(err);
+      }
+    });
+  }
+
   onFileSelected(event: any): void {
     this.selectedFile = event.target.files[0];
   }
 
   findById(id: number): void {
-    this.condutorService.findById(this.id).subscribe({
-      next: (condutor) => {
-        if (condutor.nascimento) {
-          const formattedNascimento = new Date(condutor.nascimento).toISOString().split('T')[0];
-          this.condutor = { ...condutor, nascimento: formattedNascimento };
-        }
-        if (this.condutor) {
-          if (this.condutor.foto) {
-            if (typeof this.condutor.foto === 'string') {
-              this.condutor.foto = condutor.foto;
-            } else if (this.condutor.foto instanceof ArrayBuffer) {
-              this.condutor.foto = this.arrayBufferToBase64(new Uint8Array(this.condutor.foto));
-            }
-          }
-        }
+    this.enderecoService.findById(this.id).subscribe({
+      next: (endereco: Endereco) => {
+        this.endereco= endereco;
       },
-      error: (error) => {
-        console.error('Erro ao carregar o condutor:', error);
+      error: (err) => {
+        this.errorMessage = 'Erro ao buscar o endereço.';
+        console.error(err);
       }
     });
   }  
 
   update(): void {
-    if (this.condutor) {
-      this.router.navigate(['/condutorupdate', this.id]);
+    if (this.endereco) {
+      this.router.navigate(['/enderecoupdate', this.id]);
     } else {
-      this.errorMessage = 'Condutor não encontrado para editar.';
-      this.router.navigate(['/condutorsave', this.id]);
+      this.errorMessage = 'Endereço não encontrado para editar.';
+      this.router.navigate(['/enderecosave', this.id]);
     }
   }
   
@@ -97,24 +103,14 @@ export class CondutorCustomerComponent implements OnInit {
   onConfirmDelete(confirm: boolean): void {
     this.showModal = false;
     if (confirm) {
-      this.condutorService.delete(this.id).subscribe({
+      this.enderecoService.delete(this.id).subscribe({
         next: () => {
-          this.router.navigate(['/condutorcustomer', this.id]);
+          this.router.navigate(['/enderecocustomer', this.id]);
         },
         error: (err) => {
-          this.router.navigate(['/condutorcustomer', this.id]);
+          this.router.navigate(['/enderecocustomer', this.id]);
         }
       });
     }
-  }
-
-  private arrayBufferToBase64(buffer: Uint8Array): string {
-    let binary = '';
-    const bytes = new Uint8Array(buffer);
-    const len = bytes.byteLength;
-    for (let i = 0; i < len; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    return window.btoa(binary);
   }
 }

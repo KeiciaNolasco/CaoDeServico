@@ -11,14 +11,13 @@ import { CondutorService } from '../../../services/condutor.service';
 import { Cao } from '../../../models/cao';
 import { Categoria } from '../../../models/categoria';
 import { Condutor } from '../../../models/condutor';
-import { ModalCustomerComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-caosave',
   templateUrl: './cao.component.html',
   styleUrls: ['./cao.component.css'],
   standalone: true, 
-  imports: [CommonModule, RouterModule, FormsModule, NavbarCustomerComponent, FooterCustomerComponent, ModalCustomerComponent], 
+  imports: [CommonModule, RouterModule, FormsModule, NavbarCustomerComponent, FooterCustomerComponent], 
 })
 
 export class CaoSaveComponent implements OnInit {
@@ -33,7 +32,6 @@ export class CaoSaveComponent implements OnInit {
   }
   categorias = Object.values(Categoria);
   condutor: Condutor | undefined; 
-  successMessage: string = '';
   errorMessage: string | null = null; 
   selectedFile!: File;
 
@@ -42,7 +40,7 @@ export class CaoSaveComponent implements OnInit {
     private router: Router,
     private caoService: CaoService,
     private condutorService: CondutorService,
-    private authService: OAuthService
+    private authService: OAuthService,
   ) {}
 
   ngOnInit(): void {
@@ -51,7 +49,7 @@ export class CaoSaveComponent implements OnInit {
       this.loadCaoSave();
       this.loadCondutor();
     } else {
-      console.error('Usuário não autenticado!');
+      console.error('Cão de Serviço não autenticado!');
       this.router.navigate(['/oauth']);
     }
   }
@@ -103,14 +101,10 @@ export class CaoSaveComponent implements OnInit {
     }
     this.caoService.save(this.id, formData).subscribe({
       next: () => {
-        this.successMessage = 'Cão de Serviço salvo com sucesso!';
         console.log("Cão de Serviço salvo com sucesso.");
-        setTimeout(() => {
-          this.router.navigate(['/caocustomer', this.id]);
-        }, 2000);
+        this.router.navigate(['/caocustomer', this.id]);
       },
       error: (err) => {
-        this.errorMessage = 'Erro ao salvar o cão de serviço.';
         console.error("Erro ao salvar o cão de serviço:", err);
       }
     });

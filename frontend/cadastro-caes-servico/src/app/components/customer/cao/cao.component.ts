@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -35,7 +35,7 @@ export class CaoCustomerComponent implements OnInit {
     private router: Router,
     private caoService: CaoService,
     private condutorService: CondutorService,
-    private authService: OAuthService
+    private authService: OAuthService,
   ) {}
 
   ngOnInit(): void {
@@ -44,7 +44,7 @@ export class CaoCustomerComponent implements OnInit {
       this.loadCao();
       this.loadCondutor();
     } else {
-      console.error('Usuário não autenticado!');
+      console.error('Cão de Serviço não autenticado!');
       this.router.navigate(['/oauth']);
     }
   }

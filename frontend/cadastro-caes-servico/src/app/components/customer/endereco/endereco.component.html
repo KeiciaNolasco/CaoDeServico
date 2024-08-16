@@ -39,28 +39,32 @@
           </nav>
         </div>
         <div class="user-details">
-          <h2>DADOS DO CÃO DE SERVIÇO</h2>
+          <h2>DADOS DO ENDEREÇO</h2>
           <br>
           <form>
-            <label for="nome">Nome do Cão de Serviço</label>
-            <input type="text" id="nome" [value]="cao?.nome || ''" readonly>
+            <label for="pais">País</label>
+            <input type="text" id="pais" [value]="endereco?.pais || ''" readonly>
   
-            <label for="nascimento">Data de Nascimento</label>
-            <input type="date" id="nascimento" [value]="cao?.nascimento || ''" readonly>
+            <label for="estado">Estado</label>
+            <input type="text" id="estado" [value]="endereco?.estado || ''" readonly>
   
-            <label for="raca">Raça</label>
-            <input type="text" id="raca" [value]="cao?.raca || ''" readonly>
+            <label for="cep">CEP</label>
+            <input type="text" id="cep" pattern="\d*" title="Apenas números são permitidos" [value]="endereco?.cep || ''" readonly>
 
-            <label for="microchip">Microchip</label>
-            <input type="text" id="microchip" pattern="\d*" title="Apenas números são permitidos" [value]="cao?.microchip || ''" readonly>
+            <label for="cidade">Cidade</label>
+            <input type="text" id="cidade" [value]="endereco?.cidade || ''" readonly>
   
-            <label for="categoria">Categoria</label>
-            <input id="text" name="categoria" [value]="cao?.categoria || ''" readonly>
+            <label for="bairro">Bairro</label>
+            <input id="text" name="bairro" [value]="endereco?.bairro || ''" readonly>
+
+            <label for="rua">Rua</label>
+            <input id="text" name="rua" [value]="endereco?.rua || ''" readonly>
   
-            <label for="foto">Foto do Cão de Serviço</label>
-            <div class="profile-pic">
-              <img [src]="cao?.foto ? 'data:image/jpeg;base64,' + cao?.foto : '/assets/images/perfilcao.png'" alt="Foto de perfil">
-            </div>
+            <label for="numero">Número</label>
+            <input type="text" id="numero" pattern="\d*" title="Apenas números são permitidos" [value]="endereco?.numero || ''" readonly>
+  
+            <label for="complemento">Complemento</label>
+            <input id="text" name="complemento" [value]="endereco?.complemento || ''" readonly>
           </form>
           <div class="button-group">
             <button type="button" (click)="update()" class="btn-edit">Editar</button>
@@ -72,7 +76,7 @@
     <app-footercustomer></app-footercustomer>
     <div class="modal-overlay" *ngIf="showModal">
       <div class="modal">
-        <h2>Tem certeza que deseja deletar o Cão de Serviço?</h2>
+        <h2>Tem certeza que deseja deletar o Endereço?</h2>
         <div class="modal-buttons">
           <button class="modal-btn confirm-btn" (click)="onConfirmDelete(true)">SIM</button>
           <button class="modal-btn cancel-btn" (click)="onConfirmDelete(false)">NÃO</button>

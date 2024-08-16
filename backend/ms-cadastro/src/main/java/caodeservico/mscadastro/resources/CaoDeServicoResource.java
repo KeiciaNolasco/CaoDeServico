@@ -2,6 +2,7 @@ package caodeservico.mscadastro.resources;
 
 import caodeservico.mscadastro.entities.CaoDeServico;
 import caodeservico.mscadastro.entities.Categoria;
+import caodeservico.mscadastro.entities.Condutor;
 import caodeservico.mscadastro.exceptions.CustomException;
 import caodeservico.mscadastro.services.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,7 @@ public class CaoDeServicoResource extends GenericResource<CaoDeServico, Long> {
 			caoDeServico.setNascimento(nascimentoDate);
 			caoDeServico.setRaca(raca);
 			caoDeServico.setMicrochip(Long.parseLong(microchip));
-			caoDeServico.setCategoria(Categoria.fromDescricao(categoria)); // Atualizado para usar fromDescricao
+			caoDeServico.setCategoria(Categoria.fromDescricao(categoria));
 			if (foto != null && !foto.isEmpty()) {
 				caoDeServico.setFoto(foto.getBytes());
 			}
@@ -89,7 +90,7 @@ public class CaoDeServicoResource extends GenericResource<CaoDeServico, Long> {
 			caoDeServico.setNascimento(nascimentoDate);
 			caoDeServico.setRaca(raca);
 			caoDeServico.setMicrochip(Long.parseLong(microchip));
-			caoDeServico.setCategoria(Categoria.fromDescricao(categoria)); // Atualizado para usar fromDescricao
+			caoDeServico.setCategoria(Categoria.fromDescricao(categoria));
 			if (foto != null && !foto.isEmpty()) {
 				caoDeServico.setFoto(foto.getBytes());
 			}

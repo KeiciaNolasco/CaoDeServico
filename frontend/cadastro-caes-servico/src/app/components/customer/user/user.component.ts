@@ -10,10 +10,12 @@ import { UserService } from '../../../services/user.service';
 import { RoleService } from '../../../services/role.service';
 import { CondutorService } from '../../../services/condutor.service';
 import { CaoService } from '../../../services/cao.service';
+import { EnderecoService } from '../../../services/endereco.service';
 import { User } from '../../../models/user';
 import { Role } from '../../../models/role';
 import { Condutor } from '../../../models/condutor';
 import { Cao } from '../../../models/cao';
+import { Endereco } from '../../../models/endereco';
 import { ModalCustomerComponent } from '../modal/modal.component';
 
 @Component({
@@ -30,6 +32,7 @@ export class UserCustomerComponent implements OnInit {
   role: Role | undefined;
   condutor: Condutor | undefined; 
   cao: Cao | undefined; 
+  endereco: Endereco | undefined; 
   errorMessage: string | null = null; 
   showModal: boolean = false; 
 
@@ -38,6 +41,7 @@ export class UserCustomerComponent implements OnInit {
     private roleService: RoleService,
     private condutorService: CondutorService,
     private caoService: CaoService,
+    private enderecoService: EnderecoService,
     private authService: OAuthService,
     private router: Router,
     private route: ActivatedRoute,
@@ -48,6 +52,8 @@ export class UserCustomerComponent implements OnInit {
     if (this.authService.isAuthenticated()) {
       this.loadUser();
       this.loadCondutor();
+      this.loadCao();
+      this.loadEndereco();
     } else {
       console.error('Usuário não autenticado!');
       this.router.navigate(['/oauth']);
@@ -70,7 +76,6 @@ export class UserCustomerComponent implements OnInit {
     this.condutorService.findById(this.id).subscribe({
       next: (condutor: Condutor) => {
         this.condutor = condutor;
-        this.loadCao();
       },
       error: (err) => {
         this.errorMessage = 'Erro ao buscar o condutor.';
@@ -86,6 +91,18 @@ export class UserCustomerComponent implements OnInit {
       },
       error: (err) => {
         this.errorMessage = 'Erro ao buscar o cão de serviço.';
+        console.error(err);
+      }
+    });
+  }
+
+  loadEndereco(): void {
+    this.enderecoService.findById(this.id).subscribe({
+      next: (endereco: Endereco) => {
+        this.endereco= endereco;
+      },
+      error: (err) => {
+        this.errorMessage = 'Erro ao buscar o endereço.';
         console.error(err);
       }
     });
@@ -136,6 +153,10 @@ export class UserCustomerComponent implements OnInit {
           }
           if (this.cao !== null) {
             this.caoService.delete(this.id).subscribe({
+            });
+          }
+          if (this.endereco !== null) {
+            this.enderecoService.delete(this.id).subscribe({
             });
           }
           this.router.navigate(['/inicio']);

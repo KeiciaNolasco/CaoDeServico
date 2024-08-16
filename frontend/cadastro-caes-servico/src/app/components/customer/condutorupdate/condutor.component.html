@@ -60,9 +60,6 @@
             <label for="foto">Foto do Condutor</label>
             <input type="file" id="foto" name="foto" accept="image/*" (change)="onFileSelected($event)" required>
           </form>
-          <div *ngIf="successMessage" class="success-message">
-            {{ successMessage }}
-          </div>
           <div class="button-group">
             <button type="button" (click)="update()" class="btn-edit">Salvar</button>
             <button type="button" (click)="cancel()" class="btn-delete">Cancelar</button>

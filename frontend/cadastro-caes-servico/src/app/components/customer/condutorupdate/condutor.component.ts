@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -29,7 +29,6 @@ export class CondutorUpdateComponent implements OnInit {
   }
   selectedFile!: File;
   errorMessage: string | null = null; 
-  successMessage: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -43,7 +42,7 @@ export class CondutorUpdateComponent implements OnInit {
     if (this.authService.isAuthenticated()) {
       this.loadCondutorUpdate();
     } else {
-      console.error('Usuário não autenticado!');
+      console.error('Condutor não autenticado!');
       this.router.navigate(['/oauth']);
     }
   }
@@ -105,12 +104,9 @@ export class CondutorUpdateComponent implements OnInit {
       this.condutorService.update(this.id, formData).subscribe({
         next: () => {
           console.log('Condutor atualizado com sucesso!');
-          setTimeout(() => {
-            this.router.navigate(['/condutorcustomer', this.id]);
-          }, 2000);
+          this.router.navigate(['/condutorcustomer', this.id]);
         },
         error: (err) => {
-          this.errorMessage = 'Erro ao atualizar o condutor.';
           console.error("Erro ao atualizar o condutor:", err);
         }
       });

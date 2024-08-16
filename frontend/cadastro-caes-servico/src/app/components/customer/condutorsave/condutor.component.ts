@@ -29,7 +29,6 @@ export class CondutorSaveComponent implements OnInit {
   }
   selectedFile!: File;
   errorMessage: string | null = null; 
-  successMessage: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -43,7 +42,7 @@ export class CondutorSaveComponent implements OnInit {
     if (this.authService.isAuthenticated()) {
       this.loadCondutorSave();
     } else {
-      console.error('Usuário não autenticado!');
+      console.error('Condutor não autenticado!');
       this.router.navigate(['/oauth']);
     }
   }
@@ -79,11 +78,8 @@ export class CondutorSaveComponent implements OnInit {
     }
     this.condutorService.save(this.id, formData).subscribe({
       next: () => {
-        this.successMessage = 'Condutor salvo com sucesso!';
         console.log("Condutor salvo com sucesso.");
-        setTimeout(() => {
-          this.router.navigate(['/condutorcustomer', this.id]);
-        }, 2000);
+        this.router.navigate(['/condutorcustomer', this.id]);
       },
       error: (err) => {
         this.errorMessage = 'Erro ao salvar o condutor.';

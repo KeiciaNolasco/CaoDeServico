@@ -32,7 +32,7 @@ export class PerfilComponent implements OnInit {
       this.loadPerfil();
       this.loadCondutor();
     } else {
-      console.error('Usuário não autenticado!');
+      console.error('Perfil não autenticado!');
     }
   }
 
