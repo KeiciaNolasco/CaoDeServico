@@ -39,32 +39,23 @@
           </nav>
         </div>
         <div class="user-details">
-          <h2>DADOS DO ENDEREÇO</h2>
+          <h2>DADOS DO ADESTRAMENTO</h2>
           <br>
-          <form>
-            <label for="pais">País</label>
-            <input type="text" id="pais" [value]="endereco?.pais || ''" readonly>
+          <form>   
+            <label for="adestrador">Nome do Adestrador</label>
+            <input type="text" id="adestrador" [value]="adestramento?.adestrador || ''" readonly>
   
-            <label for="estado">Estado</label>
-            <input type="text" id="estado" [value]="endereco?.estado || ''" readonly>
+            <label for="cpf">CPF do Adestrador</label>
+            <input type="text" id="cpf" pattern="\d*" title="Apenas números são permitidos" [value]="adestramento?.cpf || ''" readonly>
   
-            <label for="cep">CEP</label>
-            <input type="text" id="cep" pattern="\d*" title="Apenas números são permitidos" [value]="endereco?.cep || ''" readonly>
+            <label for="instituicao">Nome da Instituição de Adestramento</label>
+            <input type="text" id="instituicao" [value]="adestramento?.instituicao || ''" readonly>
 
-            <label for="cidade">Cidade</label>
-            <input type="text" id="cidade" [value]="endereco?.cidade || ''" readonly>
+            <label for="cnpj">CNPJ da Instituição de Adestramento</label>
+            <input type="text" id="cnpj" pattern="\d*" title="Apenas números são permitidos" [value]="adestramento?.cnpj || ''" readonly>
   
-            <label for="bairro">Bairro</label>
-            <input id="text" name="bairro" [value]="endereco?.bairro || ''" readonly>
-
-            <label for="rua">Rua</label>
-            <input id="text" name="rua" [value]="endereco?.rua || ''" readonly>
-  
-            <label for="numero">Número</label>
-            <input type="text" id="numero" pattern="\d*" title="Apenas números são permitidos" [value]="endereco?.numero || ''" readonly>
-  
-            <label for="complemento">Complemento</label>
-            <input type="text" id="complemento" [value]="endereco?.complemento || ''" readonly>
+            <label for="tempo">Tempo de Adestramento</label>
+            <input type="text" id="tempo" [value]="adestramento?.tempo || ''" readonly>
           </form>
           <div class="button-group">
             <button type="button" (click)="update()" class="btn-edit">Editar</button>
@@ -76,7 +67,7 @@
     <app-footercustomer></app-footercustomer>
     <div class="modal-overlay" *ngIf="showModal">
       <div class="modal">
-        <h2>Tem certeza que deseja deletar o Endereço?</h2>
+        <h2>Tem certeza que deseja deletar o Adestramento?</h2>
         <div class="modal-buttons">
           <button class="modal-btn confirm-btn" (click)="onConfirmDelete(true)">SIM</button>
           <button class="modal-btn cancel-btn" (click)="onConfirmDelete(false)">NÃO</button>

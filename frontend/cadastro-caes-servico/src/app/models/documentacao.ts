@@ -1,14 +1,16 @@
+import { SafeResourceUrl } from '@angular/platform-browser';
+
 export interface Documentacao {
     id?: number; 
-    cartaTreinamento: string | null;
+    cartaTreinamento: string | Uint8Array | SafeResourceUrl | null;
     validadeCartaTreinamento: string;
-    carteiraVacina: string | null;
+    carteiraVacina: string | Uint8Array | SafeResourceUrl | null;
     validadeCarteiraVacina: string;
-    certificadoAdestramento: string | null;
+    certificadoAdestramento: string | Uint8Array | SafeResourceUrl | null;
     validadeCertificadoAdestramento: string;
-    laudoMedico: string | null;
+    laudoMedico: string | Uint8Array | SafeResourceUrl | null;
     validadeLaudoMedico: string;
-    laudoVeterinario: string | null;
+    laudoVeterinario: string | Uint8Array | SafeResourceUrl | null;
     validadeLaudoVeterinario: string;
-    provaAdestramento: string | null;
+    provaAdestramento: string | Uint8Array | SafeResourceUrl | null;
 }

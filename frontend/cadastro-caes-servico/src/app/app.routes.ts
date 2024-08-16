@@ -25,8 +25,12 @@ import { CaoUpdateComponent } from './components/customer/caoupdate/cao.componen
 import { EnderecoCustomerComponent } from './components/customer/endereco/endereco.component';
 import { EnderecoSaveComponent } from './components/customer/enderecosave/endereco.component';
 import { EnderecoUpdateComponent } from './components/customer/enderecoupdate/endereco.component';
-import { AdestramentoComponent } from './components/public/adestramento/adestramento.component';
-import { DocumentacaoComponent } from './components/public/documentacao/documentacao.component';
+import { AdestramentoCustomerComponent } from './components/customer/adestramento/adestramento.component';
+import { AdestramentoSaveComponent } from './components/customer/adestramentosave/adestramento.component';
+import { AdestramentoUpdateComponent } from './components/customer/adestramentoupdate/adestramento.component';
+import { DocumentacaoCustomerComponent } from './components/customer/documentacao/documentacao.component';
+import { DocumentacaoSaveComponent } from './components/customer/documentacaosave/documentacao.component';
+import { DocumentacaoUpdateComponent } from './components/customer/documentacaoupdate/documentacao.component';
 import { CadastroComponent } from './components/public/cadastro/cadastro.component';
 import { ModalCustomerComponent } from './components/customer/modal/modal.component';
 import { Guard } from './services/guard.service';
@@ -58,8 +62,12 @@ export const appRoutes: Routes = [
   { path: 'enderecocustomer/:id', component: EnderecoCustomerComponent, canActivate: [Guard] },
   { path: 'enderecosave/:id', component: EnderecoSaveComponent, canActivate: [Guard] },
   { path: 'enderecoupdate/:id', component: EnderecoUpdateComponent, canActivate: [Guard] },
-  { path: 'adestramento/:id', component: AdestramentoComponent, canActivate: [Guard] },
-  { path: 'documentacao/:id', component: DocumentacaoComponent, canActivate: [Guard] },
+  { path: 'adestramentocustomer/:id', component: AdestramentoCustomerComponent, canActivate: [Guard] },
+  { path: 'adestramentosave/:id', component: AdestramentoSaveComponent, canActivate: [Guard] },
+  { path: 'adestramentoupdate/:id', component: AdestramentoUpdateComponent, canActivate: [Guard] },
+  { path: 'documentacaocustomer/:id', component: DocumentacaoCustomerComponent, canActivate: [Guard] },
+  { path: 'documentacaosave/:id', component: DocumentacaoSaveComponent, canActivate: [Guard] },
+  { path: 'documentacaoupdate/:id', component: DocumentacaoUpdateComponent, canActivate: [Guard] },
   { path: 'cadastro/:id', component: CadastroComponent, canActivate: [Guard] },
   { path: 'modalcustomer/:id', component: ModalCustomerComponent, canActivate: [Guard] },
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },

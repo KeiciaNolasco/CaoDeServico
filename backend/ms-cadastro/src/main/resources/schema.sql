@@ -44,17 +44,17 @@ CREATE TABLE IF NOT EXISTS tabela_adestramento (
 
 CREATE TABLE IF NOT EXISTS tabela_documentacao (
                                                    id INTEGER PRIMARY KEY,
-                                                   carta_treinamento VARCHAR(255),
+                                                   carta_treinamento BYTEA,
                                                    validade_carta_treinamento DATE,
-                                                   carteira_vacina VARCHAR(255),
+                                                   carteira_vacina BYTEA,
                                                    validade_carteira_vacina DATE,
-                                                   certificado_adestramento VARCHAR(255),
+                                                   certificado_adestramento BYTEA,
                                                    validade_certificado_adestramento DATE,
-                                                   laudo_medico VARCHAR(255),
+                                                   laudo_medico BYTEA,
                                                    validade_laudo_medico DATE,
-                                                   laudo_veterinario VARCHAR(255),
+                                                   laudo_veterinario BYTEA,
                                                    validade_laudo_veterinario DATE,
-                                                   prova_adestramento VARCHAR(255),
+                                                   prova_adestramento BYTEA,
                                                    CONSTRAINT documentacao_unique UNIQUE (id)
 );
 

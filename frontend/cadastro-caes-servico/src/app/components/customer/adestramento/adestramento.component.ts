@@ -6,38 +6,32 @@ import { NavbarCustomerComponent } from '../navbar/navbar.component';
 import { FooterCustomerComponent } from '../footer/footer.component';
 import { OAuthService } from '../../../services/oauth.service';
 import { jwtDecode } from 'jwt-decode';
-import { EnderecoService } from '../../../services/endereco.service';
+import { AdestramentoService } from '../../../services/adestramento.service';
 import { CondutorService } from '../../../services/condutor.service';
-import { Endereco } from '../../../models/endereco';
 import { Condutor } from '../../../models/condutor';
+import { ModalCustomerComponent } from '../modal/modal.component';
+import { Adestramento } from '../../../models/adestramento';
 
 @Component({
-  selector: 'app-enderecoupdate',
-  templateUrl: './endereco.component.html',
-  styleUrls: ['./endereco.component.css'],
+  selector: 'app-adestramentocustomer',
+  templateUrl: './adestramento.component.html',
+  styleUrls: ['./adestramento.component.css'],
   standalone: true, 
-  imports: [CommonModule, RouterModule, FormsModule, NavbarCustomerComponent, FooterCustomerComponent], 
+  imports: [CommonModule, RouterModule, FormsModule, NavbarCustomerComponent, FooterCustomerComponent, ModalCustomerComponent], 
 })
 
-export class EnderecoUpdateComponent implements OnInit {
+export class AdestramentoCustomerComponent implements OnInit {
   id!: number;
-  endereco: Endereco = {
-    pais: '',
-    estado: '',
-    cep: '',
-    cidade: '',
-    bairro: '',
-    rua: '',
-    numero: '',
-    complemento: ''
-  }
+  adestramento: Adestramento | undefined; 
   condutor: Condutor | undefined; 
   errorMessage: string | null = null; 
+  selectedFile!: File;
+  showModal: boolean = false; 
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private enderecoService: EnderecoService,
+    private adestramentoService: AdestramentoService,
     private condutorService: CondutorService,
     private authService: OAuthService
   ) {}
@@ -45,15 +39,15 @@ export class EnderecoUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     if (this.authService.isAuthenticated()) {
-      this.loadEnderecoUpdate();
+      this.loadAdestramento();
       this.loadCondutor();
     } else {
-      console.error('Endereço não autenticado!');
+      console.error('Adestramento não autenticado!');
       this.router.navigate(['/oauth']);
     }
   }
 
-  loadEnderecoUpdate(): void {
+  loadAdestramento(): void {
     const token = this.authService.getToken();
     if (token) {
       try {
@@ -77,36 +71,46 @@ export class EnderecoUpdateComponent implements OnInit {
     });
   }
 
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+  }
+
   findById(id: number): void {
-    this.enderecoService.findById(this.id).subscribe({
-      next: (endereco : Endereco) => {
-        this.endereco = endereco
+    this.adestramentoService.findById(this.id).subscribe({
+      next: (adestramento: Adestramento) => {
+        this.adestramento= adestramento;
       },
       error: (err) => {
-        this.errorMessage = 'Erro ao buscar o endereço.';
+        this.errorMessage = 'Erro ao buscar o adestramento.';
         console.error(err);
       }
     });
-  }
+  }  
 
   update(): void {
-    if (this.endereco) {
-      this.enderecoService.update(this.id, this.endereco).subscribe({
-        next: () => {
-          console.log('Endereço atualizado com sucesso!');
-          this.router.navigate(['/enderecocustomer', this.id]);
-        },
-        error: (err) => {
-          this.errorMessage = 'Erro ao atualizar o endereço.';
-          console.error(err);
-        }
-      });
+    if (this.adestramento) {
+      this.router.navigate(['/adestramentoupdate', this.id]);
     } else {
-      this.errorMessage = 'Endereço não encontrado.';
+      this.errorMessage = 'Adestramento não encontrado para editar.';
+      this.router.navigate(['/adestramentosave', this.id]);
     }
   }
+  
+  delete(): void {
+    this.showModal = true;
+  }
 
-  cancel(): void {
-    this.router.navigate(['/enderecocustomer', this.id]);
-  } 
+  onConfirmDelete(confirm: boolean): void {
+    this.showModal = false;
+    if (confirm) {
+      this.adestramentoService.delete(this.id).subscribe({
+        next: () => {
+          this.router.navigate(['/adestramentocustomer', this.id]);
+        },
+        error: (err) => {
+          this.router.navigate(['/adestramentocustomer', this.id]);
+        }
+      });
+    }
+  }
 }

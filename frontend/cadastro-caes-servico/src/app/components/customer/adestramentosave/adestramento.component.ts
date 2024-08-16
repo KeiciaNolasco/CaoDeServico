@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -6,30 +6,27 @@ import { NavbarCustomerComponent } from '../navbar/navbar.component';
 import { FooterCustomerComponent } from '../footer/footer.component';
 import { OAuthService } from '../../../services/oauth.service';
 import { jwtDecode } from 'jwt-decode';
-import { EnderecoService } from '../../../services/endereco.service';
+import { AdestramentoService } from '../../../services/adestramento.service';
 import { CondutorService } from '../../../services/condutor.service';
-import { Endereco } from '../../../models/endereco';
+import { Adestramento } from '../../../models/adestramento';
 import { Condutor } from '../../../models/condutor';
 
 @Component({
-  selector: 'app-enderecosave',
-  templateUrl: './endereco.component.html',
-  styleUrls: ['./endereco.component.css'],
+  selector: 'app-adestramentosave',
+  templateUrl: './adestramento.component.html',
+  styleUrls: ['./adestramento.component.css'],
   standalone: true, 
   imports: [CommonModule, RouterModule, FormsModule, NavbarCustomerComponent, FooterCustomerComponent], 
 })
 
-export class EnderecoSaveComponent implements OnInit {
+export class AdestramentoSaveComponent implements OnInit {
   id!: number;
-  endereco: Endereco = {
-    pais: '',
-    estado: '',
-    cep: '',
-    cidade: '',
-    bairro: '',
-    rua: '',
-    numero: '',
-    complemento: ''
+  adestramento: Adestramento = {
+    adestrador: '',
+    cpf: '',
+    instituicao: '',
+    cnpj: '',
+    tempo: ''
   }
   condutor: Condutor | undefined; 
   errorMessage: string | null = null; 
@@ -37,7 +34,7 @@ export class EnderecoSaveComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private enderecoService: EnderecoService,
+    private adestramentoService: AdestramentoService,
     private condutorService: CondutorService,
     private authService: OAuthService
   ) {}
@@ -45,15 +42,15 @@ export class EnderecoSaveComponent implements OnInit {
   ngOnInit(): void {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     if (this.authService.isAuthenticated()) {
-      this.loadEnderecoSave();
+      this.loadAdestramentoSave();
       this.loadCondutor();
     } else {
-      console.error('Endereço não autenticado!');
+      console.error('Adestramento não autenticado!');
       this.router.navigate(['/oauth']);
     }
   }
 
-  loadEnderecoSave(): void {
+  loadAdestramentoSave(): void {
     const token = this.authService.getToken();
     if (token) {
       try {
@@ -77,18 +74,18 @@ export class EnderecoSaveComponent implements OnInit {
   }
 
   save(): void {
-    this.enderecoService.save(this.id, this.endereco).subscribe({
+    this.adestramentoService.save(this.id, this.adestramento).subscribe({
       next: () => {
-        console.log("Endereço salvo com sucesso.");
-        this.router.navigate(['/enderecocustomer', this.id]);
+        console.log("Adestramento salvo com sucesso.");
+        this.router.navigate(['/adestramentocustomer', this.id]);
       },
       error: (err) => {
-        console.error("Erro ao salvar o endereço:", err);
+        console.error("Erro ao salvar o adestramento:", err);
       }
     });
   }
 
   cancel(): void {
-    this.router.navigate(['/enderecocustomer', this.id]);
+    this.router.navigate(['/adestramentocustomer', this.id]);
   } 
 }

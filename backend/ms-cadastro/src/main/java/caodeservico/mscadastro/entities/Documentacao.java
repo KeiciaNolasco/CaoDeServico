@@ -28,36 +28,29 @@ public class Documentacao implements Serializable {
 	@Lob
 	private byte[] cartaTreinamento;
 
-	@Column(nullable = false)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private Date validadeCartaTreinamento;
 
 	@Lob
 	private byte[] carteiraVacina;
 
 	@Column(nullable = false)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private Date validadeCarteiraVacina;
 
 	@Lob
 	private byte[] certificadoAdestramento;
 
-	@Column(nullable = false)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private Date validadeCertificadoAdestramento;
 
 	@Lob
 	private byte[] laudoMedico;
 
 	@Column(nullable = false)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private Date validadeLaudoMedico;
 
 	@Lob
 	private byte[] laudoVeterinario;
 
 	@Column(nullable = false)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private Date validadeLaudoVeterinario;
 
 	@Lob

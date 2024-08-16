@@ -18,7 +18,7 @@ body, html {
   right: 0;
   margin: 0;
   width: 100%;
-  height: 165%;
+  height: auto;
   background: url('/assets/images/bannercadastro.png') no-repeat center center;
   background-size: cover;
   display: flex;
@@ -28,7 +28,7 @@ body, html {
 }
 
 .container {
-  margin-top: 1%;
+  margin: 5%;
   display: flex;
   background-color: #0c4f5aa4;
   width: 80%;
@@ -112,17 +112,17 @@ form {
 
 form label {
   color:#555;
-  margin-bottom: 10px;
+  margin-bottom: 1%;
   font-size: 15px;
 }
 
 form input {
   padding: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 2%;
   border: 1px solid #ffffff;
   border-radius: 5px;
   background-color: #e0e0e0;
-  color: #555;
+  color: #b4b4b4;
 }
 
 form input[readonly] {
@@ -130,18 +130,11 @@ form input[readonly] {
   color: #555;
 }
 
-form select {
-  background-color: transparent;
-  color: #00252d;
-  border: none;
-  border-bottom: 2px solid #00252d;
-  margin-bottom: 20px;
-  font-size: 15px;
-}
-
-form select:focus {
-  outline: none;
-  border-bottom-color: #1e6f7b;
+form iframe {
+  width: 150px;
+  height: 200px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
 }
 
 .button-group {
@@ -175,3 +168,75 @@ form select:focus {
   background-color: #555;
 }
 
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: #15778d;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 400px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+}
+
+.modal h2 {
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #333333;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.modal-btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.download-btn {
+  width: 16%;
+  padding: 10px 20px;
+  margin-top: 1%;
+  font-size: 14px;
+  color: #fff;
+  background-color: #15778d;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  margin-bottom: 2%;
+}
+
+.download-btn:hover {
+  background-color: #1e6f7b;
+  transform: translateY(-2px);
+}
+
+.download-btn:active {
+  background-color: #555;
+  transform: translateY(0);
+}
+
+.download-btn svg {
+  margin-right: 8px;
+  vertical-align: middle;
+  fill: #fff;
+}
