@@ -1,0 +1,55 @@
+<html>
+  <body>
+    <app-navbaradmin></app-navbaradmin>
+    <router-outlet></router-outlet>
+    
+    <div class="banner">
+      <div class="register-container">
+        <h2>Cadastro do Usuário</h2>
+        <form (ngSubmit)="adminSave()" #userForm="ngForm">
+          <div>
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" [(ngModel)]="user.email" required #email="ngModel"/>
+            <div *ngIf="email.invalid && email.touched" class="error">
+              E-mail é obrigatório e deve ser válido.
+            </div>
+          </div>
+          
+          <div>
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" [(ngModel)]="user.senha" required #senha="ngModel"/>
+            <div *ngIf="senha.invalid && senha.touched" class="error">
+              Senha é obrigatória.
+            </div>
+          </div>        
+  
+          <div>
+            <label for="confirmSenha">Confirme a Senha</label>
+            <input type="password" id="confirmSenha" name="confirmSenha" [(ngModel)]="confirmSenha" required #confirmSenhaField="ngModel"/>
+            <div *ngIf="confirmSenhaField.touched && confirmSenha !== user.senha" class="error">
+              As senhas não coincidem.
+            </div>
+          </div>
+
+          <div>
+            <label for="role">Perfil do Usuário</label>
+            <select id="role" name="role" [(ngModel)]="selectedRole" required #role="ngModel">
+              <option value="" disabled selected>Selecione um perfil</option>
+              <option *ngFor="let role of roles" [value]="role.nome">{{ role.nome }}</option>
+            </select>
+            <div *ngIf="role.invalid && role.touched" class="error">
+              A escolha do tipo de perfil é obrigatória.
+            </div>
+          </div>
+          <div *ngIf="successMessage" class="success-message">
+            {{ successMessage }}
+          </div>
+          <button type="submit" [disabled]="userForm.invalid || confirmSenha !== user.senha">
+            Cadastrar
+          </button>
+        </form>
+      </div>
+    </div>
+    <app-footeradmin></app-footeradmin>
+  </body>
+</html>

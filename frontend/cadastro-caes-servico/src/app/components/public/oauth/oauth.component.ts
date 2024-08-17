@@ -39,7 +39,16 @@ export class OauthComponent {
       next: (user: User) => {
         if (user.id !== undefined && user.id !== null) {
           this.id = user.id;
-          this.router.navigate([`/iniciocustomer/${this.id}`]);
+          const roles = user.roles || [];
+          if (roles.some(role => role.nome === 'ADMIN')) {
+            this.router.navigate([`/inicioadmin/${this.id}`]);
+          }
+          else if (roles.some(role => role.nome === 'CUSTOMER')) {
+            this.router.navigate([`/iniciocustomer/${this.id}`]);
+          }
+          else {
+            this.errorMessage = 'Perfil do usuário não existe.';
+          }
         } else {
           this.errorMessage = 'ID do usuário não encontrado.';
         }

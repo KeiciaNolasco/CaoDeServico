@@ -1,0 +1,87 @@
+<html>
+  <body>
+    <app-navbaradmin></app-navbaradmin>
+    <router-outlet></router-outlet>
+    <div class="banner">
+      <div class="container">
+        <div class="sidebar">
+          <div class="profile-pic">
+            <img [src]="condutor?.foto ? 'data:image/jpeg;base64,' + condutor?.foto : '/assets/images/perfil.png'" alt="Foto de perfil">
+          </div>
+          <h2 class="username">{{ condutor?.nome || 'Nome do usuário' }}</h2>
+          <nav>
+            <ul>
+              <li>
+                <button [routerLink]="['/perfiladmin', id]">PERFIL</button>
+              </li>
+              <li>
+                <button [routerLink]="['/useradmin', id]">USUÁRIO</button>
+              </li>
+              <li>
+                <button [routerLink]="['/condutoradmin', id]">CONDUTOR</button>
+              </li>
+              <li>
+                <button [routerLink]="['/caoadmin', id]">CÃO DE SERVIÇO</button>
+              </li>
+              <li>
+                <button [routerLink]="['/enderecoadmin', id]">ENDEREÇO</button>
+              </li>
+              <li>
+                <button [routerLink]="['/adestramentoadmin', id]">ADESTRAMENTO</button>
+              </li>
+              <li>
+                <button [routerLink]="['/documentacaoadmin', id]">DOCUMENTAÇÃO</button>
+              </li>
+              <li>
+                <button [routerLink]="['/cadastroadmin', id]">CADASTRO</button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="user-details">
+          <h2>DADOS DA DOCUMENTAÇÃO</h2>
+          <br>
+          <form>   
+            <label for="cartaTreinamento">Carta de Treinamento em PDF</label>
+            <input type="file" id="cartaTreinamento" name="cartaTreinamento" accept="pdf/*" (change)="onFileSelected($event, 'cartaTreinamento')" required>
+
+            <label for="validadeCartaTreinamento">Data de Validade da Carta de Treinamento</label>
+            <input type="date" id="validadeCartaTreinamento" name="validadeCartaTreinamento" [(ngModel)]="documentacao.validadeCartaTreinamento" required>
+          
+            <label for="carteiraVacina">Carteira de Vacina em PDF</label>
+            <input type="file" id="carteiraVacina" name="carteiraVacina" accept="pdf/*" (change)="onFileSelected($event, 'carteiraVacina')"required>
+
+            <label for="validadeCarteiraVacina">Data de Validade da Carteira de Vacina</label>
+            <input type="date" id="validadeCarteiraVacina" name="validadeCarteiraVacina" [(ngModel)]="documentacao.validadeCarteiraVacina" required>
+
+            <label for="certificadoAdestramento">Certificado de Adestramento em PDF</label>
+            <input type="file" id="certificadoAdestramento" name="certificadoAdestramento" accept="pdf/*" (change)="onFileSelected($event, 'certificadoAdestramento')" required>
+
+            <label for="validadeCertificadoAdestramento">Data de Validade da Certificado de Adestramento</label>
+            <input type="date" id="validadeCertificadoAdestramento" name="validadeCertificadoAdestramento" [(ngModel)]="documentacao.validadeCertificadoAdestramento" required>
+
+            <label for="laudoMedico">Laudo Médico em PDF</label>
+            <input type="file" id="laudoMedico" name="laudoMedico" accept="pdf/*" (change)="onFileSelected($event, 'laudoMedico')" required>
+
+            <label for="validadeLaudoMedico">Data de Validade do Laudo Médico</label>
+            <input type="date" id="validadeLaudoMedico" name="validadeLaudoMedico" [(ngModel)]="documentacao.validadeLaudoMedico" required>
+
+            <label for="laudoVeterinario">Laudo Veterinário em PDF</label>
+            <input type="file" id="laudoVeterinario" name="laudoVeterinario" accept="pdf/*" (change)="onFileSelected($event, 'laudoVeterinario')"> required>
+
+            <label for="validadeLaudoVeterinario">Data de Validade do Laudo Veterinário</label>
+            <input type="date" id="validadeLaudoVeterinario" name="validadeLaudoVeterinario" [(ngModel)]="documentacao.validadeLaudoVeterinario" required>
+
+            <label for="provaAdestramento">Prova de Adestramento em PDF</label>
+            <input type="file" id="provaAdestramento" name="provaAdestramento" accept="pdf/*" (change)="onFileSelected($event, 'provaAdestramento')" required>
+          </form>
+          <div class="button-group">
+            <button type="button" (click)="save()" class="btn-edit">Salvar</button>
+            <button type="button" (click)="cancel()" class="btn-delete">Cancelar</button>
+          </div>
+        </div>
+      </div>  
+    </div>
+    <app-footeradmin></app-footeradmin>
+  </body>
+</html>

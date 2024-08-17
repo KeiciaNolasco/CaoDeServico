@@ -36,8 +36,16 @@ export class UserService {
     });
   }
 
+  adminSave(user: User): Observable<User> {
+    return this.http.post<User>(`${this.apiUrl}/admin/save`, user, { headers: this.getAuthHeaders() });
+  }
+
   update(id: number, user: User): Observable<User> {
     return this.http.put<User>(`${this.apiUrl}/update/${id}`, user, { headers: this.getAuthHeaders() });
+  }
+
+  adminUpdate(id: number, user: User): Observable<User> {
+    return this.http.put<User>(`${this.apiUrl}/admin/update/${id}`, user, { headers: this.getAuthHeaders() });
   }
 
   delete(id: number): Observable<void> {

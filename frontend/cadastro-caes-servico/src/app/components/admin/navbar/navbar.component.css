@@ -1,0 +1,84 @@
+header {
+  position: absolute; 
+  top: 2%; 
+  left: 5%;
+  right: 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+
+.logo img {
+  height: 50px;
+}
+
+.navbar {
+  display: flex;
+  gap: 40px;
+  margin-left: auto;
+}
+
+.navbar a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 1000;
+  transition: color 0.3s;
+}
+
+.navbar a:hover {
+  color: #7c7e7e;
+}
+
+.sign-up {
+  position: relative;
+  margin-left: 2%;
+}
+
+.sign-up .btn-sign-up {
+  background: rgba(255, 255, 255, 0.87);
+  color: #121212;
+  padding: 10px 10px; 
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.4s, color 0.3s;
+}
+
+.sign-up .btn-sign-up:hover {
+  background: #666;
+  color: white;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 70%;
+  left: 0;
+  background-color: white;
+  border-radius: 5px;
+  z-index: 1000;
+  padding: 10px 0px;  
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.dropdown-menu li {
+  list-style: none;
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 10px 20px;
+  color: #121212;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s, color 0.3s;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #666;
+  color: white;
+}
+
+.sign-up:hover .dropdown-menu {
+  display: block;
+}

@@ -8,14 +8,14 @@ import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/user';
 
 @Component({
-  selector: 'app-user',
+  selector: 'app-usersave',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css'],
   standalone: true, 
   imports: [CommonModule, RouterModule, FormsModule, NavbarComponent, FooterComponent], 
 })
 
-export class UserComponent {
+export class UserSaveComponent {
   user: User = {
     email: '',
     senha: '',

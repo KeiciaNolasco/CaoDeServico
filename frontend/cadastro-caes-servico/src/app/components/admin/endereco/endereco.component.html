@@ -1,0 +1,87 @@
+<html>
+  <body>
+    <app-navbaradmin></app-navbaradmin>
+    <router-outlet></router-outlet>
+    <div class="banner">
+      <div class="container">
+        <div class="sidebar">
+          <div class="profile-pic">
+            <img [src]="condutor?.foto ? 'data:image/jpeg;base64,' + condutor?.foto : '/assets/images/perfil.png'" alt="Foto de perfil">
+          </div>
+          <h2 class="username">{{ condutor?.nome || 'Nome do usuário' }}</h2>
+          <nav>
+            <ul>
+              <li>
+                <button [routerLink]="['/perfiladmin', id]">PERFIL</button>
+              </li>
+              <li>
+                <button [routerLink]="['/useradmin', id]">USUÁRIO</button>
+              </li>
+              <li>
+                <button [routerLink]="['/condutoradmin', id]">CONDUTOR</button>
+              </li>
+              <li>
+                <button [routerLink]="['/caoadmin', id]">CÃO DE SERVIÇO</button>
+              </li>
+              <li>
+                <button [routerLink]="['/enderecoadmin', id]">ENDEREÇO</button>
+              </li>
+              <li>
+                <button [routerLink]="['/adestramentoadmin', id]">ADESTRAMENTO</button>
+              </li>
+              <li>
+                <button [routerLink]="['/documentacaoadmin', id]">DOCUMENTAÇÃO</button>
+              </li>
+              <li>
+                <button [routerLink]="['/cadastroadmin', id]">CADASTRO</button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="user-details">
+          <h2>DADOS DO ENDEREÇO</h2>
+          <br>
+          <form>
+            <label for="pais">País</label>
+            <input type="text" id="pais" [value]="endereco?.pais || ''" readonly>
+  
+            <label for="estado">Estado</label>
+            <input type="text" id="estado" [value]="endereco?.estado || ''" readonly>
+  
+            <label for="cep">CEP</label>
+            <input type="text" id="cep" pattern="\d*" title="Apenas números são permitidos" [value]="endereco?.cep || ''" readonly>
+
+            <label for="cidade">Cidade</label>
+            <input type="text" id="cidade" [value]="endereco?.cidade || ''" readonly>
+  
+            <label for="bairro">Bairro</label>
+            <input id="text" name="bairro" [value]="endereco?.bairro || ''" readonly>
+
+            <label for="rua">Rua</label>
+            <input id="text" name="rua" [value]="endereco?.rua || ''" readonly>
+  
+            <label for="numero">Número</label>
+            <input type="text" id="numero" pattern="\d*" title="Apenas números são permitidos" [value]="endereco?.numero || ''" readonly>
+  
+            <label for="complemento">Complemento</label>
+            <input type="text" id="complemento" [value]="endereco?.complemento || ''" readonly>
+          </form>
+          <div class="button-group">
+            <button type="button" (click)="update()" class="btn-edit">Editar</button>
+            <button type="button" (click)="delete()" class="btn-delete">Deletar</button>
+          </div>
+        </div>
+      </div>  
+    </div>
+    <app-footeradmin></app-footeradmin>
+    <div class="modal-overlay" *ngIf="showModal">
+      <div class="modal">
+        <h2>Tem certeza que deseja deletar o Endereço?</h2>
+        <div class="modal-buttons">
+          <button class="modal-btn confirm-btn" (click)="onConfirmDelete(true)">SIM</button>
+          <button class="modal-btn cancel-btn" (click)="onConfirmDelete(false)">NÃO</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
