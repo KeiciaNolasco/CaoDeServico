@@ -18,7 +18,7 @@ body, html {
   right: 0;
   margin: 0;
   width: 100%;
-  height: 100%;
+  height: auto;
   background: url('/assets/images/banneroauth.png') no-repeat center center;
   background-size: cover;
   display: flex;
@@ -28,7 +28,7 @@ body, html {
 }
 
 .register-container {
-  margin-top: 10%;
+  margin: 5%;
   background:rgba(0, 58, 71, 0.716);
   padding: 1% 2%;
   border-radius: 2%;

@@ -73,6 +73,9 @@ import { DocumentacaoUpdateAdminComponent } from './components/admin/documentaca
 
 import { NotificacoesComponent } from './components/admin/notificacoes/notificacoes.component';
 
+import { UsersAdminComponent } from './components/admin/users/users.component';
+import { UsersFindAllAdminComponent } from './components/admin/usersfindall/users.component';
+
 import { ModalCustomerComponent } from './components/customer/modal/modal.component';
 import { ModalAdminComponent } from './components/admin/modal/modal.component';
 
@@ -112,7 +115,7 @@ export const appRoutes: Routes = [
   { path: 'usercustomer/:id', component: UserCustomerComponent, canActivate: [Guard] },
   { path: 'userupdate/:id', component: UserUpdateComponent, canActivate: [Guard] },
   { path: 'useradmin/:id', component: UserAdminComponent, canActivate: [Guard] },
-  { path: 'usersaveadmin', component: UserSaveAdminComponent, canActivate: [Guard]  },
+  { path: 'usersaveadmin/:id', component: UserSaveAdminComponent, canActivate: [Guard]  },
   { path: 'userupdateadmin/:id', component: UserUpdateAdminComponent, canActivate: [Guard] },
 
   { path: 'condutorcustomer/:id', component: CondutorCustomerComponent, canActivate: [Guard] },
@@ -151,6 +154,9 @@ export const appRoutes: Routes = [
   { path: 'documentacaoupdateadmin/:id', component: DocumentacaoUpdateAdminComponent, canActivate: [Guard] },
 
   { path: 'notificacoes/:id', component: NotificacoesComponent, canActivate: [Guard] },
+
+  { path: 'usersadmin/:id', component: UsersAdminComponent, canActivate: [Guard] },
+  { path: 'usersfindalladmin/:id', component: UsersFindAllAdminComponent, canActivate: [Guard] },
 
   { path: 'modalcustomer/:id', component: ModalCustomerComponent, canActivate: [Guard] },
   { path: 'modaladmin/:id', component: ModalAdminComponent, canActivate: [Guard] },

@@ -1,0 +1,35 @@
+<html>
+  <body>
+    <app-navbaradmin></app-navbaradmin>
+    <router-outlet></router-outlet>
+    <div class="banner">
+      <div class="content">
+        <h1>USUÁRIOS</h1>
+        <div class="about-columns">
+          <div class="about-column">
+            <p class="author first-paragraph">ADICIONAR USUÁRIO</p>
+            <p>
+             Adicione um novo usuario.
+            </p>
+            <a [routerLink]="['/usersaveadmin', id]" class="btn-learn-more">ADICIONAR</a>
+          </div>
+          <div class="about-column">
+            <p class="author first-paragraph">LISTA DE USUÁRIOS</p>
+            <p>
+              Busque pelo usuário para configurar.
+            </p>
+            <a [routerLink]="['/usersfindalladmin', id]" class="btn-learn-more">LISTAR</a>
+          </div>
+          <div class="about-column">
+            <p class="author first-paragraph">SOLICITAÇÕES DE CADASTRO</p>
+            <p>
+              Analise solicitações de cadastro dos usuário.
+            </p>
+            <a [routerLink]="['/notificacoes', id]" class="btn-learn-more">SOLICITAÇÕES</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-footeradmin></app-footeradmin>
+  </body>
+</html>

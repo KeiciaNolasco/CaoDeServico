@@ -1,0 +1,28 @@
+<html>
+  <body>
+    <app-navbaradmin></app-navbaradmin>
+    <router-outlet></router-outlet>
+    <div class="banner">
+      <div class="content">
+        <h1>USUÁRIOS</h1>
+        <div class="about-columns">
+          <div *ngFor="let user of users" class="about-column">
+            <p class="author first-paragraph">Condutor: {{ getCondutorNome(user) }}</p>
+            <p class="author first-paragraph">Cão de Serviço: {{ getCaoNome(user) }}</p>
+            <p class="author first-paragraph">E-mail: {{ user.email }}</p>
+            <p>
+              Perfis: 
+              <span *ngFor="let role of user.roles; let isLast = last">
+                {{ role.nome }}<span *ngIf="!isLast">, </span>
+              </span>
+            </p>
+            <div class="button-group">
+              <button *ngIf="user.id" class="btn-learn-more" (click)="update(user.id!)">Editar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-footeradmin></app-footeradmin>
+  </body>
+</html>

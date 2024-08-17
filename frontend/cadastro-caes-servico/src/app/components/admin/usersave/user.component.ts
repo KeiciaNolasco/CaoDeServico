@@ -71,7 +71,7 @@ export class UserSaveAdminComponent {
         next: () => {
           this.successMessage = 'Usuário salvo com sucesso!'; 
           setTimeout(() => {
-            this.router.navigate(['/oauth']); 
+            this.router.navigate(['/usersadmin', this.id]); 
           }, 2000);
         },
         error: (err) => {

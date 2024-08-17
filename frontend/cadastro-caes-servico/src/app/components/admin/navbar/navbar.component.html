@@ -6,8 +6,16 @@
     <a [routerLink]="['/inicioadmin', id]">INÍCIO</a>
     <a [routerLink]="['/sobreadmin', id]">SOBRE</a>
     <a [routerLink]="['/leisadmin', id]">LEIS</a>
-    <a [routerLink]="['/notificacoes', id]">NOTIFICAÇÕES</a>
   </nav>
+  <div class="sign-up" (mouseover)="showDropdown()" (mouseleave)="hideDropdown()">
+    <a class="btn-sign-up">
+      CONFIGURAÇÕES
+    </a>
+    <ul class="dropdown-menu" *ngIf="isDropdownVisible">
+      <li><a [routerLink]="['/usersadmin', id]">USUÁRIOS</a></li>
+      <li><a [routerLink]="['/perfiladmin', id]">PERFIS</a></li>
+    </ul>
+  </div>
   <div class="sign-up" (mouseover)="showDropdown()" (mouseleave)="hideDropdown()">
     <a class="btn-sign-up">
       USUÁRIO
@@ -15,15 +23,6 @@
     <ul class="dropdown-menu" *ngIf="isDropdownVisible">
       <li><a [routerLink]="['/perfiladmin', id]">PERFIL</a></li>
       <li><a (click)="logout()">SAIR</a></li> 
-    </ul>
-  </div>
-  <div class="sign-up" (mouseover)="showDropdown()" (mouseleave)="hideDropdown()">
-    <a class="btn-sign-up">
-      CONFIGURAÇÕES
-    </a>
-    <ul class="dropdown-menu" *ngIf="isDropdownVisible">
-      <li><a [routerLink]="['/perfiladmin', id]">USUÁRIOS</a></li>
-      <li><a [routerLink]="['/perfiladmin', id]">PERFIS</a></li>
     </ul>
   </div>
 </header>
