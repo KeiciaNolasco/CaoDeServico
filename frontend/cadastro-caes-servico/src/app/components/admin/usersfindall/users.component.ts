@@ -132,6 +132,9 @@ export class UsersFindAllAdminComponent implements OnInit {
   }
 
   update(userId: number): void {
-    this.router.navigate(['/userupdateadmin', userId]);
-  }
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree(['/userupdateadmin', userId])
+    );
+    window.open(url, '_blank');
+  }  
 }

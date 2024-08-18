@@ -32,6 +32,7 @@ import { PerfilAdminComponent } from './components/admin/perfil/perfil.component
 import { UserSaveComponent } from './components/public/usersave/user.component';
 import { UserCustomerComponent } from './components/customer/user/user.component';
 import { UserUpdateComponent } from './components/customer/userupdate/user.component';
+import { UserUpdateAdminCustomerComponent } from './components/customer/userupdateadmin/user.component';
 import { UserAdminComponent } from './components/admin/user/user.component';
 import { UserSaveAdminComponent } from './components/admin/usersave/user.component';
 import { UserUpdateAdminComponent } from './components/admin/userupdate/user.component';
@@ -39,37 +40,22 @@ import { UserUpdateAdminComponent } from './components/admin/userupdate/user.com
 import { CondutorCustomerComponent } from './components/customer/condutor/condutor.component';
 import { CondutorSaveComponent } from './components/customer/condutorsave/condutor.component';
 import { CondutorUpdateComponent } from './components/customer/condutorupdate/condutor.component';
-import { CondutorAdminComponent } from './components/admin/condutor/condutor.component';
-import { CondutorSaveAdminComponent } from './components/admin/condutorsave/condutor.component';
-import { CondutorUpdateAdminComponent } from './components/admin/condutorupdate/condutor.component';
 
 import { CaoCustomerComponent } from './components/customer/cao/cao.component';
 import { CaoSaveComponent } from './components/customer/caosave/cao.component';
 import { CaoUpdateComponent } from './components/customer/caoupdate/cao.component';
-import { CaoAdminComponent } from './components/admin/cao/cao.component';
-import { CaoSaveAdminComponent } from './components/admin/caosave/cao.component';
-import { CaoUpdateAdminComponent } from './components/admin/caoupdate/cao.component';
 
 import { EnderecoCustomerComponent } from './components/customer/endereco/endereco.component';
 import { EnderecoSaveComponent } from './components/customer/enderecosave/endereco.component';
 import { EnderecoUpdateComponent } from './components/customer/enderecoupdate/endereco.component';
-import { EnderecoAdminComponent } from './components/admin/endereco/endereco.component';
-import { EnderecoSaveAdminComponent } from './components/admin/enderecosave/endereco.component';
-import { EnderecoUpdateAdminComponent } from './components/admin/enderecoupdate/endereco.component';
 
 import { AdestramentoCustomerComponent } from './components/customer/adestramento/adestramento.component';
 import { AdestramentoSaveComponent } from './components/customer/adestramentosave/adestramento.component';
 import { AdestramentoUpdateComponent } from './components/customer/adestramentoupdate/adestramento.component';
-import { AdestramentoAdminComponent } from './components/admin/adestramento/adestramento.component';
-import { AdestramentoSaveAdminComponent } from './components/admin/adestramentosave/adestramento.component';
-import { AdestramentoUpdateAdminComponent } from './components/admin/adestramentoupdate/adestramento.component';
 
 import { DocumentacaoCustomerComponent } from './components/customer/documentacao/documentacao.component';
 import { DocumentacaoSaveComponent } from './components/customer/documentacaosave/documentacao.component';
 import { DocumentacaoUpdateComponent } from './components/customer/documentacaoupdate/documentacao.component';
-import { DocumentacaoAdminComponent } from './components/admin/documentacao/documentacao.component';
-import { DocumentacaoSaveAdminComponent } from './components/admin/documentacaosave/documentacao.component';
-import { DocumentacaoUpdateAdminComponent } from './components/admin/documentacaoupdate/documentacao.component';
 
 import { NotificacoesComponent } from './components/admin/notificacoes/notificacoes.component';
 
@@ -114,6 +100,7 @@ export const appRoutes: Routes = [
   { path: 'usersave', component: UserSaveComponent },
   { path: 'usercustomer/:id', component: UserCustomerComponent, canActivate: [Guard] },
   { path: 'userupdate/:id', component: UserUpdateComponent, canActivate: [Guard] },
+  { path: 'userupdateadmincustomer/:id', component: UserUpdateAdminCustomerComponent, canActivate: [Guard] },
   { path: 'useradmin/:id', component: UserAdminComponent, canActivate: [Guard] },
   { path: 'usersaveadmin/:id', component: UserSaveAdminComponent, canActivate: [Guard]  },
   { path: 'userupdateadmin/:id', component: UserUpdateAdminComponent, canActivate: [Guard] },
@@ -121,37 +108,22 @@ export const appRoutes: Routes = [
   { path: 'condutorcustomer/:id', component: CondutorCustomerComponent, canActivate: [Guard] },
   { path: 'condutorsave/:id', component: CondutorSaveComponent, canActivate: [Guard] },
   { path: 'condutorupdate/:id', component: CondutorUpdateComponent, canActivate: [Guard] },
-  { path: 'condutoradmin/:id', component: CondutorAdminComponent, canActivate: [Guard] },
-  { path: 'condutorsaveadmin/:id', component: CondutorSaveAdminComponent, canActivate: [Guard] },
-  { path: 'condutorupdateadmin/:id', component: CondutorUpdateAdminComponent, canActivate: [Guard] },
 
   { path: 'caocustomer/:id', component: CaoCustomerComponent, canActivate: [Guard] },
   { path: 'caosave/:id', component: CaoSaveComponent, canActivate: [Guard] },
   { path: 'caoupdate/:id', component: CaoUpdateComponent, canActivate: [Guard] },
-  { path: 'caoadmin/:id', component: CaoAdminComponent, canActivate: [Guard] },
-  { path: 'caosaveadmin/:id', component: CaoSaveAdminComponent, canActivate: [Guard] },
-  { path: 'caoupdateadmin/:id', component: CaoUpdateAdminComponent, canActivate: [Guard] },
 
   { path: 'enderecocustomer/:id', component: EnderecoCustomerComponent, canActivate: [Guard] },
   { path: 'enderecosave/:id', component: EnderecoSaveComponent, canActivate: [Guard] },
   { path: 'enderecoupdate/:id', component: EnderecoUpdateComponent, canActivate: [Guard] },
-  { path: 'enderecoadmin/:id', component: EnderecoAdminComponent, canActivate: [Guard] },
-  { path: 'enderecosaveadmin/:id', component: EnderecoSaveAdminComponent, canActivate: [Guard] },
-  { path: 'enderecoupdateadmin/:id', component: EnderecoUpdateAdminComponent, canActivate: [Guard] },
 
   { path: 'adestramentocustomer/:id', component: AdestramentoCustomerComponent, canActivate: [Guard] },
   { path: 'adestramentosave/:id', component: AdestramentoSaveComponent, canActivate: [Guard] },
   { path: 'adestramentoupdate/:id', component: AdestramentoUpdateComponent, canActivate: [Guard] },
-  { path: 'adestramentoadmin/:id', component: AdestramentoAdminComponent, canActivate: [Guard] },
-  { path: 'adestramentosaveadmin/:id', component: AdestramentoSaveAdminComponent, canActivate: [Guard] },
-  { path: 'adestramentoupdateadmin/:id', component: AdestramentoUpdateAdminComponent, canActivate: [Guard] },
 
   { path: 'documentacaocustomer/:id', component: DocumentacaoCustomerComponent, canActivate: [Guard] },
   { path: 'documentacaosave/:id', component: DocumentacaoSaveComponent, canActivate: [Guard] },
   { path: 'documentacaoupdate/:id', component: DocumentacaoUpdateComponent, canActivate: [Guard] },
-  { path: 'documentacaoadmin/:id', component: DocumentacaoAdminComponent, canActivate: [Guard] },
-  { path: 'documentacaosaveadmin/:id', component: DocumentacaoSaveAdminComponent, canActivate: [Guard] },
-  { path: 'documentacaoupdateadmin/:id', component: DocumentacaoUpdateAdminComponent, canActivate: [Guard] },
 
   { path: 'notificacoes/:id', component: NotificacoesComponent, canActivate: [Guard] },
 

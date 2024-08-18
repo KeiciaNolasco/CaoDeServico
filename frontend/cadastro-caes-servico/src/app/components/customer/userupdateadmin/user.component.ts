@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { NavbarAdminComponent } from '../../admin/navbar/navbar.component'; 
-import { FooterAdminComponent } from '../../admin/footer/footer.component';
+import { NavbarCustomerComponent } from '../../customer/navbar/navbar.component'; 
+import { FooterCustomerComponent } from '../../customer/footer/footer.component';
 import { OAuthService } from '../../../services/oauth.service';
 import { jwtDecode } from 'jwt-decode';
 import { UserService } from '../../../services/user.service';
@@ -14,14 +14,14 @@ import { Role } from '../../../models/role';
 import { Condutor } from '../../../models/condutor';
 
 @Component({
-  selector: 'app-userupdateadmin',
+  selector: 'app-userupdateadmincustomer',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css'],
   standalone: true, 
-  imports: [CommonModule, RouterModule, FormsModule, NavbarAdminComponent, FooterAdminComponent], 
+  imports: [CommonModule, RouterModule, FormsModule, NavbarCustomerComponent, FooterCustomerComponent], 
 })
 
-export class UserUpdateAdminComponent implements OnInit {
+export class UserUpdateAdminCustomerComponent implements OnInit {
   id!: number;
   user: User = { 
     email: '', 
@@ -110,7 +110,7 @@ export class UserUpdateAdminComponent implements OnInit {
       this.userService.adminUpdate(this.id, this.user).subscribe({
         next: () => {
           console.log('Usuário atualizado com sucesso!');
-          this.router.navigate(['/useradmin', this.id]);
+          this.router.navigate(['/usercustomer', this.id]);
         },
         error: (err) => {
           this.errorMessage = 'Erro ao atualizar o usuário.';
@@ -123,6 +123,6 @@ export class UserUpdateAdminComponent implements OnInit {
   }
 
   cancel(): void {
-    this.router.navigate(['/useradmin', this.id]);
+    this.router.navigate(['/usercustomer', this.id]);
   }
 }

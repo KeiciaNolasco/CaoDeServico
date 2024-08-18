@@ -1,6 +1,6 @@
 <html>
   <body>
-    <app-navbaradmin></app-navbaradmin>
+    <app-navbarcustomer></app-navbarcustomer>
     <router-outlet></router-outlet>
     <div class="banner">
     <div class="container">
@@ -12,10 +12,28 @@
         <nav>
         <ul>
           <li>
-            <button [routerLink]="['/perfiladmin', id]">PERFIL</button>
+            <button [routerLink]="['/perfil', id]">PERFIL</button>
           </li>
           <li>
-            <button [routerLink]="['/useradmin', id]">USUÁRIO</button>
+            <button [routerLink]="['/usercustomer', id]">USUÁRIO</button>
+          </li>
+          <li>
+            <button [routerLink]="['/condutorcustomer', id]">CONDUTOR</button>
+          </li>
+          <li>
+            <button [routerLink]="['/caocustomer', id]">CÃO DE SERVIÇO</button>
+          </li>
+          <li>
+            <button [routerLink]="['/enderecocustomer', id]">ENDEREÇO</button>
+          </li>
+          <li>
+            <button [routerLink]="['/adestramentocustomer', id]">ADESTRAMENTO</button>
+          </li>
+          <li>
+            <button [routerLink]="['/documentacaocustomer', id]">DOCUMENTAÇÃO</button>
+          </li>
+          <li>
+            <button [routerLink]="['/cadastrocustomer', id]">CADASTRO</button>
           </li>
         </ul>
       </nav>
@@ -48,6 +66,6 @@
     </div>
   </div>  
 </div>
-<app-footeradmin></app-footeradmin>
+<app-footercustomer></app-footercustomer>
 </body>
 </html>

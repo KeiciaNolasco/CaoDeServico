@@ -6,6 +6,7 @@
     <a [routerLink]="['/iniciocustomer', id]">INÍCIO</a>
     <a [routerLink]="['/sobrecustomer', id]">SOBRE</a>
     <a [routerLink]="['/leiscustomer', id]">LEIS</a>
+    <a *ngIf="isAdmin" [routerLink]="['/inicioadmin', id]">ADMINISTRADOR</a>
   </nav>
   <div class="sign-up" (mouseover)="showDropdown()" (mouseleave)="hideDropdown()">
     <a class="btn-sign-up">

@@ -166,7 +166,14 @@ export class UserCustomerComponent implements OnInit {
 
   update(): void {
     if (this.user) {
-      this.router.navigate(['/userupdate', this.id]);
+      const roles = this.user.roles || [];
+      if (roles.some(role => role.nome === 'ADMIN')) {
+        this.router.navigate([`/userupdateadmincustomer/${this.id}`]);
+      } else if (roles.some(role => role.nome === 'CUSTOMER')) {
+        this.router.navigate([`/userupdate/${this.id}`]);
+      } else {
+        this.errorMessage = 'Perfil do usuário não existe.';
+      }
     } else {
       this.errorMessage = 'Usuário não encontrado para editar.';
     }

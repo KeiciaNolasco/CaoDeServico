@@ -17,5 +17,14 @@
       </div>
     </div>    
     <app-footer></app-footer>
+    <div class="modal-overlay" *ngIf="showModal">
+      <div class="modal">
+        <h2>Deseja entrar como ADMINISTRADOR ou CLIENTE?</h2>
+        <div class="modal-buttons">
+          <button class="modal-btn confirm-btn" (click)="onConfirmAdmin(true)">ADMINISTRADOR</button>
+          <button class="modal-btn cancel-btn" (click)="onConfirmAdmin(false)">CLIENTE</button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
