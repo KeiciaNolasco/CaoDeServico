@@ -57,7 +57,9 @@ import { DocumentacaoCustomerComponent } from './components/customer/documentaca
 import { DocumentacaoSaveComponent } from './components/customer/documentacaosave/documentacao.component';
 import { DocumentacaoUpdateComponent } from './components/customer/documentacaoupdate/documentacao.component';
 
-import { NotificacoesComponent } from './components/admin/notificacoes/notificacoes.component';
+import { CadastroCustomerComponent } from './components/customer/cadastro/cadastro.component';
+
+import { SolicitacoesComponent } from './components/admin/solicitacoes/solicitacoes.component';
 
 import { UsersAdminComponent } from './components/admin/users/users.component';
 import { UsersFindAllAdminComponent } from './components/admin/usersfindall/users.component';
@@ -125,7 +127,9 @@ export const appRoutes: Routes = [
   { path: 'documentacaosave/:id', component: DocumentacaoSaveComponent, canActivate: [Guard] },
   { path: 'documentacaoupdate/:id', component: DocumentacaoUpdateComponent, canActivate: [Guard] },
 
-  { path: 'notificacoes/:id', component: NotificacoesComponent, canActivate: [Guard] },
+  { path: 'cadastrocustomer/:id', component: CadastroCustomerComponent, canActivate: [Guard] },
+
+  { path: 'solicitacoes/:id', component: SolicitacoesComponent, canActivate: [Guard] },
 
   { path: 'usersadmin/:id', component: UsersAdminComponent, canActivate: [Guard] },
   { path: 'usersfindalladmin/:id', component: UsersFindAllAdminComponent, canActivate: [Guard] },

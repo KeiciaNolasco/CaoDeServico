@@ -6,13 +6,11 @@ import { FooterAdminComponent } from '../footer/footer.component';
 import { UserService } from '../../../services/user.service';
 import { RoleService } from '../../../services/role.service';
 import { CondutorService } from '../../../services/condutor.service';
-import { CaoService } from '../../../services/cao.service';
 import { OAuthService } from '../../../services/oauth.service';
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../../../models/user';
 import { Role } from '../../../models/role';
 import { Condutor } from '../../../models/condutor';
-import { Cao } from '../../../models/cao';
 
 @Component({
   selector: 'app-usersfindalladmin',
@@ -26,7 +24,6 @@ export class UsersFindAllAdminComponent implements OnInit {
   users: User[] = [];
   roles: Role[] = [];
   condutores: Condutor[] = [];
-  caes: Cao[] = [];
   errorMessage: string = ''; 
 
   constructor(
@@ -34,7 +31,6 @@ export class UsersFindAllAdminComponent implements OnInit {
     private userService: UserService,
     private roleService: RoleService,
     private condutorService: CondutorService,
-    private caoService: CaoService,
     private route: ActivatedRoute,
     private router: Router 
   ) { }
@@ -45,7 +41,6 @@ export class UsersFindAllAdminComponent implements OnInit {
       this.loadUsersFindAll();
       this.loadRoles();
       this.loadCondutores();
-      this.loadCaes();
     } else {
       console.error('Usuário não autenticado!');
     }
@@ -80,22 +75,11 @@ export class UsersFindAllAdminComponent implements OnInit {
     });
   }
 
-  loadCaes(): void {
-    this.caoService.findAll().subscribe({
-      next: (caes) => {
-        this.caes = caes;
-        this.associateCaesWithUsers();
-      },
-      error: (err) => console.error('Erro ao carregar cães de serviço:', err)
-    });
-  }
-
   findAllUsers(): void {
     this.userService.findAll().subscribe({
       next: (users) => {
         this.users = users;
         this.associateCondutoresWithUsers();
-        this.associateCaesWithUsers();
       },
       error: (error) => console.error('Erro ao carregar os usuários', error)
     });
@@ -112,28 +96,13 @@ export class UsersFindAllAdminComponent implements OnInit {
     }
   }
 
-  associateCaesWithUsers(): void {
-    if (this.users.length && this.caes.length) {
-      this.users.forEach(user => {
-        const cao = this.caes.find(c => c.id === user.id);
-        if (cao) {
-          (user as any).cao = cao;
-        }
-      });
-    }
-  }
-
   getCondutorNome(user: User): string {
     return (user as any).condutor?.nome || 'Condutor não encontrado';
   }
 
-  getCaoNome(user: User): string {
-    return (user as any).cao?.nome || 'Cão não encontrado';
-  }
-
   update(userId: number): void {
     const url = this.router.serializeUrl(
-      this.router.createUrlTree(['/userupdateadmin', userId])
+      this.router.createUrlTree(['/userupdateadmincustomer', userId])
     );
     window.open(url, '_blank');
   }  

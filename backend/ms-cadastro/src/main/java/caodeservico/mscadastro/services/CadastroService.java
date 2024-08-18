@@ -1,6 +1,6 @@
 package caodeservico.mscadastro.services;
 
-import caodeservico.mscadastro.entities.Cadastro;
+import caodeservico.mscadastro.entities.*;
 import caodeservico.mscadastro.exceptions.CustomException;
 import caodeservico.mscadastro.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,22 +37,37 @@ public class CadastroService extends GenericService<Cadastro, Long> {
 	@Override
 	public Cadastro save(Cadastro cadastro) {
 		if (cadastro.getCondutor() != null) {
-			condutorRepository.save(cadastro.getCondutor());
+			Condutor condutor = condutorRepository.findById(cadastro.getCondutor().getId())
+					.orElseThrow(() -> new CustomException("Condutor não encontrado"));
+			cadastro.setCondutor(condutor);
+
 			if (cadastro.getCao() != null) {
-				caoDeServicoRepository.save(cadastro.getCao());
+				CaoDeServico cao = caoDeServicoRepository.findById(cadastro.getCao().getId())
+						.orElseThrow(() -> new CustomException("Cão de Serviço não encontrado"));
+				cadastro.setCao(cao);
 			}
+
 			if (cadastro.getEndereco() != null) {
-				enderecoRepository.save(cadastro.getEndereco());
+				Endereco endereco = enderecoRepository.findById(cadastro.getEndereco().getId())
+						.orElseThrow(() -> new CustomException("Endereço não encontrado"));
+				cadastro.setEndereco(endereco);
 			}
+
 			if (cadastro.getAdestramento() != null) {
-				adestramentoRepository.save(cadastro.getAdestramento());
+				Adestramento adestramento = adestramentoRepository.findById(cadastro.getAdestramento().getId())
+						.orElseThrow(() -> new CustomException("Adestramento não encontrado"));
+				cadastro.setAdestramento(adestramento);
 			}
+
 			if (cadastro.getDocumentacao() != null) {
-				documentacaoRepository.save(cadastro.getDocumentacao());
+				Documentacao documentacao = documentacaoRepository.findById(cadastro.getDocumentacao().getId())
+						.orElseThrow(() -> new CustomException("Documentação não encontrada"));
+				cadastro.setDocumentacao(documentacao);
 			}
+
 			return cadastroRepository.save(cadastro);
-		}else {
-			throw new CustomException("Erro ao salvar o Cadastro");
+		} else {
+			throw new CustomException("Erro ao salvar o Cadastro: Condutor é necessário");
 		}
 	}
 
