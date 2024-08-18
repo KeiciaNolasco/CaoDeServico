@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { firstValueFrom } from 'rxjs'
 import { NavbarAdminComponent } from '../navbar/navbar.component'; 
 import { FooterAdminComponent } from '../footer/footer.component';
@@ -15,19 +16,23 @@ import { CadastroService } from '../../../services/cadastro.service';
 import { User } from '../../../models/user';
 import { Condutor } from '../../../models/condutor';
 import { Cadastro } from '../../../models/cadastro';
+import { ModalAdminComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-solicitacoes',
   templateUrl: './solicitacoes.component.html',
   styleUrls: ['./solicitacoes.component.css'],
   standalone: true, 
-  imports: [NavbarAdminComponent, FooterAdminComponent, RouterModule, CommonModule],
+  imports: [NavbarAdminComponent, FooterAdminComponent, RouterModule, CommonModule, ModalAdminComponent, FormsModule],
 })
 export class SolicitacoesComponent implements OnInit {
   users: User[] = [];
   pendingUsers: User[] = [];
   condutores: Condutor[] = [];
   errorMessage: string | null = null;
+  showModal: boolean = false; 
+  rejectionReason: string = '';
+  selectedUserId: number | null = null;
 
   constructor(
     private userService: UserService,
@@ -56,11 +61,14 @@ export class SolicitacoesComponent implements OnInit {
     this.pendingUsers = this.users.filter(user => pendingSolicitations.includes(user.id));
   }
 
-  clearPendingSolicitation(userId: number): void {
+  clearPendingSolicitation(userId: number, rejectionReason?: string): void {
     let pendingSolicitations = JSON.parse(localStorage.getItem('pendingSolicitations') || '[]');
     pendingSolicitations = pendingSolicitations.filter((id: number) => id !== userId);
     localStorage.setItem('pendingSolicitations', JSON.stringify(pendingSolicitations));
     localStorage.removeItem(`isCadastroSubmitted_${userId}`);
+    if (rejectionReason) {
+      localStorage.setItem(`rejectionReason_${userId}`, rejectionReason);
+    }
     this.filterPendingUsers();
   }
 
@@ -98,7 +106,7 @@ export class SolicitacoesComponent implements OnInit {
   }
 
   getCondutorNome(user: User): string {
-    return (user as any).condutor?.nome || 'Condutor não encontrado';
+    return (user as any).condutor?.nome || '';
   }
 
   approveSolicitation(userId: number): void {
@@ -137,7 +145,33 @@ export class SolicitacoesComponent implements OnInit {
     });
   }
   
-  rejectSolicitation(userId: number): void {
-    this.clearPendingSolicitation(userId);
+  openRejectionModal(userId: number): void {
+    this.selectedUserId = userId;
+    this.rejectionReason = '';
+    this.showModal = true;
   }
+
+  closeRejectionModal(): void {
+    this.showModal = false;
+    this.selectedUserId = null;
+    this.rejectionReason = '';
+  }
+
+  confirmRejection(): void {
+    if (this.selectedUserId !== null) {
+      this.clearPendingSolicitation(this.selectedUserId, this.rejectionReason);
+      this.closeRejectionModal();
+    }
+  }
+
+  rejectSolicitation(userId: number): void {
+    this.openRejectionModal(userId);
+  }
+
+  perfil(userId: number): void {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree(['/perfil', userId])
+    );
+    window.open(url, '_blank');
+  }  
 }

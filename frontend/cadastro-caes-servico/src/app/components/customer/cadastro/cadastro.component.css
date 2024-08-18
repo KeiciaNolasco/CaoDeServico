@@ -167,3 +167,15 @@ form input[readonly] {
   border-radius: 5px;
   text-align: center;
 }
+
+.rejection-message {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid rgb(246, 133, 133);
+  background-color: #ffbdbd;
+  color: #313131;
+  border-radius: 5px;
+  text-align: center;
+}
+
+

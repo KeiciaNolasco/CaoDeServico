@@ -18,7 +18,7 @@ body, html {
   right: 0;
   margin: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: url('/assets/images/bannerusers.png') no-repeat center center;
   background-size: cover;
   display: flex;
@@ -112,3 +112,74 @@ h1 {
   background: #666;
   color: white;
 }
+
+.modal {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #388a9d;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+  position: relative;
+}
+
+.close {
+  color: #aaa;
+  position: absolute;
+  top: 10px; 
+  right: 15px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-content h2 {
+  color: #ffffff;
+  text-align: center;
+}
+
+.modal-content textarea {
+  color: #130101;
+  width: 80%;
+  margin: 15px 0; 
+  resize: none; 
+}
+
+.modal-content button {
+  color: #383838;
+  text-align: center;
+  margin-top: 15px; 
+  padding: 10px 20px; 
+  background-color: #ffffff; 
+  border: none; 
+  border-radius: 5px; 
+  cursor: pointer; 
+}
+
+.modal-content button:hover {
+  background-color: #666; 
+  color: white; 
+}
+

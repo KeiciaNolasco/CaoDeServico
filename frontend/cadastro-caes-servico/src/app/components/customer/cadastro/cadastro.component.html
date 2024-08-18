@@ -40,6 +40,11 @@
       </div>
       <div class="user-details">
         <h2>CADASTRO</h2>
+        <div *ngIf="rejectionReason" class="rejection-message">
+          Solicitação de CADASTRO recusada! 
+          <br> <br>
+          MOTIVO: {{ rejectionReason }}
+        </div>
         <br>
           <form>
             <div *ngIf="isCadastroFound">
@@ -81,7 +86,7 @@
             {{ successMessage }}
           </div>
           <div *ngIf="isCadastroSubmitted" class="waiting-message">
-            Aguardando verificação do seu Cadastro
+            Aguardando verificação do seu CADASTRO!
         </div>
       </div>
     </div>  

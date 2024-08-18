@@ -6,7 +6,7 @@
       <div class="content">
         <h1>SOLICITAÇÕES PENDENTES</h1>
         <div class="about-columns">
-          <div *ngFor="let user of pendingUsers" class="about-column">
+          <div *ngFor="let user of pendingUsers" class="about-column" (click)="perfil(user.id!)">
             <p class="author first-paragraph">Nome: {{ getCondutorNome(user) }}</p>
             <p class="author first-paragraph">E-mail: {{ user.email }}</p>
             <p>
@@ -17,12 +17,20 @@
             </p>
             <div class="button-group">
               <ng-container *ngIf="user.id !== undefined">
-                <button class="btn-learn-more" (click)="approveSolicitation(user.id!)">Aprovar</button>
-                <button class="btn-learn-more" (click)="rejectSolicitation(user.id!)">Rejeitar</button>
+                <button class="btn-learn-more" (click)="approveSolicitation(user.id!); $event.stopPropagation();">APROVAR</button>
+                <button class="btn-learn-more" (click)="rejectSolicitation(user.id!); $event.stopPropagation();">RECUSAR</button>
               </ng-container>
             </div>
           </div>
         </div>        
+      </div>
+    </div>  
+    <div *ngIf="showModal" class="modal">
+      <div class="modal-content">
+        <span class="close" (click)="closeRejectionModal()">&times;</span>
+        <h2>Descreva o motivo da rejeição do CADASTRO:</h2>
+        <textarea id="rejectionReason" [(ngModel)]="rejectionReason"></textarea>
+        <button (click)="confirmRejection()">CONFIRMAR</button>
       </div>
     </div>    
     <app-footeradmin></app-footeradmin>

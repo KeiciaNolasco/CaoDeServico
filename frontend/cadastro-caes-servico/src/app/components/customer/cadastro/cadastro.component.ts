@@ -26,6 +26,7 @@ export class CadastroCustomerComponent implements OnInit {
   successMessage: string | null = null; 
   isCadastroSubmitted: boolean = false;
   isCadastroFound: boolean = false;
+  rejectionReason: string | null = null;
 
   constructor(
     private authService: OAuthService,
@@ -41,6 +42,7 @@ export class CadastroCustomerComponent implements OnInit {
       this.checkCadastroSubmission();
       this.loadCadastro(); 
       this.loadCondutor();
+      this.checkRejectionReason();
     } else {
       console.error('Cadastro não autenticado!');
     }
@@ -89,6 +91,8 @@ export class CadastroCustomerComponent implements OnInit {
   }  
 
   submitCadastro(): void {
+    localStorage.removeItem(`rejectionReason_${this.id}`);
+    this.rejectionReason = null;
     this.successMessage = 'Seu cadastro foi enviado com sucesso para verificação. Aguarde a aprovação.';
     const pendingSolicitations = JSON.parse(localStorage.getItem('pendingSolicitations') || '[]');
     if (!pendingSolicitations.includes(this.id)) {
@@ -102,6 +106,7 @@ export class CadastroCustomerComponent implements OnInit {
     }, 2000);
   }
   
+  
 
   checkCadastroSubmission(): void {
     const submissionStatus = localStorage.getItem(`isCadastroSubmitted_${this.id}`);
@@ -110,5 +115,9 @@ export class CadastroCustomerComponent implements OnInit {
     } else {
       this.isCadastroSubmitted = false;
     }
+  }  
+
+  checkRejectionReason(): void {
+    this.rejectionReason = localStorage.getItem(`rejectionReason_${this.id}`);
   }  
 }
