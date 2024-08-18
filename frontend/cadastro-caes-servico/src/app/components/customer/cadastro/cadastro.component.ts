@@ -21,9 +21,11 @@ export class CadastroCustomerComponent implements OnInit {
   id!: number;
   perfil: any;
   condutor: Condutor | undefined; 
+  cadastro: Cadastro | undefined; 
   errorMessage: string | null = null; 
   successMessage: string | null = null; 
   isCadastroSubmitted: boolean = false;
+  isCadastroFound: boolean = false;
 
   constructor(
     private authService: OAuthService,
@@ -49,6 +51,7 @@ export class CadastroCustomerComponent implements OnInit {
     if (token) {
       try {
         const decodedToken: any = jwtDecode(token);
+        this.findById(this.id);
       } catch (error) {
         console.error('Erro ao decodificar o token JWT', error);
       }
@@ -67,15 +70,31 @@ export class CadastroCustomerComponent implements OnInit {
     });
   }
 
+  findById(id: number): void {
+    this.cadastroService.findById(this.id).subscribe({
+      next: (cadastro: Cadastro) => {
+        if (cadastro) {
+          this.cadastro = cadastro;
+          this.isCadastroFound = true; 
+        } else {
+          this.isCadastroFound = false;
+        }
+      },
+      error: (err) => {
+        this.errorMessage = 'Erro ao buscar o cadastro.';
+        console.error(err);
+        this.isCadastroFound = false;
+      }
+    });
+  }  
+
   submitCadastro(): void {
     this.successMessage = 'Seu cadastro foi enviado com sucesso para verificação. Aguarde a aprovação.';
     const pendingSolicitations = JSON.parse(localStorage.getItem('pendingSolicitations') || '[]');
-  
     if (!pendingSolicitations.includes(this.id)) {
       pendingSolicitations.push(this.id);
       localStorage.setItem('pendingSolicitations', JSON.stringify(pendingSolicitations));
     }
-  
     setTimeout(() => {
       this.isCadastroSubmitted = true; 
       this.successMessage = null; 
