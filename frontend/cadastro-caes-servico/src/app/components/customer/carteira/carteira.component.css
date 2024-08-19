@@ -1,0 +1,129 @@
+.identificacao-container {
+  width: 90%;
+  height: auto;
+  margin: 0 auto;
+  border: 2px solid #5CAAB5;
+  border-radius: 10px;
+  background-color: #ffffff;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  background-color: #5CAAB5;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 1%;
+  gap: 1%;
+}
+
+.logo {
+  width: 10%;
+  height: auto;
+  margin: 1%;
+}
+
+.titulo-identificacao {
+  font-size: 20px;
+  color: #fbfbfb;
+  margin: 0;
+}
+
+.identificacao-content {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  gap: 1%;
+}
+
+.fotos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1%; 
+}
+
+.foto-conductor, .foto-cao {
+  width: 95%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid #5CAAB5;
+  padding: 1px;
+  border-radius: 10px;
+  background-color: white;
+  margin: 1%;
+}
+
+.profile-pic {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin-bottom: 1%;
+}
+
+.profile-pic img {
+  width: 100%;
+  height: 100%;
+}
+
+.foto-conductor p, .foto-cao p {
+  font-size: 15px;
+  color: #333;
+  text-align: center;
+}
+
+.dados {
+  margin-bottom: 1%;
+  gap: 1%;
+  display: flex;
+  flex-direction: column;
+}
+
+.dados-condutor, .dados-cao {
+  padding: 1%;
+  border: 2px solid #5CAAB5;
+  border-radius: 10px;
+  background-color: white;
+  margin: 0.1%;
+}
+
+h3 {
+  font-size: 12px;
+  color: #286f82;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 12px;
+  color: #333;
+  margin-bottom: 1%;
+  line-height: 1.4;
+}
+
+.documentacao {
+  margin-top: 30%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.qr-code {
+  width: 100%;
+  height: 150%;
+  border: 2px solid #5CAAB5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  margin-top: 10px;
+}
+
+.qr-code img {
+  max-width: 100%;
+  max-height: 100%;
+}

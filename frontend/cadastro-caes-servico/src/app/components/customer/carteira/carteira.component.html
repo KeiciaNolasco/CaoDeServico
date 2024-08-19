@@ -1,0 +1,46 @@
+<div class="identificacao-container">
+  <div class="header">
+    <img src="/assets/images/logo.png" alt="Logo" class="logo">
+    <h2 class="titulo-identificacao">CARTEIRA DE IDENTIFICAÇÃO DO CÃO DE SERVIÇO</h2>
+  </div>
+
+  <div class="identificacao-content">
+    <div class="fotos">
+      <div class="foto-conductor">
+        <div class="profile-pic">
+          <img [src]="condutor?.foto ? 'data:image/jpeg;base64,' + condutor?.foto : '/assets/images/perfil.png'" alt="Foto do Condutor">
+        </div>
+      </div>
+      <div class="foto-cao">
+        <div class="profile-pic">
+          <img [src]="cao?.foto ? 'data:image/jpeg;base64,' + cao?.foto : '/assets/images/perfilcao.png'" alt="Foto do Cão de Serviço">
+        </div>
+      </div>
+    </div>
+
+    <div class="dados">
+      <div class="dados-condutor">
+        <h3>DADOS DO CONDUTOR</h3>
+        <p><strong>Nome do Condutor:</strong> {{ condutor?.nome || '' }}</p>
+        <p><strong>Data de Nascimento:</strong> {{ condutor?.nascimento || '' }}</p>
+        <p><strong>CPF:</strong> {{ condutor?.cpf || '' }}</p>
+        <p><strong>CID-10:</strong> {{ condutor?.cid || '' }}</p>
+      </div>
+
+      <div class="dados-cao">
+        <h3>DADOS DO CÃO DE ASSISTÊNCIA</h3>
+        <p><strong>Nome do Cão:</strong> {{ cao?.nome || '' }}</p>
+        <p><strong>Data de Nascimento:</strong> {{ cao?.nascimento || '' }}</p>
+        <p><strong>Microchip:</strong> {{ cao?.microchip || '' }}</p>
+        <p><strong>Categoria:</strong> {{ cao?.categoria || '' }}</p>
+      </div>
+    </div>
+
+    <div class="documentacao">
+      <h3>DOCUMENTAÇÃO</h3>
+      <div class="qr-code">
+        <h3>QR CODE</h3>
+      </div>
+    </div>
+  </div>
+</div>

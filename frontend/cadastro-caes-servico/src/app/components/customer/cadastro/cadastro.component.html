@@ -48,8 +48,10 @@
         <br>
           <form>
             <div *ngIf="isCadastroFound">
-              <label>Cadastro encontrado! Nenhuma ação adicional é necessária.</label>
+              <label>CADASTRO verificado!</label>
             </div>
+            <br>
+            <app-carteiracustomer></app-carteiracustomer>
             <div *ngIf="!isCadastroFound">
               <label>
                 Caso já tenha preenchido todos os dados:

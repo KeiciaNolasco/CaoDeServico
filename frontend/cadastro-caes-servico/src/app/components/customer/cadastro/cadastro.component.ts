@@ -9,13 +9,15 @@ import { CondutorService } from '../../../services/condutor.service';
 import { jwtDecode } from 'jwt-decode';
 import { Cadastro } from '../../../models/cadastro';
 import { Condutor } from '../../../models/condutor';
+import { CarteiraCustomerComponent } from '../carteira/carteira.component';
+
 
 @Component({
   selector: 'app-cadastrocustomer',
   templateUrl: './cadastro.component.html',
   styleUrls: ['./cadastro.component.css'],
   standalone: true, 
-  imports: [NavbarCustomerComponent, FooterCustomerComponent, RouterModule, CommonModule],
+  imports: [NavbarCustomerComponent, FooterCustomerComponent, CarteiraCustomerComponent, RouterModule, CommonModule],
 })
 export class CadastroCustomerComponent implements OnInit {
   id!: number;
