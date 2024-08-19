@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 import { NavbarCustomerComponent } from '../navbar/navbar.component'; 
 import { FooterCustomerComponent } from '../footer/footer.component';
 import { OAuthService } from '../../../services/oauth.service';
@@ -21,15 +24,18 @@ import { Documentacao } from '../../../models/documentacao';
   standalone: true, 
   imports: [NavbarCustomerComponent, FooterCustomerComponent, RouterModule, CommonModule],
 })
+
 export class CarteiraCustomerComponent implements OnInit {
   id!: number;
-  perfil: any;
+  qrCodeUrl!: SafeUrl;
   condutor: Condutor | undefined; 
   cao: Cao | undefined; 
   adestramento: Adestramento | undefined; 
   documentacao: Documentacao | undefined; 
   errorMessage: string | null = null; 
   successMessage: string | null = null; 
+
+  @ViewChild('identificacaoContainer', { static: false }) identificacaoContainer!: ElementRef;
 
   constructor(
     private condutorService: CondutorService,
@@ -38,11 +44,14 @@ export class CarteiraCustomerComponent implements OnInit {
     private documentacaoService: DocumentacaoService,
     private authService: OAuthService,
     private route: ActivatedRoute,
-    private router: Router
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.paramMap.get('id')!;
+    const url = `http://localhost:4200/documentacaocustomer/${this.id}`;
+    this.qrCodeUrl = this.sanitizer.bypassSecurityTrustUrl(
+      `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(url)}&size=150x150`);
     if (this.authService.isAuthenticated()) {
       this.loadCarteira(); 
       this.loadCondutor();
@@ -68,7 +77,16 @@ export class CarteiraCustomerComponent implements OnInit {
   loadCondutor(): void {
     this.condutorService.findById(this.id).subscribe({
       next: (condutor: Condutor) => {
-        this.condutor = condutor;
+        if (condutor.nascimento) {
+          const formattedNascimento = new Date(condutor.nascimento).toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+          });
+          this.condutor = { ...condutor, nascimento: formattedNascimento };
+        } else {
+          this.condutor = condutor;
+        }
       },
       error: (err) => {
         this.errorMessage = 'Erro ao buscar o condutor.';
@@ -80,7 +98,16 @@ export class CarteiraCustomerComponent implements OnInit {
   loadCao(): void {
     this.caoService.findById(this.id).subscribe({
       next: (cao: Cao) => {
-        this.cao = cao;
+        if (cao.nascimento) {
+          const formattedNascimento = new Date(cao.nascimento).toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+          });
+          this.cao = { ...cao, nascimento: formattedNascimento };
+        } else {
+          this.cao = cao;
+        }
       },
       error: (err) => {
         this.errorMessage = 'Erro ao buscar o cão de serviço.';
@@ -112,4 +139,19 @@ export class CarteiraCustomerComponent implements OnInit {
       }
     });
   }
+
+  downloadPDF(): void {
+    const data = this.identificacaoContainer.nativeElement;
+    html2canvas(data, { useCORS: true }).then(canvas => {
+      const imgWidth = 208;
+      const pageHeight = 295;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      const heightLeft = imgHeight;
+      const contentDataURL = canvas.toDataURL('image/png');
+      let pdf = new jsPDF('p', 'mm', 'a4');
+      const position = 0;
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+      pdf.save('carteira.pdf');
+    });
+  }  
 }

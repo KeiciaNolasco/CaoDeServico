@@ -1,4 +1,4 @@
-<div class="identificacao-container">
+<div class="identificacao-container" #identificacaoContainer>
   <div class="header">
     <img src="/assets/images/logo.png" alt="Logo" class="logo">
     <h2 class="titulo-identificacao">CARTEIRA DE IDENTIFICAÇÃO DO CÃO DE SERVIÇO</h2>
@@ -38,9 +38,10 @@
 
     <div class="documentacao">
       <h3>DOCUMENTAÇÃO</h3>
-      <div class="qr-code">
-        <h3>QR CODE</h3>
+      <div class="qr-code" style="text-align: center;">
+        <img [src]="qrCodeUrl" alt="QR Code">
       </div>
-    </div>
+    </div>    
   </div>
 </div>
+<br>

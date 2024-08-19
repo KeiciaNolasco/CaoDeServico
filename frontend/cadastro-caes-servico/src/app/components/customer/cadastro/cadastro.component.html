@@ -52,6 +52,8 @@
             </div>
             <br>
             <app-carteiracustomer></app-carteiracustomer>
+            <br>
+            <button type="button" (click)="downloadCarteiraPDF()" class="btn-carteira">Baixar Carteira em PDF</button>
             <div *ngIf="!isCadastroFound">
               <label>
                 Caso já tenha preenchido todos os dados:

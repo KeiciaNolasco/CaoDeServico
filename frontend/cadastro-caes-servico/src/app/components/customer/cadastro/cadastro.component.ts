@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { NavbarCustomerComponent } from '../navbar/navbar.component'; 
@@ -10,7 +10,6 @@ import { jwtDecode } from 'jwt-decode';
 import { Cadastro } from '../../../models/cadastro';
 import { Condutor } from '../../../models/condutor';
 import { CarteiraCustomerComponent } from '../carteira/carteira.component';
-
 
 @Component({
   selector: 'app-cadastrocustomer',
@@ -29,6 +28,8 @@ export class CadastroCustomerComponent implements OnInit {
   isCadastroSubmitted: boolean = false;
   isCadastroFound: boolean = false;
   rejectionReason: string | null = null;
+
+  @ViewChild(CarteiraCustomerComponent) carteiraCustomerComponent!: CarteiraCustomerComponent;
 
   constructor(
     private authService: OAuthService,
@@ -108,8 +109,6 @@ export class CadastroCustomerComponent implements OnInit {
     }, 2000);
   }
   
-  
-
   checkCadastroSubmission(): void {
     const submissionStatus = localStorage.getItem(`isCadastroSubmitted_${this.id}`);
     if (submissionStatus === 'true') {
@@ -122,4 +121,12 @@ export class CadastroCustomerComponent implements OnInit {
   checkRejectionReason(): void {
     this.rejectionReason = localStorage.getItem(`rejectionReason_${this.id}`);
   }  
+
+  downloadCarteiraPDF(): void {
+    if (this.carteiraCustomerComponent) {
+      this.carteiraCustomerComponent.downloadPDF();
+    } else {
+      console.error('Componente CarteiraCustomerComponent não foi carregado corretamente.');
+    }
+  }
 }

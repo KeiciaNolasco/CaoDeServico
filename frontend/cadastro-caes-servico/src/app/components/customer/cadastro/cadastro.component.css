@@ -178,4 +178,15 @@ form input[readonly] {
   text-align: center;
 }
 
+.btn-carteira {
+  margin-left: 35%;
+  padding: 1% 5%;
+  width: 30%;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  background-color: #1e6f7b;
+  color: white;
+}
 
