@@ -7,7 +7,19 @@
   <br>
   <form>
     <div *ngIf="isCadastroFound">
-      <div *ngIf="!rejectionReason">
+      <div *ngIf="isCadastroSubmitted && isCadastroVerified">
+        <label class="success-message">CADASTRO verificado!</label>
+        <br> <br>
+        <div class="container-carteira">
+          <app-carteiracustomer></app-carteiracustomer>
+        </div>
+        <br>
+        <button type="button" (click)="downloadCarteiraPDF()" class="btn-carteira">Baixar Carteira em PDF</button>
+        <br>
+      </div>
+    </div>
+    <div *ngIf="!rejectionReason">
+      <div *ngIf="!isCadastroSubmitted">
         <label class="success-message">CADASTRO verificado!</label>
         <br> <br>
         <div class="container-carteira">

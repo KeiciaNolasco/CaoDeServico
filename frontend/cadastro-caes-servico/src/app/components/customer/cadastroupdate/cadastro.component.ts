@@ -28,6 +28,7 @@ export class CadastroUpdateComponent implements OnInit {
   isCadastroSubmitted: boolean = false;
   isCadastroFound: boolean = false;
   rejectionReason: string | null = null;
+  isCadastroVerified: boolean = false;
 
   @ViewChild(CarteiraCustomerComponent) carteiraCustomerComponent!: CarteiraCustomerComponent;
 
@@ -111,10 +112,13 @@ export class CadastroUpdateComponent implements OnInit {
   
   checkCadastroSubmission(): void {
     const submissionStatus = localStorage.getItem(`isCadastroSubmitted_${this.id}`);
+    const verificationStatus = localStorage.getItem(`isCadastroVerified_${this.id}`);
     if (submissionStatus === 'true') {
       this.isCadastroSubmitted = true;
+      this.isCadastroVerified = verificationStatus === 'true';
     } else {
       this.isCadastroSubmitted = false;
+      this.isCadastroVerified = verificationStatus === 'false';
     }
   }  
 
