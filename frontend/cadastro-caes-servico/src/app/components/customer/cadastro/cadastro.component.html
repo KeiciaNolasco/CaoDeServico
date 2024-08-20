@@ -2,99 +2,35 @@
   <body>
     <app-navbarcustomer></app-navbarcustomer>
     <router-outlet></router-outlet>
+
     <div class="banner">
-    <div class="container">
-      <div class="sidebar">
-        <div class="profile-pic">
-          <img [src]="condutor?.foto ? 'data:image/jpeg;base64,' + condutor?.foto : '/assets/images/perfil.png'" alt="Foto de perfil">
-        </div>
-        <h2 class="username">{{ condutor?.nome || 'Nome do usuário' }}</h2>
-        <nav>
-          <ul>
-            <li>
-              <button [routerLink]="['/perfil', id]">PERFIL</button>
-            </li>
-            <li>
-              <button [routerLink]="['/usercustomer', id]">USUÁRIO</button>
-            </li>
-            <li>
-              <button [routerLink]="['/condutorcustomer', id]">CONDUTOR</button>
-            </li>
-            <li>
-              <button [routerLink]="['/caocustomer', id]">CÃO DE SERVIÇO</button>
-            </li>
-            <li>
-              <button [routerLink]="['/enderecocustomer', id]">ENDEREÇO</button>
-            </li>
-            <li>
-              <button [routerLink]="['/adestramentocustomer', id]">ADESTRAMENTO</button>
-            </li>
-            <li>
-              <button [routerLink]="['/documentacaocustomer', id]">DOCUMENTAÇÃO</button>
-            </li>
-            <li>
-              <button [routerLink]="['/cadastrocustomer', id]">CADASTRO</button>
-            </li>
-          </ul>
-        </nav>
-      </div>
-      <div class="user-details">
-        <h2>CADASTRO</h2>
-        <div *ngIf="rejectionReason" class="rejection-message">
-          Solicitação de CADASTRO recusada! 
-          <br> <br>
-          MOTIVO: {{ rejectionReason }}
-        </div>
-        <br>
-          <form>
-            <div *ngIf="isCadastroFound">
-              <label>CADASTRO verificado!</label>
-            </div>
-            <br>
-            <app-carteiracustomer></app-carteiracustomer>
-            <br>
-            <button type="button" (click)="downloadCarteiraPDF()" class="btn-carteira">Baixar Carteira em PDF</button>
-            <div *ngIf="!isCadastroFound">
-              <label>
-                Caso já tenha preenchido todos os dados:
-                <br>
-                - Condutor;
-                <br>
-                - Cão de Serviço;
-                <br>
-                - Endereço;
-                <br>
-                - Adestramento;
-                <br>
-                - Documentação.
-                <br>
-                Você pode solicitar a verificação do seu cadastro.
-              </label>
-              <br>
-              <br>
-              <label>
-                Após a verificação, se seu cadastro for aprovado,
-                será gerada uma carteira de identificação sua e do seu cão de serviço.
-                Nessa carteira, vão constar seus principais dados e um QR Code que pode ser lido por quem você permitir.
-                O QR Code conterá os dados que você preencheu,
-                facilitando assim a sua acessibilidade a estabelecimentos e ao acesso público.
-              </label>
-              <br>
-              <br>
-              <div *ngIf="!isCadastroSubmitted">
-                <button type="button" (click)="submitCadastro()" class="btn-edit">Enviar Cadastro</button>
-              </div>
-            </div>
-          </form>
-          <div *ngIf="successMessage" class="success-message">
-            {{ successMessage }}
+      <div class="container">
+        <div class="sidebar">
+          <div class="profile-pic">
+            <img [src]="condutor?.foto ? 'data:image/jpeg;base64,' + condutor?.foto : '/assets/images/perfil.png'" alt="Foto de perfil">
           </div>
-          <div *ngIf="isCadastroSubmitted" class="waiting-message">
-            Aguardando verificação do seu CADASTRO!
+          <h2 class="username">{{ condutor?.nome || 'Nome do usuário' }}</h2>
+          <nav>
+            <ul>
+              <li><button [routerLink]="['/perfil', id]">PERFIL</button></li>
+              <li><button [routerLink]="['/usercustomer', id]">USUÁRIO</button></li>
+              <li><button [routerLink]="['/condutorcustomer', id]">CONDUTOR</button></li>
+              <li><button [routerLink]="['/caocustomer', id]">CÃO DE SERVIÇO</button></li>
+              <li><button [routerLink]="['/enderecocustomer', id]">ENDEREÇO</button></li>
+              <li><button [routerLink]="['/adestramentocustomer', id]">ADESTRAMENTO</button></li>
+              <li><button [routerLink]="['/documentacaocustomer', id]">DOCUMENTAÇÃO</button></li>
+              <li><button [routerLink]="['/cadastrocustomer', id]">CADASTRO</button></li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="user-details">
+          <h2>CADASTRO</h2>
+          <app-cadastrosave *ngIf="showCadastroSave"></app-cadastrosave>
+          <app-cadastroupdate *ngIf="showCadastroUpdate"></app-cadastroupdate>
         </div>
       </div>
-    </div>  
-  </div>
-  <app-footercustomer></app-footercustomer>
+    </div>
+    <app-footercustomer></app-footercustomer>
   </body>
 </html>

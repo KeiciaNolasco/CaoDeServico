@@ -12,7 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode(of = {"id", "qrCode"})
+@EqualsAndHashCode(of = {"id"})
 @Entity
 @Table(name = "tabela_cadastro")
 public class Cadastro implements Serializable {
@@ -42,8 +42,5 @@ public class Cadastro implements Serializable {
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "documentacao_id", referencedColumnName = "id")
 	private Documentacao documentacao;
-
-	@Lob
-	private byte[] qrCode;
 
 }

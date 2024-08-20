@@ -1,0 +1,30 @@
+<div class="container-update">
+  <div *ngIf="rejectionReason" class="rejection-message">
+    Solicitação de CADASTRO recusada! 
+    <br><br>
+    MOTIVO: {{ rejectionReason }}
+  </div>
+  <br>
+  <form>
+    <div *ngIf="isCadastroFound">
+      <div *ngIf="!rejectionReason">
+        <label class="success-message">CADASTRO verificado!</label>
+        <br> <br>
+        <div class="container-carteira">
+          <app-carteiracustomer></app-carteiracustomer>
+        </div>
+        <br>
+        <button type="button" (click)="downloadCarteiraPDF()" class="btn-carteira">Baixar Carteira em PDF</button>
+        <br>
+      </div>
+    </div>
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+    <div *ngIf="isCadastroSubmitted" class="waiting-message">
+      Aguardando verificação do seu CADASTRO!
+    </div>
+    <br>
+    <button type="button" (click)="submitCadastro()" class="btn-updated">Editar Cadastro</button>
+  </form>
+</div>

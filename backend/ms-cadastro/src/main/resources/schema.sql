@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS tabela_condutor (
                                                contato BIGINT NOT NULL,
                                                cid VARCHAR(255) NOT NULL,
                                                endereco_id INTEGER NOT NULL,
-                                               foto BYTEA
+                                               foto BYTEA NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS tabela_cao (
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS tabela_cao (
                                           raca VARCHAR(255) NOT NULL,
                                           microchip VARCHAR(255) NOT NULL UNIQUE,
                                           categoria VARCHAR(255) NOT NULL,
-                                          foto BYTEA
+                                          foto BYTEA NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS tabela_adestramento (
@@ -44,23 +44,22 @@ CREATE TABLE IF NOT EXISTS tabela_adestramento (
 
 CREATE TABLE IF NOT EXISTS tabela_documentacao (
                                                    id INTEGER PRIMARY KEY,
-                                                   carta_treinamento BYTEA,
-                                                   validade_carta_treinamento DATE,
-                                                   carteira_vacina BYTEA,
-                                                   validade_carteira_vacina DATE,
-                                                   certificado_adestramento BYTEA,
-                                                   validade_certificado_adestramento DATE,
-                                                   laudo_medico BYTEA,
-                                                   validade_laudo_medico DATE,
-                                                   laudo_veterinario BYTEA,
-                                                   validade_laudo_veterinario DATE,
-                                                   prova_adestramento BYTEA,
+                                                   carta_treinamento BYTEA NOT NULL,
+                                                   validade_carta_treinamento DATE NOT NULL,
+                                                   carteira_vacina BYTEA NOT NULL,
+                                                   validade_carteira_vacina DATE NOT NULL,
+                                                   certificado_adestramento BYTEA NOT NULL,
+                                                   validade_certificado_adestramento DATE NOT NULL,
+                                                   laudo_medico BYTEA NOT NULL,
+                                                   validade_laudo_medico DATE NOT NULL,
+                                                   laudo_veterinario BYTEA NOT NULL,
+                                                   validade_laudo_veterinario DATE NOT NULL,
+                                                   prova_adestramento BYTEA NOT NULL,
                                                    CONSTRAINT documentacao_unique UNIQUE (id)
 );
 
 CREATE TABLE IF NOT EXISTS tabela_cadastro (
                                                id INTEGER PRIMARY KEY,
-                                               qr_code VARCHAR(255),
                                                condutor_id INTEGER NOT NULL,
                                                cao_id INTEGER NOT NULL,
                                                endereco_id INTEGER NOT NULL,

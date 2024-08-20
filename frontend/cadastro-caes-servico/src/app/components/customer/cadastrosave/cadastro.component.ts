@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { NavbarCustomerComponent } from '../navbar/navbar.component'; 
@@ -9,41 +9,39 @@ import { CondutorService } from '../../../services/condutor.service';
 import { jwtDecode } from 'jwt-decode';
 import { Cadastro } from '../../../models/cadastro';
 import { Condutor } from '../../../models/condutor';
-import { CadastroSaveComponent } from '../cadastrosave/cadastro.component';
-import { CadastroUpdateComponent } from '../cadastroupdate/cadastro.component';
 
 @Component({
-  selector: 'app-cadastrocustomer',
+  selector: 'app-cadastrosave',
   templateUrl: './cadastro.component.html',
   styleUrls: ['./cadastro.component.css'],
   standalone: true, 
-  imports: [NavbarCustomerComponent, FooterCustomerComponent, CadastroSaveComponent, CadastroUpdateComponent, RouterModule, CommonModule],
+  imports: [NavbarCustomerComponent, FooterCustomerComponent, RouterModule, CommonModule],
 })
-export class CadastroCustomerComponent implements OnInit {
+export class CadastroSaveComponent implements OnInit {
   id!: number;
   perfil: any;
   condutor: Condutor | undefined; 
   cadastro: Cadastro | undefined; 
   errorMessage: string | null = null; 
   successMessage: string | null = null; 
-  showCadastroSave: boolean = false;
-  showCadastroUpdate: boolean = false;
-
-  @ViewChild(CadastroSaveComponent) cadastrosaveComponent!: CadastroSaveComponent;
+  isCadastroSubmitted: boolean = false;
+  isCadastroFound: boolean = false;
+  rejectionReason: string | null = null;
 
   constructor(
     private authService: OAuthService,
     private cadastroService: CadastroService,
     private condutorService: CondutorService,
     private route: ActivatedRoute,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     if (this.authService.isAuthenticated()) {
+      this.checkCadastroSubmission();
       this.loadCadastro(); 
       this.loadCondutor();
+      this.checkRejectionReason();
     } else {
       console.error('Cadastro não autenticado!');
     }
@@ -78,16 +76,45 @@ export class CadastroCustomerComponent implements OnInit {
       next: (cadastro: Cadastro) => {
         if (cadastro) {
           this.cadastro = cadastro;
-          this.showCadastroUpdate = true; 
+          this.isCadastroFound = true; 
         } else {
-          this.showCadastroSave = true; 
+          this.isCadastroFound = false;
         }
       },
       error: (err) => {
         this.errorMessage = 'Erro ao buscar o cadastro.';
         console.error(err);
-        this.showCadastroSave = true;
+        this.isCadastroFound = false;
       }
     });
+  }  
+
+  submitCadastro(): void {
+    localStorage.removeItem(`rejectionReason_${this.id}`);
+    this.rejectionReason = null;
+    this.successMessage = 'Seu cadastro foi enviado com sucesso para verificação. Aguarde a aprovação.';
+    const pendingSolicitations = JSON.parse(localStorage.getItem('pendingSolicitations') || '[]');
+    if (!pendingSolicitations.includes(this.id)) {
+      pendingSolicitations.push(this.id);
+      localStorage.setItem('pendingSolicitations', JSON.stringify(pendingSolicitations));
+    }
+    setTimeout(() => {
+      this.isCadastroSubmitted = true; 
+      this.successMessage = null; 
+      localStorage.setItem(`isCadastroSubmitted_${this.id}`, 'true');
+    }, 2000);
+  }
+  
+  checkCadastroSubmission(): void {
+    const submissionStatus = localStorage.getItem(`isCadastroSubmitted_${this.id}`);
+    if (submissionStatus === 'true') {
+      this.isCadastroSubmitted = true;
+    } else {
+      this.isCadastroSubmitted = false;
+    }
+  }  
+
+  checkRejectionReason(): void {
+    this.rejectionReason = localStorage.getItem(`rejectionReason_${this.id}`);
   }  
 }

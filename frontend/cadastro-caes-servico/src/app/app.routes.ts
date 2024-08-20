@@ -58,6 +58,8 @@ import { DocumentacaoSaveComponent } from './components/customer/documentacaosav
 import { DocumentacaoUpdateComponent } from './components/customer/documentacaoupdate/documentacao.component';
 
 import { CadastroCustomerComponent } from './components/customer/cadastro/cadastro.component';
+import { CadastroSaveComponent } from './components/customer/cadastrosave/cadastro.component';
+import { CadastroUpdateComponent } from './components/customer/cadastroupdate/cadastro.component';
 
 import { SolicitacoesComponent } from './components/admin/solicitacoes/solicitacoes.component';
 
@@ -128,6 +130,8 @@ export const appRoutes: Routes = [
   { path: 'documentacaoupdate/:id', component: DocumentacaoUpdateComponent, canActivate: [Guard] },
 
   { path: 'cadastrocustomer/:id', component: CadastroCustomerComponent, canActivate: [Guard] },
+  { path: 'cadastrosave/:id', component: CadastroSaveComponent, canActivate: [Guard] },
+  { path: 'cadastroupdate/:id', component: CadastroUpdateComponent, canActivate: [Guard] },
 
   { path: 'solicitacoes/:id', component: SolicitacoesComponent, canActivate: [Guard] },
 

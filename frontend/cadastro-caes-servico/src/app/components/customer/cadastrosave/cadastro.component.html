@@ -1,0 +1,42 @@
+<div class="container">
+  <div *ngIf="rejectionReason" class="rejection-message">
+    Solicitação de CADASTRO recusada! 
+    <br><br>
+    MOTIVO: {{ rejectionReason }}
+  </div>
+  <br>
+  <form>
+    <div *ngIf="!isCadastroFound">
+      <label>
+        Caso já tenha preenchido todos os dados:
+        <br>- Condutor;
+        <br>- Cão de Serviço;
+        <br>- Endereço;
+        <br>- Adestramento;
+        <br>- Documentação.
+        <br>
+        Você pode solicitar a verificação do seu cadastro.
+      </label>
+      <br><br>
+      <label>
+        Após a verificação, se seu cadastro for aprovado,
+        será gerada uma carteira de identificação sua e do seu cão de serviço.
+        Nessa carteira, vão constar seus principais dados e um QR Code que pode ser lido por quem você permitir.
+        O QR Code conterá os dados que você preencheu,
+        facilitando assim a sua acessibilidade a estabelecimentos e ao acesso público.
+      </label>
+      <br><br>
+      <div *ngIf="!isCadastroSubmitted">
+        <button type="button" (click)="submitCadastro()" class="btn-edit">
+          Enviar Cadastro
+        </button>
+      </div>
+    </div>
+  </form>
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="isCadastroSubmitted" class="waiting-message">
+    Aguardando verificação do seu CADASTRO!
+  </div>
+</div>

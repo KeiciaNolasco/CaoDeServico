@@ -1,0 +1,110 @@
+.container-update {
+  border-radius: 10px;
+  width: 100%;
+  height: auto;
+  margin: 1%;
+}
+
+.container-carteira {
+  width: 100%;
+  height: auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form label {
+  color: #555;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+form input {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+form input[readonly] {
+  background-color: #e0e0e0;
+  color: #555;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-edit {
+  padding: 1% 5%;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  background-color: #1e6f7b;
+  color: white;
+}
+
+.btn-edit:hover {
+  background-color: #555;
+}
+
+.success-message {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid rgb(113, 198, 212);
+  background-color: #d4edda;
+  color: #195e75;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.waiting-message {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #195e75;
+  background-color: #a5d8e4;
+  color: #195e75;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.rejection-message {
+  margin: 2%;
+  width: 90%;
+  padding: 10px;
+  border: 1px solid rgb(246, 133, 133);
+  background-color: #ffbdbd;
+  color: #313131;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.btn-carteira {
+  margin-left: 35%;
+  padding: 1% 2%;
+  width: 30%;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  background-color: #1e6f7b;
+  color: white;
+}
+
+.btn-updated {
+  margin-left: 35%;
+  padding: 1% 2%;
+  width: 30%;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  background-color: #1e507b;
+  color: white;
+}
